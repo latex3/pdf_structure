@@ -585,7 +585,7 @@ Options
 ]]
 
 local argi = 1
-while argi < #arg and arg[argi]:match("^%-%-") do
+while argi <= #arg and arg[argi]:match("^%-%-") do
   if arg[argi] == "--tree" then
     out_format="tree"
   elseif arg[argi] == "--xml" then

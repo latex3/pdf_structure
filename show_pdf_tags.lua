@@ -4,6 +4,10 @@ if mypath then
   package.path = mypath .. '/?.lua;' .. package.path
 end
 
+local out_format = "tree"
+local follow_rolemap = false
+local hide_w3c = false
+
 local pdfe = pdfe or require'pdfe'
 local process_stream = require'process_stream'
 local text_string_to_utf8 = require'decode'.text_string_to_utf8
@@ -55,12 +59,18 @@ local function convert_objr(ctx, obj, page)
 end
 
 local default_namespace = 'http://iso.org/pdf/ssn'
-local owner_prefix = 'http://typesetting.eu/pdf_attribute_owner/'
+-- this prefix to be confirmed, another possibility would be data:,
+local owner_prefix = 'http://iso.org/pdf/ssn/'
 
 local function get_string(container, index)
   local text = pdfe.getstring(container, index, true)
   if text then
-    return assert(text_string_to_utf8:match(text))
+    local u = text_string_to_utf8:match(text)
+    if u == nil then
+    io.stderr:write("UTF8 conversion failure\n")
+    u="??"
+    end
+    return u
   else
     return
   end
@@ -127,6 +137,7 @@ local function convert_attributes(ctx, attrs, classes)
     end
   end
   local function apply_attrs(attrs)
+    if t ~= nil then
     local t = pdfe.type(attrs)
     if t == 'pdfe.dictionary' then
       apply_attr(attrs)
@@ -139,6 +150,7 @@ local function convert_attributes(ctx, attrs, classes)
         end
       end
     end
+  end
   end
   if classes then
     if type(classes) == 'string' then
@@ -179,6 +191,7 @@ local function convert(ctx, elem, id, page)
     expanded = get_string(elem, 'E'),
     actual_text = get_string(elem, 'ActualText'),
     associated_files = elem.AF,
+    id = get_string(elem, 'ID'),
     kids = convert_kids(ctx, elem),
   }
   ctx.id_map[id] = obj
@@ -316,6 +329,16 @@ local function format_subtype(subtype)
     return subtype.subtype
   end
 end
+
+local function format_subtype_xml(subtype)
+  if subtype.namespace then
+    return string.format('<%s xmlns="%s"', subtype.subtype,
+                  (hide_w3c and subtype.namespace:gsub('http://www.w3.org', 'http://-www.w3.org')) or subtype.namespace)
+  else
+    return "<" .. subtype.subtype
+  end
+end
+
 local function print_tree(tree)
   local referenced = mark_references(tree)
   local function recurse(objs, first_prefix, last_first_prefix, prefix, last_prefix)
@@ -418,11 +441,189 @@ local function print_tree(tree)
   return recurse(tree, '', '', '', '')
 end
 
-if not arg[1] then
-  io.stderr:write(string.format('Missing argument. Usage: %s <filename>.pdf\n', arg[0]))
+
+
+
+local function print_tree_xml(tree)
+  local referenced = mark_references(tree)
+  local function recurse(objs, indent)
+    for i, obj in ipairs(objs) do
+      if obj.type == 'MCR' then
+        print(string.format('%s<?MarkedContent page="%i" ?>%s', indent, obj.page, (obj.content and obj.content:gsub('&','&amp;'):gsub('<','&lt;'):gsub('\0','[NULL]'):gsub('[\1-\8\11\12\14-\31]','[CTRL]') or "[empty]")))
+      elseif obj.type == 'OBJR' then
+        local t = obj.Obj.Type
+        t = t and string.format(' type="%s"', t) or ''
+        local page = obj.page
+        page = page and string.format(' page="%i"', page) or '' -- TODO: Should eventually become always true
+        print(string.format('%s<?ReferencedObject%s%s ?>', indent, t, page))
+      else
+        local subtype = obj.subtype
+	local mapped = subtype.mapped
+--        mapped = mapped and mapped.subtype or ''
+--        mapped = mapped and ' / ' .. format_subtype(mapped) or ''
+        if follow_rolemap and mapped then
+          print(string.format('%s%s', indent, format_subtype_xml(mapped)))
+	else
+          print(string.format('%s%s', indent, format_subtype_xml(subtype)))
+	end
+        local lines = {}
+        if obj.id then
+          lines[#lines + 1] = ' id="' .. obj.id:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]') .. '"'
+        end
+        if obj.title then
+          lines[#lines + 1] = ' title="' .. obj.title:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]') .. '"'
+        end
+        if obj.lang then
+          lines[#lines + 1] = ' lang="' .. obj.lang .. '"'
+        end
+        if obj.expanded then
+          lines[#lines + 1] = ' expansion="' .. obj.expanded:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]')  .. '"'
+        end
+        if obj.alt then
+          lines[#lines + 1] = ' alt="' .. obj.alt:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]')  .. '"'
+        end
+        if obj.actual_text then
+          lines[#lines + 1] = ' actualtext="' .. obj.actual_text:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]') .. '"'
+        end
+        if obj.associated_files then
+          lines[#lines + 1] = ' af="yes"'
+        end
+        if obj.attributes then
+	  for k,v in pairs(obj.attributes) do
+           local attrns=""
+	   if k~=subtype.namespace then
+	     attrns = k:gsub('.*/','')
+	   end
+            if type(v) == "table" then
+	      if attrns ~= "" then
+                lines[#lines +1] = ' xmlns:' .. attrns .. '="' .. k .. '"'
+		attrns = attrns ..':'
+              end
+              for kk,vv in pairs(v) do
+	        if type(vv) == "table" then
+	          vv = table.concat(vv,' ')
+	        end
+                lines[#lines+1] = ' ' ..attrns .. kk .. '="' .. tostring(vv):gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]') .. '"'
+              end
+            else
+              io.stderr:write("Unexpected attributes object\n")
+            end
+          end
+        end
+	if mapped and mapped.subtype then
+          if follow_rolemap then
+	    if subtype.namespace then
+              lines[#lines+1] = ' xmlns:orig-ns="' .. subtype.namespace .. '"'
+              lines[#lines+1] = ' rolemapped-from="orig-ns:' .. subtype.subtype .. '"'
+	    else
+              lines[#lines+1] = ' rolemapped-from="' .. subtype.subtype .. '"'
+	    end
+	  else
+            lines[#lines+1] = ' rolemaps-to="' .. mapped.subtype .. '"'
+	  end
+	end
+        -- attributes = convert_attributes(elem.A),
+        -- attribute_classes = convert_attribute_classes(elem.C),
+	lines[#lines+1] = ">"
+        if referenced[obj] then
+          lines[#lines + 1] = '<?ReferencedAs object="' .. referenced[obj] .. '" ?>'
+        end
+        if obj.ref then
+          local refs = {}
+          for i, r in ipairs(obj.ref) do
+            refs[i] = referenced[r]
+          end
+          lines[#lines + 1] = '<?References objects="' .. table.concat(refs, ' ') ..'" ?>'
+        end
+        if obj.kids then
+          for _, l in ipairs(lines) do
+            print(indent .. '  ' .. l:gsub('\n', '\n' .. indent .. '  '))
+          end
+          recurse(obj.kids, indent .. ' ')
+        if follow_rolemap and mapped then
+	  print(indent .. "</" .. mapped.subtype ..">")
+	else
+	  print(indent .. "</" .. subtype.subtype ..">")
+	end
+        elseif #lines > 0 then
+          for i=1, #lines-1 do
+            print(indent .. '  ' .. lines[i]:gsub('\n', '\n' .. indent .. '  '))
+          end
+          print(indent .. '  ' .. lines[#lines]:gsub('\n', '\n' .. indent .. '   '))
+          if follow_rolemap and mapped then
+            print(indent .. "</" .. mapped.subtype ..">")
+	  else
+            print(indent .. "</" .. subtype.subtype ..">")
+	  end
+        end
+      end
+    end
+  end
+  if #tree ==1 then
+    return recurse(tree, '', '', '', '')
+  else
+    io.stderr:write("\nMultiple document elements\n")
+    print ("<Document>")
+    recurse(tree, '  ', '', '', '')
+    print ("</Document>")
+    return
+  end
+end
+
+
+local helpstr =[[
+
+Usage: %s options <filename>.pdf
+Options
+  --help           show this help
+  --tree (default) show as tree
+  --xml            show as XML
+  --table          show Lua table structure
+  --map            Follow role mapping (xml printer)
+  --w3c-           Add - to w3c namespaces to force browser tree display
+
+]]
+
+local argi = 1
+while argi < #arg and arg[argi]:match("^%-%-") do
+  if arg[argi] == "--tree" then
+    out_format="tree"
+  elseif arg[argi] == "--xml" then
+    out_format="xml"
+  elseif arg[argi] == "--table" then
+    out_format="table"
+  elseif arg[argi] == "--map" then
+    follow_rolemap=true
+  elseif arg[argi] == "--w3c-" then
+    hide_w3c=true
+  elseif arg[argi] == "--help" then
+    io.stderr:write(string.format(helpstr, arg[0]))
+    return
+  else
+    io.stderr:write(string.format('Unknown option: %s\n', arg[argi]))
+    return
+  end
+  argi=argi+1
+end
+
+if argi < #arg then
+  io.stderr:write(string.format('Extra argument. Usage: %s options <filename>.pdf\n', arg[0]))
   return
 end
 
-local struct, ctx = assert(open(arg[1]))
-print_tree(struct, '')
--- print(require'inspect'(struct))
+if argi > #arg then
+  io.stderr:write(string.format('Missing argument. Usage: %s options <filename>.pdf\n', arg[0]))
+  return
+end
+
+local struct, ctx = assert(open(arg[argi]))
+
+if out_format=="tree" then
+  print_tree(struct, '')
+else
+  if out_format=="xml" then
+    print_tree_xml(struct, '')
+  else
+  print(require'inspect'(struct))
+  end
+end

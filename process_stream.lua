@@ -75,7 +75,11 @@ local function print_string(ctx, str, pattern)
   if not pattern or not str then
     str = '\xff\xfd'
   end
-  str = assert(utf16be_to_utf8:match(str))
+  str = utf16be_to_utf8:match(str)
+  if str == nil then
+   io.stderr:write("UTF16 to UTF8 conversion failure\n")
+   str = "??"
+  end
   ctx.text_buffer[#ctx.text_buffer + 1] = str
 end
 
@@ -134,7 +138,7 @@ local operators = {
     end
   end,
   BDC = function(scanner, ctx)
-    local props = assert(scanner:popdictionary() or ctx.properties and ctx.properties[scanner:popname()])
+    local props = assert(scanner:popdictionary() or ctx.properties and ctx.properties[scanner:popname()] or {io.stderr:write("Missing Properties\n")})
     local tag = scanner:popname()
     local stack = ctx.marked_stack
     local top = {
@@ -202,6 +206,13 @@ return function(stream, resources)
     end
     stream = arr
   end
-  pdfscanner.scan(stream, operators, ctx)
+  local s,e
+  s,e= pcall(function () return pdfscanner.scan(stream, operators, ctx) end)
+  if s  then
+ --  io.stderr:write("ok")
+  else
+    io.stderr:write("\n\n" ..tostring(e))
+    io.stderr:write("\nError parsing marked content stream, returning empty marked content\n\n")
+  end
   return ctx.marked_content_elements
 end

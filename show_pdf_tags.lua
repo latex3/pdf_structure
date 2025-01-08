@@ -471,19 +471,19 @@ local function print_tree_xml(tree)
           lines[#lines + 1] = ' id="' .. obj.id:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]') .. '"'
         end
         if obj.title then
-          lines[#lines + 1] = ' title="' .. obj.title:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]') .. '"'
+          lines[#lines + 1] = ' title="' .. obj.title:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]'):gsub('[\1-\8\11\12\14-\31]','[CTRL]') .. '"'
         end
         if obj.lang then
           lines[#lines + 1] = ' lang="' .. obj.lang .. '"'
         end
         if obj.expanded then
-          lines[#lines + 1] = ' expansion="' .. obj.expanded:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]')  .. '"'
+          lines[#lines + 1] = ' expansion="' .. obj.expanded:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]'):gsub('[\1-\8\11\12\14-\31]','[CTRL]')  .. '"'
         end
         if obj.alt then
-          lines[#lines + 1] = ' alt="' .. obj.alt:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]')  .. '"'
+          lines[#lines + 1] = ' alt="' .. obj.alt:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]'):gsub('[\1-\8\11\12\14-\31]','[CTRL]')  .. '"'
         end
         if obj.actual_text then
-          lines[#lines + 1] = ' actualtext="' .. obj.actual_text:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]') .. '"'
+          lines[#lines + 1] = ' actualtext="' .. obj.actual_text:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]'):gsub('[\1-\8\11\12\14-\31]','[CTRL]') .. '"'
         end
         if obj.associated_files then
           lines[#lines + 1] = ' af="yes"'

@@ -524,10 +524,10 @@ local function print_tree_xml(tree)
 	end
         -- attributes = convert_attributes(elem.A),
         -- attribute_classes = convert_attribute_classes(elem.C),
-	lines[#lines+1] = ">"
         if referenced[obj] then
-          lines[#lines + 1] = '<?ReferencedAs object="' .. referenced[obj] .. '" ?>'
+          lines[#lines + 1] = ' referenced-as="' .. referenced[obj] .. '"'
         end
+	lines[#lines+1] = ">"
         if obj.ref then
           local refs = {}
           for i, r in ipairs(obj.ref) do

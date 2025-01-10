@@ -137,7 +137,7 @@ local function convert_attributes(ctx, attrs, classes)
     end
   end
   local function apply_attrs(attrs)
-    if t ~= nil then
+    if attrs == nil then return end
     local t = pdfe.type(attrs)
     if t == 'pdfe.dictionary' then
       apply_attr(attrs)
@@ -150,7 +150,6 @@ local function convert_attributes(ctx, attrs, classes)
         end
       end
     end
-  end
   end
   if classes then
     if type(classes) == 'string' then

@@ -485,7 +485,13 @@ local function print_tree_xml(tree)
           lines[#lines + 1] = ' actualtext="' .. obj.actual_text:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]'):gsub('[\1-\8\11\12\14-\31]','[CTRL]') .. '"'
         end
         if obj.associated_files then
-          lines[#lines + 1] = ' af="yes"'
+	  local f = {}
+	  for i, file in ipairs(obj.associated_files) do
+            if file.EF.F then
+	      f[#f+1] = get_string(file, "UF") 
+            end
+	  end
+          lines[#lines + 1] = ' af="' .. table.concat(f, ' ') .. '"'
         end
         if obj.attributes then
 	  for k,v in pairs(obj.attributes) do

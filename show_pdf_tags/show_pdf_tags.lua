@@ -120,7 +120,8 @@ local function convert_attributes(ctx, attrs, classes)
   local function apply_attr(attr)
     local owner = assert(attr.O)
     if owner == 'NSO' then
-      owner = attr.NS.NS
+      -- avoid error if  no-namespace attributes to be modelled by missing NS field
+      owner = (attr.NS and attr.NS.NS) or "" 
     else
       owner = owner_prefix .. owner
     end

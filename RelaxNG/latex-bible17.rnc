@@ -1,0 +1,93 @@
+
+namespace latexSE = ""
+namespace latexSEbible = ""
+
+## PDF/UA-1
+
+include "latex-document17.rnc"
+
+# LaTeX Bible Markup Namepace
+
+Sect |= element latexSEbible:Frontmatter {
+  showtags-attributes,
+  attribute rolemaps-to {"Sect"},
+  attribute id {text}?,
+  Frontmatter-Title,TOC?,text-unit*}
+  
+Sect |= element latexSEbible:Testament {
+  showtags-attributes,
+  attribute rolemaps-to {"Sect"},
+  attribute id {text}?,
+  Testament-Title,TOC?,text-unit*,Book*}
+
+Testament = element latexSEbible:Testament {
+  showtags-attributes,
+  attribute rolemaps-to {"Sect"},
+  attribute id {text}?,
+  Testament-Title,
+  TOC?,
+  (text-unit|Span)*,
+  Book*
+ }
+
+Frontmatter-Title = element latexSEbible:Frontmatter-Title {
+  showtags-attributes,
+  attribute rolemaps-to {"H1"},
+  attribute id {text}?,
+  attribute title {text},
+  Span*
+}
+
+Testament-Title = element latexSEbible:Testament-Title {
+  showtags-attributes,
+  attribute rolemaps-to {"H1"},
+  attribute id {text}?,
+  attribute title {text},
+  Span*
+}
+
+Book = element latexSEbible:Book {
+  showtags-attributes,
+  attribute rolemaps-to {"Sect"},
+  attribute id {text}?,
+  Book-Title,
+  TOC?,
+  (text-unit|Span)*,
+  BChapter*
+ }
+
+Book-Title = element latexSEbible:Book-Title {
+  showtags-attributes,
+  attribute rolemaps-to {"H2"},
+  attribute id {text}?,
+  attribute title {text},
+  Span*
+}
+
+BChapter= element latexSEbible:Chapter {
+  showtags-attributes,
+  attribute rolemaps-to {"Sect"},
+  attribute id {text}?,
+  Chapter-Title?,
+  TOC?,
+  (text-unit|Span)*,
+  Bverse*
+ }
+
+Chapter-Title = element latexSEbible:Chapter-Title {
+  showtags-attributes,
+  layout-attributes,
+  attribute rolemaps-to {"H3"},
+  attribute id {text}?,
+  attribute title {text}?,
+  (text|Span)*
+}
+
+Bverse= element latexSEbible:verse {
+  showtags-attributes,
+  attribute rolemaps-to {"P"},
+  pdf2-attributes,
+  (text|text-unit|Span)*
+ }
+
+

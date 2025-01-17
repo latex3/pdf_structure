@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:latexSEbible="https://www.latex-project.org/ns/local/bible" xmlns:latexSE="https://www.latex-project.org/ns/dflt" xmlns="http://relaxng.org/ns/structure/1.0">
+  <include href="latex-document.rng">
+    <a:documentation>PDF/UA-2</a:documentation>
+  </include>
+  <!-- LaTeX Bible Markup Namepace -->
+  <define name="Sect" combine="choice">
+    <element name="latexSEbible:Frontmatter">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <ref name="Frontmatter-Title"/>
+      <optional>
+        <ref name="TOC"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="text-unit"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Sect" combine="choice">
+    <element name="latexSEbible:Testament">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <ref name="Testament-Title"/>
+      <optional>
+        <ref name="TOC"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="text-unit"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="Book"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Testament">
+    <element name="latexSEbible:Testament">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <ref name="Testament-Title"/>
+      <optional>
+        <ref name="TOC"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <ref name="text-unit"/>
+          <ref name="Span"/>
+        </choice>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="Book"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Frontmatter-Title">
+    <element name="latexSEbible:Frontmatter-Title">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H1</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <attribute name="title"/>
+      <zeroOrMore>
+        <ref name="Span"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Testament-Title">
+    <element name="latexSEbible:Testament-Title">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H1</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <attribute name="title"/>
+      <zeroOrMore>
+        <ref name="Span"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Book">
+    <element name="latexSEbible:Book">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <ref name="Book-Title"/>
+      <optional>
+        <ref name="TOC"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <ref name="text-unit"/>
+          <ref name="Span"/>
+        </choice>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="BChapter"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Book-Title">
+    <element name="latexSEbible:Book-Title">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H2</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <attribute name="title"/>
+      <zeroOrMore>
+        <ref name="Span"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="BChapter">
+    <element name="latexSEbible:Chapter">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <optional>
+        <ref name="Chapter-Title"/>
+      </optional>
+      <optional>
+        <ref name="TOC"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <ref name="text-unit"/>
+          <ref name="Span"/>
+        </choice>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="Bverse"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Chapter-Title">
+    <element name="latexSEbible:Chapter-Title">
+      <ref name="showtags-attributes"/>
+      <ref name="layout-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H3</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <optional>
+        <attribute name="title"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="Span"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Bverse">
+    <element name="latexSEbible:verse">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>P</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-unit"/>
+          <ref name="Span"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+</grammar>

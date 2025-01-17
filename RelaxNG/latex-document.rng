@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:latexSEbible="https://www.latex-project.org/ns/local/bible" xmlns:latexSE="https://www.latex-project.org/ns/dflt" xmlns:latexSEbook="https://www.latex-project.org/ns/book" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:latexSEbible="https://www.latex-project.org/ns/local/bible" xmlns:latexSE="https://www.latex-project.org/ns/dflt" xmlns:latexSEbook="https://www.latex-project.org/ns/book" xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="document-pdf-ua2.rng">
     <a:documentation>PDF/UA-2</a:documentation>
   </include>
@@ -594,17 +594,5 @@
         </choice>
       </zeroOrMore>
     </element>
-  </define>
-  <!-- Extensions -->
-  <define name="mo.attributes" combine="interleave">
-    <a:documentation>MathML Namespace (temp actualtext moved to content element in new code)</a:documentation>
-    <optional>
-      <attribute name="actualtext"/>
-    </optional>
-  </define>
-  <define name="mpadded-length-percentage" combine="choice">
-    <data type="string">
-      <param name="pattern">\s*(([\-+]?[0-9]*([0-9]\.?|\.[0-9])[0-9]*(r?em|ex|in|cm|mm|p[xtc]|Q|v[hw]|vmin|vmax|%))|0)\s*</param>
-    </data>
   </define>
 </grammar>

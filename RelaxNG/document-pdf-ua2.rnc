@@ -17,6 +17,18 @@ namespace h = "http://www.w3.org/1999/xhtml"
 # slightly modified MathML-Core schema.
 include "latex-mathml.rnc"
 
+# Extensions
+
+## MathML Namespace (temp actualtext moved to content element in new code)
+mo.attributes &= attribute actualtext {text}?
+
+
+mpadded-length-percentage |= xsd:string {
+  pattern = '\s*(([\-+]?[0-9]*([0-9]\.?|\.[0-9])[0-9]*(r?em|ex|in|cm|mm|p[xtc]|Q|v[hw]|vmin|vmax|%))|0)\s*'
+}
+
+
+
 # Attributes When Rolemaps are needed for PDF2  elements used in PDF1
 pdf1rolemap-Any = notAllowed?
 pdf1rolemap-P = notAllowed?

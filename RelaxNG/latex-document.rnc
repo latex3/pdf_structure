@@ -246,12 +246,3 @@ footnotelabel = element latexSE:footnotelabel {
 }
 
 
-# Extensions
-
-## MathML Namespace (temp actualtext moved to content element in new code)
-mo.attributes &= attribute actualtext {text}?
-
-
-mpadded-length-percentage |= xsd:string {
-  pattern = '\s*(([\-+]?[0-9]*([0-9]\.?|\.[0-9])[0-9]*(r?em|ex|in|cm|mm|p[xtc]|Q|v[hw]|vmin|vmax|%))|0)\s*'
-}

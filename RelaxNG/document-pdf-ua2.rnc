@@ -15,7 +15,7 @@ namespace Artifact = "http://iso.org/pdf/ssn/Artifact"
 namespace h = "http://www.w3.org/1999/xhtml"
 
 # slightly modified MathML-Core schema.
-include "latex-mathml.rnc"
+include "latex-mathml.rnc" {start |= notAllowed}
 
 # Extensions
 

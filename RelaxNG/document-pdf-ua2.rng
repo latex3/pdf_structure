@@ -3,7 +3,11 @@
 <!-- XHTML Namespace, not currently used -->
 <grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:Table="http://iso.org/pdf/ssn/Table" xmlns:pdf2="http://iso.org/pdf2/ssn" xmlns:Layout="http://iso.org/pdf/ssn/Layout" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:List="http://iso.org/pdf/ssn/List" xmlns:pdf1="http://iso.org/pdf/ssn" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:PrintField="http://iso.org/pdf/ssn/PrintField" xmlns:Artifact="http://iso.org/pdf/ssn/Artifact" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <!-- slightly modified MathML-Core schema. -->
-  <include href="latex-mathml.rng"/>
+  <include href="latex-mathml.rng">
+    <start combine="choice">
+      <notAllowed/>
+    </start>
+  </include>
   <!-- Extensions -->
   <define name="mo.attributes" combine="interleave">
     <a:documentation>MathML Namespace (temp actualtext moved to content element in new code)</a:documentation>

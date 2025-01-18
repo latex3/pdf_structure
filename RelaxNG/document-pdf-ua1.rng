@@ -1706,6 +1706,7 @@
           <choice>
             <value>Column</value>
             <value>Row</value>
+            <value>Both</value>
           </choice>
         </attribute>
       </optional>

@@ -98,13 +98,14 @@ local function pdf2lua(container, index, t, v, x)
     elseif t == 7 then
       local arr = {}
       for i=1, #v do
-        arr[i] = recurse(container, index, pdfe.getfromarray(v, i))
+        arr[i] = recurse(v, i, pdfe.getfromarray(v, i))
       end
       return arr
     elseif t == 8 then
       local dict = {}
       for i=1, #v do
-        dict[k] = recurse(v, pdfe.getfromdictionary(v, i))
+        local k, inner_t, inner_v, detail = pdfe.getfromdictionary(v, i)
+        dict[k] = recurse(v, k, inner_t, inner_v, detail)
       end
       return dict
     else
@@ -223,6 +224,25 @@ function convert_kids(ctx, elem)
   end
 end
 
+local function role_map_to_lua(role_map)
+  if not role_map then return {} end
+  local lua_role_map = pdfe.dictionarytotable(role_map)
+  for k, mapping in pairs(lua_role_map) do
+    if mapping[1] == 5 then -- name
+      mapping[1], mapping[2] = mapping[2], false
+    elseif mapping[1] == 7 then -- array
+      if mapping[3] == 2 then
+        mapping[1], mapping[2], mapping[3] = mapping[2][1], mapping[2][2]
+      else
+        io.stderr:write"Ignoring entry with invalid length in rolemap\n"
+      end
+    else
+      io.stderr:write"Ignoring invalid rolemap entry\n"
+    end
+  end
+  return lua_role_map
+end
+
 local function open(filename)
   local document = pdfe.open(filename)
   if 0 < pdfe.getstatus(document) then
@@ -269,14 +289,12 @@ local function open(filename)
         ns_key = tostring(namespace)
         role_map = namespace.RoleMapNS
       end
+      role_map = role_map_to_lua(role_map)
       type_maps[ns_key] = setmetatable({}, {__index = function(t, elem)
         local element = {subtype = elem, namespace = ns}
         t[elem] = element
 
-        local mapped = role_map and role_map[elem]
-        if type(mapped) == 'string' then
-          mapped = {mapped, false}
-        end
+        local mapped = role_map[elem]
         if mapped then
           element.mapped = type_maps[mapped[2] and tostring(mapped[2])][mapped[1]]
         end

@@ -245,7 +245,7 @@ end
 
 local function open(filename)
   local document = pdfe.open(filename)
-  if 0 < pdfe.getstatus(document) then
+  if 0 < (pdfe.getstatus(document) or 2) then
     return nil, 'Failed to open document'
   end
   local ctx = {

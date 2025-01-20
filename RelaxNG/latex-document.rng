@@ -93,6 +93,16 @@
       <ref name="sechead.content"/>
     </element>
   </define>
+  <!-- This could be restricted to section headings, but for now allow where Lbl is allowed -->
+  <define name="Lbl" combine="choice">
+    <element name="latexSE:section-number">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Span</value>
+      </attribute>
+      <text/>
+    </element>
+  </define>
   <!-- LaTeX NS -->
   <define name="document.content" combine="interleave">
     <optional>

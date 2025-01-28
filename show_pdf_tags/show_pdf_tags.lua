@@ -1,4 +1,7 @@
 #!/usr/bin/env texlua
+
+local show_pdf_tags_version = "0.1"
+
 local mypath = string.match(debug.getinfo(1, 'S').source, '@(.*)[/\\][^/\\]+')
 if mypath then
   package.path = mypath .. '/?.lua;' .. package.path
@@ -599,7 +602,8 @@ local helpstr =[[
 
 Usage: %s options <filename>.pdf
 Options
-  --help           show this help
+  --help|-h        show this help
+  --version|-v     show the current version
   --tree (default) show as tree
   --xml            show as XML
   --table          show Lua table structure
@@ -609,7 +613,7 @@ Options
 ]]
 
 local argi = 1
-while argi <= #arg and arg[argi]:match("^%-%-") do
+while argi <= #arg and arg[argi]:match("^%-") do
   if arg[argi] == "--tree" then
     out_format="tree"
   elseif arg[argi] == "--xml" then
@@ -620,8 +624,11 @@ while argi <= #arg and arg[argi]:match("^%-%-") do
     follow_rolemap=true
   elseif arg[argi] == "--w3c-" then
     hide_w3c=true
-  elseif arg[argi] == "--help" then
+  elseif arg[argi] == "--help" or arg[argi] == "-h" then
     io.stderr:write(string.format(helpstr, arg[0]))
+    return
+  elseif arg[argi] == "--version" or arg[argi] == "-v" then
+    io.stderr:write(string.format("show_pdf_tags version: %s\n", show_pdf_tags_version))
     return
   else
     io.stderr:write(string.format('Unknown option: %s\n', arg[argi]))

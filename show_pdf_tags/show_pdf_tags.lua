@@ -525,7 +525,7 @@ local function print_tree_xml(tree)
               end
               for kk,vv in pairs(v) do
 	        if type(vv) == "table" then
-	          vv = require'inspect'(vv)
+	          vv = require'inspect'(vv):gsub('\n[ ]*',' ')
 	        end
                 lines[#lines+1] = ' ' ..attrns .. kk .. '="' .. tostring(vv):gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]') .. '"'
               end

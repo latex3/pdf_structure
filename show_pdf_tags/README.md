@@ -15,7 +15,8 @@ The options are
 
 ```
 Options
-  --help           show this help
+  --help|-h        show this help
+  --version|-v     show the current version
   --tree (default) show as tree
   --xml            show as XML
   --table          show Lua table structure

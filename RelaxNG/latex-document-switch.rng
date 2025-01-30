@@ -6,10 +6,18 @@
   <define name="ua1">
     <externalRef href="latex-bible17.rng"/>
   </define>
+  <define name="ua2play">
+    <externalRef href="latex-play.rng"/>
+  </define>
+  <define name="ua1play">
+    <externalRef href="latex-play17.rng"/>
+  </define>
   <start>
     <choice>
       <ref name="ua2"/>
       <ref name="ua1"/>
+      <ref name="ua2play"/>
+      <ref name="ua1play"/>
     </choice>
   </start>
 </grammar>

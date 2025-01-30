@@ -1,0 +1,3 @@
+include "latex-document17.rnc"
+Span |= element SceneDescription {pdf2-attributes,attribute rolemaps-to {"Span"}, text}
+Span |= element Speaker {pdf2-attributes,attribute rolemaps-to {"Span"},text}

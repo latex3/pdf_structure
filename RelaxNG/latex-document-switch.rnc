@@ -1,5 +1,5 @@
 ua2 = external "latex-bible.rnc"
 ua1 = external "latex-bible17.rnc"
-start = ua2 | ua1
-
-
+ua2play = external "latex-play.rnc"
+ua1play = external "latex-play17.rnc"
+start = ua2 | ua1 | ua2play | ua1play

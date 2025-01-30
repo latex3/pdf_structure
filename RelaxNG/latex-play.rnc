@@ -1,0 +1,4 @@
+namespace latexSEplay = "https://www.latex-project.org/ns/local/plays"
+include "latex-document.rnc"
+Span |= element latexSEplay:SceneDescription {pdf2-attributes,attribute rolemaps-to {"Span"}, text}
+Strong |= element latexSEplay:Speaker {pdf2-attributes,attribute rolemaps-to {"Strong"},text}

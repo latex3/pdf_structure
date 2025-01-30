@@ -384,6 +384,7 @@
           <ref name="Lbl"/>
           <ref name="Reference"/>
           <ref name="Em"/>
+          <ref name="Strong"/>
           <ref name="FENote"/>
           <ref name="Formula"/>
         </choice>

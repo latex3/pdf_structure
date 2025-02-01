@@ -1,5 +1,5 @@
 
-namespace nons = ""
+namespace NoNS = ""
 namespace pdf1 = "http://iso.org/pdf/ssn"
 namespace pdf2 = "http://iso.org/pdf2/ssn"
 namespace mml = "http://www.w3.org/1998/Math/MathML"
@@ -59,7 +59,7 @@ showtags-attributes =
 # Standard Attribute Owner Namespaces (such as CSS3, HTML-5.00) apart from the ones listed here
 # and also vendor-specific namespaced attributes are allowed with any name/value.
 otherns-attributes =
-  attribute (* - (nons:*|Layout:*|PrintField:*|Table:*|List:*|Artifact:*)) {text}*
+  attribute (* - (NoNS:*|Layout:*|PrintField:*|Table:*|List:*|Artifact:*)) {text}*
 
 # Properties are modelled as attributes in no namespace
 structure-properties =

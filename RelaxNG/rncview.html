@@ -4,6 +4,7 @@
   <meta charset="UTF-8"/>
   <title>Relax NG display</title>
   <style>
+   body {margin-left: 1em}
    a:visited {color: darkblue}
    a         {color: darkblue}
    *:target  {background-color:beige}
@@ -12,7 +13,7 @@
   <body>
    <h1 id="title">rnc viewer</h1>
 
-   <p id="download">kkk</p>
+   <p id="download">Download</p>
    
    <h2>Index</h2>
    <p id="index">
@@ -26,7 +27,7 @@
    <script>
     let params = new URLSearchParams(document.location.search);
     let rncURL = params.get("rnc") || 'document-pdf-ua2';
-     document.querySelector("#title").textContent=rncURL;
+     document.querySelector("#title").textContent="Relax NG: " + rncURL;
      rncURL=rncURL + ".rnc";
      document.querySelector("#download").innerHTML="<b>Download: </b><a download href='" + rncURL + "'>" + rncURL + "</a>";
     const names={};

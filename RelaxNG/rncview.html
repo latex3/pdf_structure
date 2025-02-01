@@ -11,6 +11,8 @@
   </head>
   <body>
    <h1 id="title">rnc viewer</h1>
+
+   <p id="download">kkk</p>
    
    <h2>Index</h2>
    <p id="index">
@@ -26,6 +28,7 @@
     let rncURL = params.get("rnc") || 'document-pdf-ua2';
      document.querySelector("#title").textContent=rncURL;
      rncURL=rncURL + ".rnc";
+     document.querySelector("#download").innerHTML="<b>Download: </b><a download href='" + rncURL + "'>" + rncURL + "</a>";
     const names={};
     function addlink(a,b,t) {
     if (names[t]==1) {

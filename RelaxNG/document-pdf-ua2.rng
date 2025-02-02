@@ -455,6 +455,9 @@
         <optional>
           <ref name="H"/>
         </optional>
+        <optional>
+          <ref name="Caption"/>
+        </optional>
         <zeroOrMore>
           <choice>
             <text/>
@@ -481,7 +484,6 @@
             <ref name="Index"/>
             <ref name="L"/>
             <ref name="Table"/>
-            <ref name="Caption"/>
             <ref name="Figure"/>
             <ref name="Formula"/>
             <ref name="Artifact"/>
@@ -1470,44 +1472,50 @@
   <define name="LBody">
     <element name="pdf2:LBody">
       <ref name="pdf2-attributes"/>
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="Part"/>
-          <ref name="Art"/>
-          <ref name="Div"/>
-          <ref name="Sect"/>
-          <ref name="Aside"/>
-          <ref name="BlockQuote"/>
-          <ref name="NonStruct"/>
-          <ref name="Private"/>
-          <ref name="P"/>
-          <ref name="Note"/>
-          <ref name="Code"/>
-          <ref name="Hn"/>
+      <interleave>
+        <optional>
           <ref name="H"/>
-          <ref name="Sub"/>
-          <ref name="Em"/>
-          <ref name="Strong"/>
-          <ref name="Span"/>
-          <ref name="Quote"/>
-          <ref name="Link"/>
-          <ref name="Reference"/>
-          <ref name="Annot"/>
-          <ref name="Form"/>
-          <ref name="Ruby"/>
-          <ref name="Warichu"/>
-          <ref name="FENote"/>
-          <ref name="Index"/>
-          <ref name="L"/>
-          <ref name="BibEntry"/>
-          <ref name="Table"/>
+        </optional>
+        <optional>
           <ref name="Caption"/>
-          <ref name="Figure"/>
-          <ref name="Formula"/>
-          <ref name="Artifact"/>
-        </choice>
-      </zeroOrMore>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="Part"/>
+            <ref name="Art"/>
+            <ref name="Div"/>
+            <ref name="Sect"/>
+            <ref name="Aside"/>
+            <ref name="BlockQuote"/>
+            <ref name="NonStruct"/>
+            <ref name="Private"/>
+            <ref name="P"/>
+            <ref name="Note"/>
+            <ref name="Code"/>
+            <ref name="Hn"/>
+            <ref name="Sub"/>
+            <ref name="Em"/>
+            <ref name="Strong"/>
+            <ref name="Span"/>
+            <ref name="Quote"/>
+            <ref name="Link"/>
+            <ref name="Reference"/>
+            <ref name="Annot"/>
+            <ref name="Form"/>
+            <ref name="Ruby"/>
+            <ref name="Warichu"/>
+            <ref name="FENote"/>
+            <ref name="Index"/>
+            <ref name="L"/>
+            <ref name="BibEntry"/>
+            <ref name="Table"/>
+            <ref name="Figure"/>
+            <ref name="Formula"/>
+            <ref name="Artifact"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
     </element>
   </define>
   <define name="Index">
@@ -2213,17 +2221,21 @@
   <define name="TOC">
     <element name="pdf1:TOC">
       <ref name="pdf2-attributes"/>
-      <zeroOrMore>
-        <choice>
-          <ref name="Part"/>
-          <ref name="TOC"/>
-          <ref name="TOCI"/>
-          <ref name="NonStruct"/>
-          <ref name="Private"/>
+      <interleave>
+        <optional>
           <ref name="Caption"/>
-          <ref name="Artifact"/>
-        </choice>
-      </zeroOrMore>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="Part"/>
+            <ref name="TOC"/>
+            <ref name="TOCI"/>
+            <ref name="NonStruct"/>
+            <ref name="Private"/>
+            <ref name="Artifact"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
     </element>
   </define>
   <define name="TOCI">
@@ -2428,6 +2440,9 @@
         <optional>
           <ref name="H"/>
         </optional>
+        <optional>
+          <ref name="Caption"/>
+        </optional>
         <zeroOrMore>
           <choice>
             <text/>
@@ -2455,7 +2470,6 @@
             <ref name="Index"/>
             <ref name="L"/>
             <ref name="Table"/>
-            <ref name="Caption"/>
             <ref name="Figure"/>
             <ref name="Formula"/>
             <ref name="Artifact"/>

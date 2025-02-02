@@ -168,9 +168,9 @@ Sect = element pdf2:Sect{
 Aside = element pdf2:Aside {
 pdf1rolemap-Any,
 pdf2-attributes,
-(H?&
+(H?&Caption?&
 (text|
-Document|DocumentFragment|Part|Art|Div|Sect|TOC|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Lbl|Link|Reference|Annot|Form|FENote|Index|L|Table|Caption|Figure|Formula|Artifact)*)
+Document|DocumentFragment|Part|Art|Div|Sect|TOC|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Lbl|Link|Reference|Annot|Form|FENote|Index|L|Table|Figure|Formula|Artifact)*)
 }
 
 
@@ -362,7 +362,8 @@ LI = element pdf2:LI {
 
 LBody = element pdf2:LBody {
 pdf2-attributes,
-(text|Part|Art|Div|Sect|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|H|Sub|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|Index|L|BibEntry|Table|Caption|Figure|Formula|Artifact)*
+(H?&Caption?&
+(text|Part|Art|Div|Sect|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Sub|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|Index|L|BibEntry|Table|Figure|Formula|Artifact)*)
  }
 
 
@@ -490,7 +491,7 @@ pdf2-attributes,
 
 TOC = element pdf1:TOC {
 pdf2-attributes,
-   (Part|TOC|TOCI|NonStruct|Private|Caption|Artifact)*
+  (Caption? & (Part|TOC|TOCI|NonStruct|Private|Artifact)*)
    }
 
 TOCI = element pdf1:TOCI {
@@ -524,8 +525,8 @@ pdf2-attributes,
 # Aside + Title
 BlockQuote = element pdf1:BlockQuote {
 pdf2-attributes,
- (H?&
- (text|Document|DocumentFragment|Part|Art|Div|Sect|TOC|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Title|Lbl|Link|Reference|Annot|Form|FENote|Index|L|Table|Caption|Figure|Formula|Artifact)*)
+ (H?&Caption?&
+ (text|Document|DocumentFragment|Part|Art|Div|Sect|TOC|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Title|Lbl|Link|Reference|Annot|Form|FENote|Index|L|Table|Figure|Formula|Artifact)*)
   }
 
 Quote = element pdf1:Quote {

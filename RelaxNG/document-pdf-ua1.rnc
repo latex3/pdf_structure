@@ -118,8 +118,10 @@ artifact-attributes =
   attribute Artifact:BBox {text}?,
   attribute Artifact:SubType {text}?
 
-document.content =
-   (Document|DocumentFragment|Part|Art|Div|Sect|TOC|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|H|Title|Link|Annot|Form|FENote|Index|L|Table|Figure|Formula|Artifact)
+document.n =
+   (Document|DocumentFragment|Part|Art|Div|Sect|TOC|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Title|Link|Annot|Form|FENote|Index|L|Table|Figure|Formula|Artifact)
+
+document.1 = H?
 
 Hn=H1|H2|H3|H4|H5|H6|H7
 
@@ -128,32 +130,35 @@ Hn=H1|H2|H3|H4|H5|H6|H7
 
 Document = element pdf2:Document {
 pdf2-attributes,
-(document.content)* }
+((document.1) & (document.n)*)
+}
 
 DocumentFragment = element pdf2:DocumentFragment {
 pdf1rolemap-Any,
 pdf2-attributes,
-(document.content)* }
+((document.1) & (document.n)*)
+}
 
 ### Grouping
 
 Part = element pdf2:Part {
    pdf2-attributes,
-  (document.content|TOCI|Sub|Lbl|Reference|BibEntry|Caption)*
+  (document.n|H|TOCI|Sub|Lbl|Reference|BibEntry|Caption)*
    }
 
 Sect = element pdf2:Sect{
    pdf2-attributes,
-   (DocumentFragment|Part|Art|Div|Sect|TOC|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|H|Title|Lbl|Link|Annot|Form|FENote|Index|L|Table|Caption|Figure|Formula|Artifact)*
+   (H? &
+   (DocumentFragment|Part|Art|Div|Sect|TOC|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Title|Lbl|Link|Annot|Form|FENote|Index|L|Table|Caption|Figure|Formula|Artifact)*)
    }
 
 
-# text | document.content - Aside
 Aside = element pdf2:Aside {
 pdf1rolemap-Any,
 pdf2-attributes,
+(H?&
 (text|
-Document|DocumentFragment|Part|Art|Div|Sect|TOC|BlockQuote|NonStruct|Private|P|Note|Code|Hn|H|Lbl|Link|Reference|Annot|Form|FENote|Index|L|Table|Caption|Figure|Formula|Artifact)*
+Document|DocumentFragment|Part|Art|Div|Sect|TOC|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Lbl|Link|Reference|Annot|Form|FENote|Index|L|Table|Caption|Figure|Formula|Artifact)*)
 }
 
 
@@ -462,7 +467,8 @@ Artifact = element pdf2:Artifact {
 
 Art = element pdf1:Art {
   pdf2-attributes,
-(DocumentFragment|Part|Div|Sect|TOC|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|H|Title|Lbl|Link|Annot|Form|FENote|Index|L|Table|Caption|Figure|Formula|Artifact)*
+(H?&
+(DocumentFragment|Part|Div|Sect|TOC|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Title|Lbl|Link|Annot|Form|FENote|Index|L|Table|Caption|Figure|Formula|Artifact)*)
 }
 
 Private = element pdf1:Private {
@@ -506,7 +512,8 @@ pdf2-attributes,
 # Aside + Title
 BlockQuote = element pdf1:BlockQuote {
 pdf2-attributes,
- (text|Document|DocumentFragment|Part|Art|Div|Sect|TOC|BlockQuote|NonStruct|Private|P|Note|Code|Hn|H|Title|Lbl|Link|Reference|Annot|Form|FENote|Index|L|Table|Caption|Figure|Formula|Artifact)*
+ (H?&
+ (text|Document|DocumentFragment|Part|Art|Div|Sect|TOC|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Title|Lbl|Link|Reference|Annot|Form|FENote|Index|L|Table|Caption|Figure|Formula|Artifact)*)
   }
 
 Quote = element pdf1:Quote {

@@ -30,7 +30,8 @@ Lbl |= element latexSE:section-number {pdf2-attributes, attribute rolemaps-to {"
 
 # LaTeX NS
 
-document.content &= (figures?,tables?)
+document.1 &= figures?
+           & tables?
 
 figures = element latexSE:figures {
   attribute rolemaps-to {"Sect"},

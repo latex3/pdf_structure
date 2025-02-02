@@ -104,13 +104,15 @@
     </element>
   </define>
   <!-- LaTeX NS -->
-  <define name="document.content" combine="interleave">
-    <optional>
-      <ref name="figures"/>
-    </optional>
-    <optional>
-      <ref name="tables"/>
-    </optional>
+  <define name="document.1" combine="interleave">
+    <interleave>
+      <optional>
+        <ref name="figures"/>
+      </optional>
+      <optional>
+        <ref name="tables"/>
+      </optional>
+    </interleave>
   </define>
   <define name="figures">
     <element name="latexSE:figures">

@@ -339,6 +339,9 @@ pdf2-attributes,
 
 ### Lists
 
+# Caption here is 0..1  matching 32005
+# Table 370 ISO 32000-2 says first or last which would be
+# (Caption, (NonStruct|Private|L|LI|Artifact)*) | ((NonStruct|Private|L|LI|Artifact)*, Caption?)
 L = element pdf2:L {
   pdf2-attributes,
   list-attributes,
@@ -365,6 +368,9 @@ pdf2-attributes,
 
 ### Tables
 
+# Caption here is 0..1  matching 32005
+# Table 371 ISO 32000-2 says first or last which would be
+# (Caption, (...)) | ((...), Caption?)
 Table = element pdf2:Table {
   pdf2-attributes,
   attribute Layout:Width {text}?,

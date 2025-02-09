@@ -1449,6 +1449,11 @@
       </zeroOrMore>
     </element>
   </define>
+  <!--
+    Caption here is 0..1  matching 32005
+    Table 370 ISO 32000-2 says first or last which would be
+    (Caption, (NonStruct|Private|L|LI|Artifact)*) | ((NonStruct|Private|L|LI|Artifact)*, Caption?)
+  -->
   <define name="L">
     <a:documentation>Lists</a:documentation>
     <element name="pdf2:L">
@@ -1562,6 +1567,11 @@
       </zeroOrMore>
     </element>
   </define>
+  <!--
+    Caption here is 0..1  matching 32005
+    Table 371 ISO 32000-2 says first or last which would be
+    (Caption, (...)) | ((...), Caption?)
+  -->
   <define name="Table">
     <a:documentation>Tables</a:documentation>
     <element name="pdf2:Table">

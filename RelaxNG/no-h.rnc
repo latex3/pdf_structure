@@ -1,0 +1,7 @@
+
+include "document-pdf-ua1.rnc" {
+  H = notAllowed
+}
+
+  
+

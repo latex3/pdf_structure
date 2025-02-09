@@ -1263,6 +1263,7 @@
       <!-- Block -->
     </element>
   </define>
+  <!-- [a] == Table 369 ISO 32000-2 -->
   <define name="Ruby">
     <a:documentation>Ruby</a:documentation>
     <element>
@@ -1289,16 +1290,26 @@
           </choice>
         </attribute>
       </optional>
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="NonStruct"/>
-          <ref name="Private"/>
+      <interleave>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="NonStruct"/>
+            <ref name="Private"/>
+          </choice>
+        </zeroOrMore>
+        <group>
           <ref name="RB"/>
-          <ref name="RT"/>
-          <ref name="RP"/>
-        </choice>
-      </zeroOrMore>
+          <choice>
+            <ref name="RT"/>
+            <group>
+              <ref name="RB"/>
+              <ref name="RT"/>
+              <ref name="RP"/>
+            </group>
+          </choice>
+        </group>
+      </interleave>
     </element>
   </define>
   <define name="RB">
@@ -1414,19 +1425,25 @@
       </zeroOrMore>
     </element>
   </define>
+  <!-- [b] = Table 369 ISO 32000-2 -->
   <define name="Warichu">
     <element>
       <name ns="">Warichu</name>
       <ref name="pdf2-attributes"/>
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="NonStruct"/>
-          <ref name="Private"/>
+      <interleave>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="NonStruct"/>
+            <ref name="Private"/>
+          </choice>
+        </zeroOrMore>
+        <group>
+          <ref name="WP"/>
           <ref name="WT"/>
           <ref name="WP"/>
-        </choice>
-      </zeroOrMore>
+        </group>
+      </interleave>
     </element>
   </define>
   <define name="WT">

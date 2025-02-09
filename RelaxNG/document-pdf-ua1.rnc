@@ -288,11 +288,13 @@ Form = element pdf2:Form {
 
 ### Ruby
 
+# [a] == Table 369 ISO 32000-2
+
 Ruby = element pdf2:Ruby {
   pdf2-attributes,
   attribute Layout:RubyAlign {"Start" | "Center" | "End" | "Justify" | "Distribute"}?,
   attribute Layout:RubyPosition {"Before" | "After" | "Warichu" | "Inline"}?,
-(text|NonStruct|Private|RB|RT|RP)*
+( (text|NonStruct|Private)* & 	(RB,(RT|(RB,RT,RP))) )
 }
 
 RB = element pdf2:RB {
@@ -316,10 +318,11 @@ RP = element pdf2:RP {
 (text|NonStruct|Private|Sub|Em|Strong|Span|Quote|Link|Reference|Annot|Link|Form|Artifact)*
 }
 
+# [b] = Table 369 ISO 32000-2
 
 Warichu = element pdf2:Warichu {
 pdf2-attributes,
-(text|NonStruct|Private|WT|WP)*
+((text|NonStruct|Private)*  & (WP,WT,WP) )
 }
 
 WT = element pdf2:WT {

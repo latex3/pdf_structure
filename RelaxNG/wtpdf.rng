@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- WTPDF extra constraints -->
+<grammar xmlns:FENoteNS="http://iso.org/pdf2/ssn/FENote" xmlns="http://relaxng.org/ns/structure/1.0">
+  <include href="document-pdf-ua2.rng">
+    <!-- WTPDF 8.2.5.12 Heading (Hn) and (H) -->
+    <define name="H">
+      <notAllowed/>
+    </define>
+    <!-- WTPDF 8.2.5.14.1 Structure requirements -->
+    <define name="Note">
+      <notAllowed/>
+    </define>
+    <!-- WTPDF 8.2.5.28.2 Figure properties -->
+    <define name="figure-attributes" combine="interleave">
+      <choice>
+        <interleave>
+          <attribute name="actualtext"/>
+          <optional>
+            <attribute name="alt"/>
+          </optional>
+        </interleave>
+        <attribute name="alt"/>
+      </choice>
+    </define>
+  </include>
+  <!-- WTPDF Table 2 -->
+  <define name="fenote-attributes" combine="interleave">
+    <optional>
+      <attribute name="FENoteNS:NoteType">
+        <choice>
+          <value>Footnote</value>
+          <value>Endnote</value>
+          <value>None</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+</grammar>

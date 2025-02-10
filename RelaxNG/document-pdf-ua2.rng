@@ -765,10 +765,14 @@
       </zeroOrMore>
     </element>
   </define>
+  <define name="fenote-attributes">
+    <notAllowed/>
+  </define>
   <define name="FENote">
     <element name="pdf2:FENote">
       <ref name="pdf1rolemap-Note"/>
       <ref name="pdf2-attributes"/>
+      <ref name="fenote-attributes"/>
       <choice>
         <zeroOrMore>
           <choice>
@@ -1918,15 +1922,46 @@
       <!---->
     </element>
   </define>
+  <define name="figure-attributes">
+    <interleave>
+      <optional>
+        <attribute name="actualtext"/>
+      </optional>
+      <optional>
+        <!-- ActualText -->
+        <attribute name="alt"/>
+      </optional>
+    </interleave>
+  </define>
+  <!-- Alt -->
   <define name="Figure">
     <element name="pdf2:Figure">
-      <ref name="pdf2-attributes"/>
+      <optional>
+        <attribute name="lang"/>
+      </optional>
+      <optional>
+        <!-- Lang -->
+        <attribute name="expanded"/>
+      </optional>
+      <optional>
+        <!-- E -->
+        <attribute name="title"/>
+      </optional>
+      <optional>
+        <!-- T -->
+        <attribute name="id"/>
+      </optional>
+      <!-- ID -->
+      <ref name="layout-attributes"/>
+      <ref name="otherns-attributes"/>
+      <ref name="showtags-attributes"/>
       <optional>
         <attribute name="Layout:Width"/>
       </optional>
       <optional>
         <attribute name="Layout:Height"/>
       </optional>
+      <ref name="figure-attributes"/>
       <choice>
         <interleave>
           <optional>

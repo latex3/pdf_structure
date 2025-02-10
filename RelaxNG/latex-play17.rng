@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <include href="latex-document17.rng"/>
+  <define name="Span" combine="choice">
+    <element name="SceneDescription">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Span</value>
+      </attribute>
+      <text/>
+    </element>
+  </define>
+  <define name="Span" combine="choice">
+    <element name="Speaker">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Span</value>
+      </attribute>
+      <text/>
+    </element>
+  </define>
+</grammar>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns:latexSEplay="https://www.latex-project.org/ns/local/plays" xmlns="http://relaxng.org/ns/structure/1.0">
+  <include href="latex-document.rng"/>
+  <define name="Span" combine="choice">
+    <element name="latexSEplay:SceneDescription">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Span</value>
+      </attribute>
+      <text/>
+    </element>
+  </define>
+  <define name="Strong" combine="choice">
+    <element name="latexSEplay:Speaker">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Strong</value>
+      </attribute>
+      <text/>
+    </element>
+  </define>
+</grammar>

@@ -792,7 +792,9 @@
     </element>
   </define>
   <define name="fenote-attributes">
-    <notAllowed/>
+    <optional>
+      <notAllowed/>
+    </optional>
   </define>
   <define name="FENote">
     <element>

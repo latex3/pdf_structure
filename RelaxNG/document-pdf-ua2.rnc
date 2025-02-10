@@ -216,7 +216,8 @@ Title = element pdf2:Title {
  (text|Part|Div|Aside|NonStruct|Private|P|Note|Code|Lbl|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|L|BibEntry|Table|Caption|Figure|Formula|Artifact)*
  }
 
-fenote-attributes = notAllowed
+fenote-attributes = notAllowed?
+
 FENote = element pdf2:FENote {
  pdf1rolemap-Note,
  pdf2-attributes,

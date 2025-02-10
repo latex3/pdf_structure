@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- WTPDF extra constraints -->
-<grammar xmlns:FENoteNS="http://iso.org/pdf2/ssn/FENote" xmlns="http://relaxng.org/ns/structure/1.0">
+<grammar xmlns:FENoteNS="http://iso.org/pdf/ssn/FENote" xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="document-pdf-ua2.rng">
     <!-- WTPDF 8.2.5.12 Heading (Hn) and (H) -->
     <define name="H">

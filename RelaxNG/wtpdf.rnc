@@ -1,6 +1,6 @@
 # WTPDF extra constraints
 
-namespace FENoteNS = "http://iso.org/pdf2/ssn/FENote"
+namespace FENoteNS = "http://iso.org/pdf/ssn/FENote"
 
 include "document-pdf-ua2.rnc" {
 # WTPDF 8.2.5.12 Heading (Hn) and (H)

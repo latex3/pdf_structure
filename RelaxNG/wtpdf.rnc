@@ -1,8 +1,17 @@
 # WTPDF extra constraints
 
-namespace FENoteNS = "http://iso.org/pdf/ssn/FENote"
+namespace NoNS = ""
+namespace Layout = "http://iso.org/pdf/ssn/Layout"
+namespace PrintField = "http://iso.org/pdf/ssn/PrintField"
+namespace Table = "http://iso.org/pdf/ssn/Table"
+namespace List = "http://iso.org/pdf/ssn/List"
+namespace Artifact = "http://iso.org/pdf/ssn/Artifact"
+namespace FENote = "http://iso.org/pdf/ssn/FENote"
 
 include "document-pdf-ua2.rnc" {
+otherns-attributes =
+  attribute (* - (NoNS:*|Layout:*|PrintField:*|Table:*|List:*|Artifact:*|FENote:*)) {text}*
+
 # WTPDF 8.2.5.12 Heading (Hn) and (H)
   H = notAllowed
 
@@ -17,6 +26,6 @@ figure-attributes &=
 
 
 # WTPDF Table 2
-fenote-attributes &= attribute FENoteNS:NoteType {"Footnote" | "Endnote" | "None"} ?
+fenote-attributes &= attribute FENote:NoteType {"Footnote" | "Endnote" | "None"} ?
 
   

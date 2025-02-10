@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- WTPDF extra constraints -->
-<grammar xmlns:FENoteNS="http://iso.org/pdf/ssn/FENote" xmlns="http://relaxng.org/ns/structure/1.0">
+<grammar xmlns:FENote="http://iso.org/pdf/ssn/FENote" xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="document-pdf-ua2.rng">
+    <define name="otherns-attributes">
+      <zeroOrMore>
+        <attribute>
+          <anyName>
+            <except>
+              <nsName ns=""/>
+              <nsName ns="http://iso.org/pdf/ssn/Layout"/>
+              <nsName ns="http://iso.org/pdf/ssn/PrintField"/>
+              <nsName ns="http://iso.org/pdf/ssn/Table"/>
+              <nsName ns="http://iso.org/pdf/ssn/List"/>
+              <nsName ns="http://iso.org/pdf/ssn/Artifact"/>
+              <nsName ns="http://iso.org/pdf/ssn/FENote"/>
+            </except>
+          </anyName>
+        </attribute>
+      </zeroOrMore>
+    </define>
     <!-- WTPDF 8.2.5.12 Heading (Hn) and (H) -->
     <define name="H">
       <notAllowed/>
@@ -26,7 +43,7 @@
   <!-- WTPDF Table 2 -->
   <define name="fenote-attributes" combine="interleave">
     <optional>
-      <attribute name="FENoteNS:NoteType">
+      <attribute name="FENote:NoteType">
         <choice>
           <value>Footnote</value>
           <value>Endnote</value>

@@ -1,7 +1,22 @@
+# WTPDF extra constraints
 
-include "document-pdf-ua1.rnc" {
+namespace FENoteNS = "http://iso.org/pdf2/ssn/FENote"
+
+include "document-pdf-ua2.rnc" {
+# WTPDF 8.2.5.12 Heading (Hn) and (H)
   H = notAllowed
+
+# WTPDF 8.2.5.14.1 Structure requirements
+  Note = notAllowed
+
+# WTPDF 8.2.5.28.2 Figure properties
+figure-attributes &=
+  ((attribute actualtext {text} & attribute alt {text}?) | (attribute alt {text}))
 }
 
-  
 
+
+# WTPDF Table 2
+fenote-attributes &= attribute FENoteNS:NoteType {"Footnote" | "Endnote" | "None"} ?
+
+  

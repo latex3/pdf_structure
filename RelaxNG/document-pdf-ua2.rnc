@@ -216,9 +216,11 @@ Title = element pdf2:Title {
  (text|Part|Div|Aside|NonStruct|Private|P|Note|Code|Lbl|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|L|BibEntry|Table|Caption|Figure|Formula|Artifact)*
  }
 
+fenote-attributes = notAllowed
 FENote = element pdf2:FENote {
  pdf1rolemap-Note,
  pdf2-attributes,
+ fenote-attributes,
 (
  (DocumentFragment|Part|Art|Div|Sect|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Sub|Lbl|Link|Reference|Annot|Form|Ruby|Warichu|FENote|L|Table|Caption|Figure|Formula|Artifact)* # Grouping
  |
@@ -453,10 +455,21 @@ Caption = element pdf2:Caption {
 )
 }
 
+figure-attributes =
+  attribute actualtext {text}?&   # ActualText
+  attribute alt {text}?           # Alt
+  
 Figure = element pdf2:Figure {
-  pdf2-attributes,
+  attribute lang {text}?,         # Lang
+  attribute expanded {text}?,     # E
+  attribute title {text}?,        # T
+  attribute id {text}?,           # ID
+  layout-attributes,
+  otherns-attributes,
+  showtags-attributes,
   attribute Layout:Width {text}?,
   attribute Layout:Height {text}?,
+  figure-attributes,
 (
 (H? & Caption? & (Part|Art|Div|Sect|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Sub|Lbl|Link|Reference|Annot|Form|Ruby|Warichu|FENote|Index|L|BibEntry|Table|Figure|Formula|Artifact)*) # Grouping
 |

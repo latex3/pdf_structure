@@ -78,7 +78,7 @@ local function print_string(ctx, str, pattern)
   end
 
   if ctx.current_font and ctx.current_font.enc == "WinAnsiEncoding" then
-    str = winansi_to_utf8:match(str)
+--  double decoding  str = winansi_to_utf8:match(str)
   else
     str = utf16be_to_utf8:match(str)
   end
@@ -108,18 +108,19 @@ local operators = {
     local font_type, font = pdfe.getfromreference(font_ref)
     local enc = pdfe.getname(font,"Encoding")
 
-    if font.ToUnicode then
-      ctx.current_font = {
-      id = font_id,
-      obj = font,
-      cmap = font.ToUnicode and parse_cmap(font.ToUnicode),
-    }
-    elseif enc and enc=="WinAnsiEncoding" then
+
+    if enc and enc=="WinAnsiEncoding" then
       ctx.current_font = {
       enc="WinAnsiEncoding",
       id = font_id,
       obj = font,
       cmap = winansi_to_utf8
+    }
+    elseif font.ToUnicode then
+      ctx.current_font = {
+      id = font_id,
+      obj = font,
+      cmap = font.ToUnicode and parse_cmap(font.ToUnicode),
     }
     else
       ctx.current_font = {

@@ -2,6 +2,7 @@ local lpeg = lpeg or require'lpeg'
 local pdfscanner = require'luapdfscanner'
 local utf16be_to_utf8 = require'decode'.utf16be_to_utf8
 local text_string_to_utf8 = require'decode'.text_string_to_utf8
+local winansi_to_utf16be = require'decode'.winansi_to_utf16be
 
 local lookup = {}
 
@@ -75,6 +76,7 @@ local function print_string(ctx, str, pattern)
   if not pattern or not str then
     str = '\xff\xfd'
   end
+
   str = utf16be_to_utf8:match(str)
   if str == nil then
    io.stderr:write("UTF16 to UTF8 conversion failure\n")
@@ -82,6 +84,7 @@ local function print_string(ctx, str, pattern)
   end
   ctx.text_buffer[#ctx.text_buffer + 1] = str
 end
+
 
 local operators = {
   BT = function(scanner, ctx)
@@ -99,11 +102,28 @@ local operators = {
     local font_type, font_ref, font_id = pdfe.getfromdictionary(ctx.fonts, name)
     assert(font_type == 10)
     local font_type, font = pdfe.getfromreference(font_ref)
-    ctx.current_font = {
-      id = font_id,
-      obj = font,
-      cmap = font.ToUnicode and parse_cmap(font.ToUnicode),
-    }
+    local enc = pdfe.getname(font,"Encoding")
+
+    if enc and enc=="WinAnsiEncoding" then
+      ctx.current_font = {
+        enc="WinAnsiEncoding",
+        id = font_id,
+        obj = font,
+        cmap = winansi_to_utf16be,
+      }
+    elseif font.ToUnicode then
+      ctx.current_font = {
+        id = font_id,
+        obj = font,
+        cmap = font.ToUnicode and parse_cmap(font.ToUnicode),
+      }
+    else
+      ctx.current_font = {
+        id = font_id,
+        obj = font,
+        cmap = nil,
+      }
+    end
   end,
   Tj = function(scanner, ctx)
     if not ctx.text_buffer then return end

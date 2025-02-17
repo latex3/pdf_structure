@@ -51,12 +51,15 @@ otherns-attributes =
 
 # Properties are modelled as attributes in no namespace
 structure-properties =
-  attribute lang {text}?,         # Lang
-  attribute expanded {text}?,     # E
-  attribute actualtext {text}?,   # ActualText
-  attribute alt {text}?,          # Alt
-  attribute title {text}?,        # T
-  attribute id {text}?            # ID
+  attribute lang {text}?,              # Lang
+  attribute expanded {text}?,          # E
+  attribute actualtext {text}?,        # ActualText
+  attribute alt {text}?,               # Alt
+  attribute title {text}?,             # T
+  attribute id {text}?,                # ID
+  attribute phoneme {text}?,           # Phoneme
+  attribute phonetic-alphabet {text}?, # PhoneticAlphabet
+  attribute revision {text}?           # R
   
 layout-attributes =
   # Only validate Layout attributes with Owner Layout

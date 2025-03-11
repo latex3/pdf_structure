@@ -69,7 +69,7 @@ text-unit = element latexSE:text-unit {
 Part |= text-unit
 
 verbatim = element latexSE:verbatim {
-  attribute rolemaps-to {"P"},
+  attribute rolemaps-to {"P"|"Code"},
   pdf2-attributes,
   codeline*
 }
@@ -78,7 +78,7 @@ P |= verbatim
 codeline = element latexSE:codeline {
   attribute rolemaps-to {"Sub"|"Span"},
   pdf2-attributes,
-  Code*
+  (text|Lbl)*
 }
 
 

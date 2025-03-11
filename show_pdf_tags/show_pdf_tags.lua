@@ -196,6 +196,8 @@ local function convert(ctx, elem, id, page)
     actual_text = get_string(elem, 'ActualText'),
     associated_files = elem.AF,
     id = get_string(elem, 'ID'),
+    phoneme = get_string(elem, 'Phoneme'),
+    phonetic_alphabet = get_string(elem, 'PhoneticAlphabet'),
     kids = convert_kids(ctx, elem),
   }
   ctx.id_map[id] = obj
@@ -398,6 +400,12 @@ local function print_tree(tree)
         if obj.actual_text then
           lines[#lines + 1] = 'Actual text: ' .. obj.actual_text
         end
+        if obj.phoneme then
+          lines[#lines + 1] = 'Phoneme: ' .. obj.phoneme
+        end
+        if obj.phonetic_alphabet then
+          lines[#lines + 1] = 'PhoneticAlphabet: ' .. obj.phonetic_alphabet
+        end
         if obj.associated_files then
           local af_output = ''
           local total_count = #af_output
@@ -505,6 +513,12 @@ local function print_tree_xml(tree)
         end
         if obj.actual_text then
           lines[#lines + 1] = ' actualtext="' .. obj.actual_text:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]'):gsub('[\1-\8\11\12\14-\31]','[CTRL]') .. '"'
+        end
+        if obj.phoneme then
+          lines[#lines + 1] = ' phoneme="' .. obj.phoneme:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]'):gsub('[\1-\8\11\12\14-\31]','[CTRL]') .. '"'
+        end
+        if obj.phonetic_alphabet then
+          lines[#lines + 1] = ' phonetic-alphabet="' .. obj.phonetic_alphabet:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]'):gsub('[\1-\8\11\12\14-\31]','[CTRL]') .. '"'
         end
         if obj.associated_files then
 	  local f = {}

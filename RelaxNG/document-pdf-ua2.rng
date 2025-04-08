@@ -54,7 +54,7 @@
       <choice>
         <ref name="Link"/>
         <ref name="Reference"/>
-        <ref name="Strone"/>
+        <ref name="Strong"/>
         <ref name="Code"/>
         <ref name="em"/>
         <ref name="Lbl"/>

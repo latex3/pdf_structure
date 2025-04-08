@@ -53,7 +53,18 @@
     <zeroOrMore>
       <choice>
         <ref name="Link"/>
+        <ref name="Reference"/>
+        <ref name="Strone"/>
+        <ref name="Code"/>
+        <ref name="em"/>
         <ref name="Lbl"/>
+        <ref name="Span"/>
+        <ref name="math"/>
+        <ref name="Quote"/>
+        <ref name="RB"/>
+        <ref name="Annot"/>
+        <ref name="Figure"/>
+        <ref name="Form"/>
       </choice>
     </zeroOrMore>
   </define>

@@ -40,7 +40,7 @@ start = Document | DocumentFragment
 
 ## share with pdf1.7 version from here to end
 
-textorHTML &= (Link|Reference|Strong|Code|em|Lbl|Span|math|Quote|RB|Annot|Figure|Form)*
+textorHTML &= (Link|Reference|Strong|Code|Em|Lbl|Span|math|Quote|RB|Annot|Figure|Form)*
 
 
 ### PDF structure Namespace

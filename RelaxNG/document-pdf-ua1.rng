@@ -65,7 +65,7 @@
         <ref name="Reference"/>
         <ref name="Strong"/>
         <ref name="Code"/>
-        <ref name="em"/>
+        <ref name="Em"/>
         <ref name="Lbl"/>
         <ref name="Span"/>
         <ref name="math"/>

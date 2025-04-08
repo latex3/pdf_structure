@@ -28,7 +28,7 @@ start = Document|DocumentFragment|Part|Art|Div|Sect|TOC|Aside|BlockQuote|NonStru
 
 ## share with pdf1.7 version from here to end
 
-textorHTML &= (Link|Lbl)*
+textorHTML &= (Link|Reference|Strong|Code|Em|Lbl|Span|math|Quote|RB|Annot|Figure|Form)*
 
 
 ### PDF structure Namespace

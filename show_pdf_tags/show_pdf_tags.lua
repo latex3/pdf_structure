@@ -263,7 +263,7 @@ local function open(filename)
   local tagged = markinfo and markinfo.Marked
 
   if not tagged then
-    return nil, 'Document is not tagged'
+   io.stderr:write("Document catalog has no markinfo.Marked entry. It might not be tagged.\n")
   end
 
   local pagenos = {}

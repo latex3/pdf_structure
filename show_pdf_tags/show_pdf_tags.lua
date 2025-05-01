@@ -12,8 +12,8 @@ local follow_rolemap = false
 local hide_w3c = false
 
 local pdfe = pdfe or require'pdfe'
-local process_stream = require'process_stream'
-local text_string_to_utf8 = require'decode'.text_string_to_utf8
+local process_stream = require'show_pdf_tags-process_stream'
+local text_string_to_utf8 = require'show_pdf_tags-decode'.text_string_to_utf8
 
 local function ordered_pairs(t)
   local keys = {}
@@ -46,28 +46,48 @@ end
 local function get_page(elem)
   local id, t, v, i = almost_resolve(pdfe.getfromdictionary(elem, 'Pg'))
   if not t or t < 2 then return end
-  assert(id and t == 8)
+  assert(id and t == 8, 'page should be a dictionary')
   return id
 end
 
 local convert_kids
 
+local function with_warnings(result)
+  return function(ctx, warning_generator)
+    local warnings = {}
+    warning_generator(function(condition, warning)
+      if condition then
+        warnings[#warnings + 1] = warning
+      end
+    end, result)
+    ctx.warnings[result] = warnings[1] and warnings
+    return result
+  end
+end
+
 local function convert_mc(ctx, mcid, page, stream_id, stream, owner)
-  local stream_data = ctx.streams[stream_id or page]
-  if not ctx.streams[stream_id or page] then
+  local stream_or_page_id = stream_id or page
+  local pageno = ctx.pagenos[page]
+  local stream_data = ctx.streams[stream_or_page_id]
+  if stream_or_page_id and not ctx.streams[stream_or_page_id] then
     stream_data = process_stream(
       stream or ctx.document.Pages[ctx.pagenos[page]].Contents,
       stream and stream.Resources or ctx.document.Pages[ctx.pagenos[page]].Resources
     )
-    ctx.streams[stream_id or page] = stream_data
+    ctx.streams[stream_or_page_id] = stream_data
   end
-  return {
+  return with_warnings {
     type = 'MCR',
-    page = assert(ctx.pagenos[page]),
+    page = pageno,
     stream = stream,
     owner = owner,
     content = stream_data[mcid],
-  }
+  } (ctx, function(warn)
+    warn(not page, 'Missing page reference in marked content reference')
+    warn(page and not pageno, 'Page referenced in marked content referene does not exist')
+    warn(not stream_data, 'No stream referenced in marked content reference')
+    warn(stream_data and not stream_data[mcid], 'Referenced marked content sequence not found')
+  end)
 end
 
 local function convert_objr(ctx, obj, page)
@@ -328,6 +348,7 @@ local function open(filename)
   end
   ctx.type_maps = type_maps
   ctx.ClassMap = structroot.ClassMap
+  ctx.warnings = setmetatable({}, {__mode = 'k'})
   local elements = convert_kids(ctx, structroot)
   ctx.ClassMap = nil
 
@@ -381,13 +402,21 @@ local function format_subtype_xml(subtype)
   end
 end
 
-local function print_tree(tree)
+local function print_tree(tree, ctx)
   local referenced = mark_references(tree)
   local function recurse(objs, first_prefix, last_first_prefix, prefix, last_prefix)
     for i, obj in ipairs(objs) do
+      local warnings = ctx.warnings[obj]
+      if warnings then
+        print'### Warnings encountered:'
+        for _, warning in ipairs(warnings) do
+          print('#  ' .. warning)
+        end
+      end
+      print(string.format('%sMarked content on page %i: %s', first_prefix, obj.page or -1, obj.content or ''))
       if i == #objs then first_prefix, prefix = last_first_prefix, last_prefix end
       if obj.type == 'MCR' then
-        print(string.format('%sMarked content on page %i: %s', first_prefix, obj.page, obj.content))
+        print(string.format('%sMarked content on page %i: %s', first_prefix, obj.page or -1, obj.content or ''))
       elseif obj.type == 'OBJR' then
         local t = obj.Obj.Type
         t = t and string.format(' of type %s', t) or ''
@@ -497,7 +526,7 @@ local function print_tree_xml(tree)
   local function recurse(objs, indent)
     for i, obj in ipairs(objs) do
       if obj.type == 'MCR' then
-        print(string.format('%s<?MarkedContent page="%i" ?>%s', indent, obj.page, (obj.content and obj.content:gsub('&','&amp;'):gsub('<','&lt;'):gsub('\0','[NULL]'):gsub('[\1-\8\11\12\14-\31]','[CTRL]'):gsub('�.*','[TEXT]') or "[empty]")))
+        print(string.format('%s<?MarkedContent page="%i" ?>%s', indent, obj.page or -1, (obj.content and obj.content:gsub('&','&amp;'):gsub('<','&lt;'):gsub('\0','[NULL]'):gsub('[\1-\8\11\12\14-\31]','[CTRL]'):gsub('�.*','[TEXT]') or "[missing]")))
       elseif obj.type == 'OBJR' then
         local t = obj.Obj.Type
         t = t and string.format(' type="%s"', t) or ''
@@ -619,7 +648,7 @@ local function print_tree_xml(tree)
       end
     end
   end
-  if #tree ==1 then
+  if #tree == 1 then
     return recurse(tree, '', '', '', '')
   else
     io.stderr:write("\nMultiple document elements\n")
@@ -683,11 +712,11 @@ end
 local struct, ctx = assert(open(arg[argi]))
 
 if out_format=="tree" then
-  print_tree(struct, '')
+  print_tree(struct, ctx)
 else
   if out_format=="xml" then
     print_tree_xml(struct, '')
   else
-  print(require'inspect'(struct))
+    print(require'inspect'(struct))
   end
 end

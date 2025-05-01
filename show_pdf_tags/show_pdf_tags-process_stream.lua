@@ -1,8 +1,8 @@
 local lpeg = lpeg or require'lpeg'
-local pdfscanner = require'luapdfscanner'
-local utf16be_to_utf8 = require'decode'.utf16be_to_utf8
-local text_string_to_utf8 = require'decode'.text_string_to_utf8
-local winansi_to_utf16be = require'decode'.winansi_to_utf16be
+local pdfscanner = require'show_pdf_tags-luapdfscanner'
+local utf16be_to_utf8 = require'show_pdf_tags-decode'.utf16be_to_utf8
+local text_string_to_utf8 = require'show_pdf_tags-decode'.text_string_to_utf8
+local winansi_to_utf16be = require'show_pdf_tags-decode'.winansi_to_utf16be
 
 local lookup = {}
 

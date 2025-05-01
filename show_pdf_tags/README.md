@@ -24,3 +24,5 @@ Options
   --w3c-           Add - to w3c namespaces to force browser tree display
 ```
 
+License: LPPLv1.3c
+by the LaTeX Project Team

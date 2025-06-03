@@ -15,6 +15,25 @@ local pdfe = pdfe or require'pdfe'
 local process_stream = require'process_stream'
 local text_string_to_utf8 = require'decode'.text_string_to_utf8
 
+local function ordered_pairs(t)
+  local keys = {}
+  local n = 0
+  for k in pairs(t) do
+    n = n + 1
+    keys[n] = k
+  end
+  table.sort(keys)
+  local i = 0
+  return function()
+    i = i + 1
+    local key = keys[i]
+    if key == nil then
+      return
+    end
+    return key, t[key]
+  end
+end
+
 local function almost_resolve(t, v, i)
   local id
   while t == 10 do
@@ -530,7 +549,7 @@ local function print_tree_xml(tree)
           lines[#lines + 1] = ' af="' .. table.concat(f, ' ') .. '"'
         end
         if obj.attributes then
-	  for k,v in pairs(obj.attributes) do
+	  for k,v in ordered_pairs(obj.attributes) do
            local attrns=""
 	   if k~=subtype.namespace then
 	     attrns = k:gsub('.*/','')
@@ -540,7 +559,7 @@ local function print_tree_xml(tree)
                 lines[#lines +1] = ' xmlns:' .. attrns .. '="' .. k .. '"'
 		attrns = attrns ..':'
               end
-              for kk,vv in pairs(v) do
+              for kk,vv in ordered_pairs(v) do
 	        if type(vv) == "table" then
 	          vv = require'inspect'(vv):gsub('\n[ ]*',' ')
 	        end

@@ -208,11 +208,11 @@ local operators = {
         warnings = {}
       end
       if props.MCID then
+        local MCID = type(props) == 'table' and props.MCID[2] or props.MCID
         if warnings and warnings[1] then
           ctx.marked_content_element_warnings[MCID] = warnings
         end
         text = text or table.concat(ctx.text_buffer)
-        local MCID = type(props) == 'table' and props.MCID[2] or props.MCID
         ctx.marked_content_elements[MCID] = text
       end
       if text and outer_text_buffer then

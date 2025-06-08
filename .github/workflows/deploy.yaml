@@ -1,0 +1,81 @@
+name: Deployment
+
+# Currently we run in two situations:
+on:
+  # Only triggers for new tags
+  push:
+    # tags: "*"
+    branches: '*'
+
+jobs:
+  # Mostly the same as the main.yaml workflow, but we only use a single job
+  l3build:
+    runs-on: ubuntu-22.04
+    steps:
+      # Boilerplate
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Collect files
+        run: |
+          mkdir -p ctan/show_pdf_tags
+          cp RelaxNG/*.{rnc,rng} show_pdf_tags/{README.md,show_pdf_tags*} ctan/show_pdf_tags
+          cd ctan
+          zip -r show_pdf_tags.zip show_pdf_tags
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Package
+          path: |
+            ctan*
+      - name: Validate CTAN package
+        uses: ./.github/actions/ctan-upload
+        with:
+          uploader: Dummy Name
+          email: dryrun@example.com
+          filename: "ctan/show_pdf_tags.zip"
+          dry-run: true
+
+  github:
+    if: 'false'
+    runs-on: ubuntu-22.04
+    needs:
+      - l3build
+    steps:
+      - name: Download package artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Package
+      - name: Create GitHub release
+        uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5
+        id: release
+        with:
+          artifacts: "ctan/show_pdf_tags.zip"
+          prerelease: ${{ endsWith(github.ref, '-dev') }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # bodyFile: ctan.ann
+      # If a test failed, we already notified in the other workflow. Here we notify
+      # when a release has been created.
+
+  ctan-upload:
+    if: 'false'
+    # if: "${{ !endsWith(github.ref, '-dev') }}"
+    runs-on: ubuntu-22.04
+    environment: CTAN
+    needs:
+      - l3build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github
+      - name: Download package artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Package
+      - name: Upload CTAN package
+        uses: ./.github/actions/ctan-upload
+        with:
+          uploader: ${{ secrets.CTAN_NAME }}
+          email: ${{ secrets.CTAN_EMAIL }}
+          filename: "ctan/show_pdf_tags.zip"
+          dry-run: false

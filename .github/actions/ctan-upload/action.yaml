@@ -1,0 +1,38 @@
+name: CTAN upload
+
+inputs:
+  filename:
+    required: true
+  dry-run:
+    required: true
+  uploader:
+    required: true
+  email:
+    required: true
+  version:
+    required: false
+    default: ${{ github.ref_name }}
+
+runs:
+  using: composite
+  steps:
+    - name: Send to CTAN
+      uses: zauguin/ctan-upload@v0.1
+      with:
+        package-name: show_pdf_tags
+        version: ${{ inputs.version }}
+        author: "Marcel Krüger, David Carlisle, LaTeX Project Team"
+        uploader: ${{ inputs.uploader }}
+        email: ${{ inputs.email }}
+        license: lppl1.3c
+        summary: "Extract PDF tags from tagged PDF files"
+        ctan-path: /support/show_pdf_tags
+        support: https://github.com/latex3/pdf_structure/issues
+        update: false
+        topic: pdf-feat,pdf-view
+        description: |
+          Extract PDF tags from tagged PDF files as tree structure and represent it as XML or console art.
+        filename: ${{ inputs.filename }}
+        dry-run: ${{ inputs.dry-run }}
+        # announcement-filename: ctan.ann
+        note: Uploaded automatically by GitHub Actions...

@@ -36,7 +36,7 @@ local cmap_operators = {
           end
         end
       else
-        io.stderr:write("WARNING: Ignoring invalid ToUnicode mapping\n")
+        ctx.warnings[#ctx.warnings + 1] = "WARNING: Ignoring invalid ToUnicode mapping"
       end
     end
   end,
@@ -64,23 +64,25 @@ local function parse_cmap(stream)
   local ctx = {
     pattern = lpeg.P(false), -- Maybe use 1 instead to passthough everything else
     mapping = {},
+    warnings = {},
   }
   pdfscanner.scan(stream, cmap_operators, ctx)
-  return lpeg.Cs((ctx.pattern/ctx.mapping)^0) * -1
+  return lpeg.Cs((ctx.pattern/ctx.mapping)^0) * -1, ctx.warnings
 end
 
-local function print_string(ctx, str, pattern)
-  if pattern then
-    str = pattern:match(str)
-  end
-  if not pattern or not str then
+local function print_string(ctx, str, font)
+  if font.cmap then
+    str = font.cmap:match(str)
+  elseif not str then
     str = '\xff\xfd'
   end
 
   str = utf16be_to_utf8:match(str)
   if str == nil then
-   io.stderr:write("UTF16 to UTF8 conversion failure\n")
    str = "??"
+   if ctx.warnings then
+     ctx.warnings[#ctx.warnings + 1] = "UTF16 to UTF8 conversion failure"
+   end
   end
   ctx.text_buffer[#ctx.text_buffer + 1] = str
 end
@@ -115,8 +117,14 @@ local operators = {
       ctx.current_font = {
         id = font_id,
         obj = font,
-        cmap = font.ToUnicode and parse_cmap(font.ToUnicode),
       }
+      if font.ToUnicode then
+        local cmap, warnings = parse_cmap(font.ToUnicode)
+        ctx.current_font.cmap = cmap
+        if ctx.warnings then
+          table.move(warnings, 1, #warnings, #ctx.warnings + 1, ctx.warnings)
+        end
+      end
     else
       ctx.current_font = {
         id = font_id,
@@ -129,19 +137,17 @@ local operators = {
     if not ctx.text_buffer then return end
     local font = ctx.current_font
     assert(ctx.text_mode and font)
-    local pattern = font.cmap
     local text = scanner:popstring()
-    print_string(ctx, text, pattern)
+    print_string(ctx, text, font)
   end,
   TJ = function(scanner, ctx)
     if not ctx.text_buffer then return end
     local font = ctx.current_font
     assert(ctx.text_mode and font)
-    local pattern = font.cmap
     local texts = scanner:poparray()
     for _, entry in ipairs(texts) do
       if entry[1] == 'string' then
-        print_string(ctx, entry[2], pattern)
+        print_string(ctx, entry[2], font)
       end
     end
   end,
@@ -158,7 +164,13 @@ local operators = {
     end
   end,
   BDC = function(scanner, ctx)
-    local props = assert(scanner:popdictionary() or ctx.properties and ctx.properties[scanner:popname()] or {io.stderr:write("Missing Properties\n")})
+    local props = scanner:popdictionary() or ctx.properties and ctx.properties[scanner:popname()]
+    if not props then
+      props = {}
+      if ctx.warnings then
+        ctx.warnings[#ctx.warnings + 1] = "Missing properties in BDC"
+      end
+    end
     local tag = scanner:popname()
     local stack = ctx.marked_stack
     local top = {
@@ -169,6 +181,8 @@ local operators = {
     if props.ActualText or props.MCID then
       top.text_buffer = ctx.text_buffer
       ctx.text_buffer = not props.ActualText and {}
+      top.warnings = ctx.warnings
+      ctx.warnings = not props.ActualText and {}
     end
     if tag == 'Artifact' then
       top.artifact = ctx.artifact
@@ -186,17 +200,24 @@ local operators = {
       top.props = nil
       local text
       local outer_text_buffer = top.text_buffer
+      local outer_warnings = top.warnings
+      local warnings = ctx.warnings
       if props.ActualText and (props.MCID or outer_text_buffer) then
         text = type(props) == 'table' and props.ActualText[2] or props.ActualText
         text = text_string_to_utf8:match(text)
+        warnings = {}
       end
       if props.MCID then
+        if warnings and warnings[1] then
+          ctx.marked_content_element_warnings[MCID] = warnings
+        end
         text = text or table.concat(ctx.text_buffer)
         local MCID = type(props) == 'table' and props.MCID[2] or props.MCID
         ctx.marked_content_elements[MCID] = text
       end
       if text and outer_text_buffer then
         outer_text_buffer[#outer_text_buffer + 1] = text
+        table.move(warnings, 1, #warnings, #outer_warnings + 1, outer_warnings)
       end
     end
     for k, v in next, top do
@@ -216,8 +237,10 @@ return function(stream, resources)
     marked_stack = {},
     artifact = false,
     text_buffer = false,
+    warnings = false,
     -- current_font = nil,
     marked_content_elements = {},
+    marked_content_element_warnings = {},
   }
   if pdfe.type(stream) == 'pdfe.array' then
     local arr = {}
@@ -234,5 +257,5 @@ return function(stream, resources)
     io.stderr:write("\n\n" ..tostring(e))
     io.stderr:write("\nError parsing marked content stream, returning empty marked content\n\n")
   end
-  return ctx.marked_content_elements
+  return ctx.marked_content_elements, ctx.marked_content_element_warnings
 end

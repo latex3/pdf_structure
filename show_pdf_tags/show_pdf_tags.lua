@@ -65,15 +65,18 @@ local function with_warnings(result)
   end
 end
 
+local warnings_key = {} -- Just a marker, always empty
 local function convert_mc(ctx, mcid, page, stream_id, stream, owner)
   local stream_or_page_id = stream_id or page
   local pageno = ctx.pagenos[page]
   local stream_data = ctx.streams[stream_or_page_id]
   if stream_or_page_id and not ctx.streams[stream_or_page_id] then
-    stream_data = process_stream(
+    local warnings
+    stream_data, warnings = process_stream(
       stream or ctx.document.Pages[ctx.pagenos[page]].Contents,
       stream and stream.Resources or ctx.document.Pages[ctx.pagenos[page]].Resources
     )
+    stream_data[warnings_key] = warnings
     ctx.streams[stream_or_page_id] = stream_data
   end
   return with_warnings {
@@ -87,6 +90,12 @@ local function convert_mc(ctx, mcid, page, stream_id, stream, owner)
     warn(page and not pageno, 'Page referenced in marked content referene does not exist')
     warn(not stream_data, 'No stream referenced in marked content reference')
     warn(stream_data and not stream_data[mcid], 'Referenced marked content sequence not found')
+    local warnings = stream_data and stream_data[warnings_key][mcid]
+    if warnings then
+      for _, warning in ipairs(warnings) do
+        warn(false, warning)
+      end
+    end
   end)
 end
 
@@ -104,13 +113,13 @@ local default_namespace = 'http://iso.org/pdf/ssn'
 -- this prefix to be confirmed, another possibility would be data:,
 local owner_prefix = 'http://iso.org/pdf/ssn/'
 
-local function get_string(container, index)
+local function get_string(container, index, warnings)
   local text = pdfe.getstring(container, index, true)
   if text then
     local u = text_string_to_utf8:match(text)
     if u == nil then
-    io.stderr:write("UTF8 conversion failure\n")
-    u="??"
+      warnings[#warnings + 1] = warning
+      return "??"
     end
     return u
   else
@@ -118,7 +127,7 @@ local function get_string(container, index)
   end
 end
 
-local function pdf2lua(container, index, t, v, x)
+local function pdf2lua(container, index, t, v, x, warnings)
   local saved = {}
   local function recurse(container, index, t, v, x)
     if t == 10 then
@@ -136,7 +145,7 @@ local function pdf2lua(container, index, t, v, x)
     elseif t < 6 then
       return v
     elseif t == 6 then
-      return get_string(container, index)
+      return get_string(container, index, warnings)
     elseif t == 7 then
       local arr = {}
       for i=1, #v do
@@ -154,7 +163,7 @@ local function pdf2lua(container, index, t, v, x)
       assert(false, 'Streams are not handled at the moment')
     end
   end
-  return recurse(container, index, t, v, x)
+  return recurse(container, index, t, v, x), warnings[0] and warnings
 end
 
 local function convert_attributes(ctx, attrs, classes)
@@ -176,7 +185,11 @@ local function convert_attributes(ctx, attrs, classes)
     for i = 1, #attr do
       local key, t, v, extra = pdfe.getfromdictionary(attr, i)
       if key ~= 'O' and key ~= 'NS' then
-        owner_dict[key] = pdf2lua(attr, key, t, v, extra)
+        local warnings = ctx.warnings[false] or {}
+        owner_dict[key] = pdf2lua(attr, key, t, v, extra, warnings)
+        if warnings[1] then
+          ctx.warnings[false] = warnings
+        end
       end
     end
   end
@@ -225,20 +238,24 @@ local function convert(ctx, elem, id, page)
   local ns = elem.NS
   local role_mapped_s, role_mapped_ns
   ns = ns and ns.NS or default_namespace
+  local warnings = {}
   local obj = {
     subtype = ctx.type_maps[elem.NS and tostring(elem.NS) or false][elem.S],
     attributes = convert_attributes(ctx, elem.A, elem.C),
-    title = get_string(elem, 'T'),
-    lang = get_string(elem, 'Lang'),
-    alt = get_string(elem, 'Alt'),
-    expanded = get_string(elem, 'E'),
-    actual_text = get_string(elem, 'ActualText'),
+    title = get_string(elem, 'T', warnings),
+    lang = get_string(elem, 'Lang', warnings),
+    alt = get_string(elem, 'Alt', warnings),
+    expanded = get_string(elem, 'E', warnings),
+    actual_text = get_string(elem, 'ActualText', warnings),
     associated_files = elem.AF,
-    id = get_string(elem, 'ID'),
-    phoneme = get_string(elem, 'Phoneme'),
-    phonetic_alphabet = get_string(elem, 'PhoneticAlphabet'),
+    id = get_string(elem, 'ID', warnings),
+    phoneme = get_string(elem, 'Phoneme', warnings),
+    phonetic_alphabet = get_string(elem, 'PhoneticAlphabet', warnings),
     kids = convert_kids(ctx, elem),
   }
+  if warnings[1] then
+    ctx.warnings[obj] = warnings
+  end
   ctx.id_map[id] = obj
   local elem_ref = elem.Ref
   if elem_ref and #elem_ref > 0 then
@@ -521,10 +538,16 @@ end
 
 
 
-local function print_tree_xml(tree)
+local function print_tree_xml(tree, ctx)
   local referenced = mark_references(tree)
   local function recurse(objs, indent)
     for i, obj in ipairs(objs) do
+      local warnings = ctx.warnings[obj]
+      if warnings then
+        for _, warning in ipairs(warnings) do
+          print(string.format('%s<!-- %s -->', indent, warning))
+        end
+      end
       if obj.type == 'MCR' then
         print(string.format('%s<?MarkedContent page="%i" ?>%s', indent, obj.page or -1, (obj.content and obj.content:gsub('&','&amp;'):gsub('<','&lt;'):gsub('\0','[NULL]'):gsub('[\1-\8\11\12\14-\31]','[CTRL]'):gsub('�.*','[TEXT]') or "[missing]")))
       elseif obj.type == 'OBJR' then
@@ -570,19 +593,23 @@ local function print_tree_xml(tree)
         end
         if obj.associated_files then
 	  local f = {}
+	  local warnings = {}
 	  for i, file in ipairs(obj.associated_files) do
             if file.EF.F then
-	      f[#f+1] = get_string(file, "UF") 
+	      f[#f+1] = get_string(file, "UF", warnings) 
             end
+	  end
+	  for _, warning in ipairs(warnings) do
+            io.stderr:write('Warning while processing associated files: ' .. warning .. '\n')
 	  end
           lines[#lines + 1] = ' af="' .. table.concat(f, ' ') .. '"'
         end
         if obj.attributes then
 	  for k,v in ordered_pairs(obj.attributes) do
-           local attrns=""
-	   if k~=subtype.namespace then
-	     attrns = k:gsub('.*/','')
-	   end
+            local attrns=""
+	    if k~=subtype.namespace then
+	      attrns = k:gsub('.*/','')
+	    end
             if type(v) == "table" then
 	      if attrns ~= "" then
                 lines[#lines +1] = ' xmlns:' .. attrns .. '="' .. k .. '"'
@@ -651,7 +678,7 @@ local function print_tree_xml(tree)
   if #tree == 1 then
     return recurse(tree, '', '', '', '')
   else
-    io.stderr:write("\nMultiple document elements\n")
+    print"<!-- Warning: Multiple document elements -->"
     print ("<Document>")
     recurse(tree, '  ', '', '', '')
     print ("</Document>")
@@ -715,7 +742,7 @@ if out_format=="tree" then
   print_tree(struct, ctx)
 else
   if out_format=="xml" then
-    print_tree_xml(struct, '')
+    print_tree_xml(struct, ctx)
   else
     print(require'inspect'(struct))
   end

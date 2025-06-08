@@ -93,7 +93,7 @@ local function convert_mc(ctx, mcid, page, stream_id, stream, owner)
     local warnings = stream_data and stream_data[warnings_key][mcid]
     if warnings then
       for _, warning in ipairs(warnings) do
-        warn(false, warning)
+        warn(true, warning)
       end
     end
   end)

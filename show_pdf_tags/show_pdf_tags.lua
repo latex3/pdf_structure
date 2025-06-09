@@ -1,6 +1,6 @@
 #!/usr/bin/env texlua
 
-local show_pdf_tags_version = "0.1"
+local show_pdf_tags_version = "1.0"
 
 local mypath = string.match(debug.getinfo(1, 'S').source, '@(.*)[/\\][^/\\]+')
 if mypath then

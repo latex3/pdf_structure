@@ -1,12 +1,12 @@
 # Print structure element hierarchy for Tagged PDF
 
-Mostly intended for development purposes. Requires LuaTeX (or at least texlua) to be installed.
+Print a plain text or XML tree representing the structure of tagged PDF files.
 
 Usage:
 
     texlua ./show_pdf_tags.lua <options> <filename>.pdf
 
-The tree output format is documented in ./format.pdf.
+The tree output format is documented in ./show_pdf_tags-format.pdf.
 
 The XML format shows (mostly) the same information and may be validated with
 the RelaxNG schema at [latex3/tagging-project](https://github.com/latex3/tagging-project/blob/namespace/project-examples/scripts/latex-document.rnc)
@@ -24,5 +24,5 @@ Options
   --w3c-           Add - to w3c namespaces to force browser tree display
 ```
 
-License: LPPLv1.3c
+License: MIT License
 by the LaTeX Project Team

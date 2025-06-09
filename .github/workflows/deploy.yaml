@@ -4,7 +4,7 @@ name: Deployment
 on:
   # Only triggers for new tags
   push:
-    # tags: "*"
+    tags: "*"
     branches: '*'
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
       - name: Collect files
         run: |
           mkdir -p ctan/show_pdf_tags
-          cp RelaxNG/*.{rnc,rng} show_pdf_tags/{README.md,show_pdf_tags*} ctan/show_pdf_tags
+          cp LICENSE RelaxNG/*.{rnc,rng} show_pdf_tags/{README.md,show_pdf_tags*} ctan/show_pdf_tags
           cd ctan
           zip -r show_pdf_tags.zip show_pdf_tags
       - name: Upload package artifact
@@ -36,7 +36,7 @@ jobs:
           dry-run: true
 
   github:
-    if: 'false'
+    if: startsWith(github.event.ref, 'refs/tags/')
     runs-on: ubuntu-22.04
     needs:
       - l3build
@@ -57,8 +57,7 @@ jobs:
       # when a release has been created.
 
   ctan-upload:
-    if: 'false'
-    # if: "${{ !endsWith(github.ref, '-dev') }}"
+    if: "startsWith(github.event.ref, 'refs/tags/') && !endsWith(github.ref, '-dev')"
     runs-on: ubuntu-22.04
     environment: CTAN
     needs:

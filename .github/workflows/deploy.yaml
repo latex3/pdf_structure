@@ -10,7 +10,7 @@ on:
 jobs:
   # Mostly the same as the main.yaml workflow, but we only use a single job
   l3build:
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     steps:
       # Boilerplate
       - name: Checkout repository
@@ -37,7 +37,7 @@ jobs:
 
   github:
     if: startsWith(github.event.ref, 'refs/tags/')
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     needs:
       - l3build
     permissions:
@@ -60,7 +60,7 @@ jobs:
 
   ctan-upload:
     if: "startsWith(github.event.ref, 'refs/tags/') && !endsWith(github.ref, '-dev')"
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     environment: CTAN
     needs:
       - l3build

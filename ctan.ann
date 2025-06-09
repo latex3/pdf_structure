@@ -1,4 +1,4 @@
-show_pdf_tags provides a tool to make the structure of tagged PDF files visible.
+show-pdf-tags provides a tool to make the structure of tagged PDF files visible.
 It parses a PDF files and extracts most tagging related information to turn it into
 either a visual tree structure or a XML document representing the tags.
 

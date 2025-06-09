@@ -17,10 +17,10 @@ jobs:
         uses: actions/checkout@v4
       - name: Collect files
         run: |
-          mkdir -p ctan/show_pdf_tags
-          cp LICENSE RelaxNG/*.{rnc,rng} show_pdf_tags/{README.md,show_pdf_tags*} ctan/show_pdf_tags
+          mkdir -p ctan/show-pdf-tags
+          cp LICENSE RelaxNG/*.{rnc,rng} show-pdf-tags/{README.md,show-pdf-tags*} ctan/show-pdf-tags
           cd ctan
-          zip -r show_pdf_tags.zip show_pdf_tags
+          zip -r show-pdf-tags.zip show-pdf-tags
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
@@ -32,7 +32,7 @@ jobs:
         with:
           uploader: Dummy Name
           email: dryrun@example.com
-          filename: "ctan/show_pdf_tags.zip"
+          filename: "ctan/show-pdf-tags.zip"
           dry-run: true
 
   github:
@@ -51,7 +51,7 @@ jobs:
         uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5
         id: release
         with:
-          artifacts: "ctan/show_pdf_tags.zip"
+          artifacts: "ctan/show-pdf-tags.zip"
           prerelease: ${{ endsWith(github.ref, '-dev') }}
           token: ${{ secrets.GITHUB_TOKEN }}
           # bodyFile: ctan.ann
@@ -78,5 +78,5 @@ jobs:
         with:
           uploader: ${{ secrets.CTAN_NAME }}
           email: ${{ secrets.CTAN_EMAIL }}
-          filename: "ctan/show_pdf_tags.zip"
+          filename: "ctan/show-pdf-tags.zip"
           dry-run: false

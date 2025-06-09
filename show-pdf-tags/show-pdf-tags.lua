@@ -12,8 +12,8 @@ local follow_rolemap = false
 local hide_w3c = false
 
 local pdfe = pdfe or require'pdfe'
-local process_stream = require'show_pdf_tags-process_stream'
-local text_string_to_utf8 = require'show_pdf_tags-decode'.text_string_to_utf8
+local process_stream = require'show-pdf-tags_process_stream'
+local text_string_to_utf8 = require'show-pdf-tags_decode'.text_string_to_utf8
 
 local function ordered_pairs(t)
   local keys = {}
@@ -717,7 +717,7 @@ while argi <= #arg and arg[argi]:match("^%-") do
     io.stderr:write(string.format(helpstr, arg[0]))
     return
   elseif arg[argi] == "--version" or arg[argi] == "-v" then
-    io.stderr:write(string.format("show_pdf_tags version: %s\n", show_pdf_tags_version))
+    io.stderr:write(string.format("show-pdf-tags version: %s\n", show_pdf_tags_version))
     return
   else
     io.stderr:write(string.format('Unknown option: %s\n', arg[argi]))

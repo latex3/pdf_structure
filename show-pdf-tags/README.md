@@ -4,9 +4,9 @@ Print a plain text or XML tree representing the structure of tagged PDF files.
 
 Usage:
 
-    texlua ./show_pdf_tags.lua <options> <filename>.pdf
+    texlua ./show-pdf-tags.lua <options> <filename>.pdf
 
-The tree output format is documented in ./show_pdf_tags-format.pdf.
+The tree output format is documented in ./show-pdf-tags-format.pdf.
 
 The XML format shows (mostly) the same information and may be validated with
 the RelaxNG schema at [latex3/tagging-project](https://github.com/latex3/tagging-project/blob/namespace/project-examples/scripts/latex-document.rnc)

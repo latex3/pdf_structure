@@ -19,14 +19,14 @@ runs:
     - name: Send to CTAN
       uses: zauguin/ctan-upload@v0.1
       with:
-        package-name: show_pdf_tags
+        package-name: show-pdf-tags
         version: ${{ inputs.version }}
         author: "Marcel Krüger, David Carlisle, LaTeX Project Team"
         uploader: ${{ inputs.uploader }}
         email: ${{ inputs.email }}
         license: mit
         summary: "Extract PDF tags from tagged PDF files"
-        ctan-path: /support/show_pdf_tags
+        ctan-path: /support/show-pdf-tags
         support: https://github.com/latex3/pdf_structure/issues
         update: false
         topic: pdf-feat,pdf-view

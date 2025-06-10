@@ -1,6 +1,8 @@
 #!/usr/bin/env texlua
 
-local show_pdf_tags_version = "1.0"
+local show_pdf_tags_version = "1.1"
+
+kpse.set_program_name'lualatex'
 
 local mypath = string.match(debug.getinfo(1, 'S').source, '@(.*)[/\\][^/\\]+')
 if mypath then

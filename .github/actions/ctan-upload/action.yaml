@@ -35,4 +35,8 @@ runs:
         filename: ${{ inputs.filename }}
         dry-run: ${{ inputs.dry-run }}
         announcement-filename: ctan.ann
-        note: Uploaded automatically by GitHub Actions...
+        note: |
+          This is bug-fix reupload for the not yet processed initial upload (version v1.0), making it work better with TeX Live.
+          Since updates are rejected for not yet existing packages I had to mark it as an initial upload again.
+          Since the previous version was not processed yet I included the same announcement again. Of course I would prefer it
+          to only be announced once if possible.

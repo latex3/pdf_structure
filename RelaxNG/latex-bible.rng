@@ -3,7 +3,7 @@
   <include href="latex-document.rng">
     <a:documentation>PDF/UA-2</a:documentation>
   </include>
-  <!-- LaTeX Bible Markup Namepace -->
+  <!-- LaTeX Bible Markup Namespace -->
   <define name="Sect" combine="choice">
     <element name="latexSEbible:Frontmatter">
       <ref name="showtags-attributes"/>

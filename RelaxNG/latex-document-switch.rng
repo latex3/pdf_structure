@@ -12,8 +12,8 @@
   <define name="ua1play">
     <externalRef href="latex-play17.rng"/>
   </define>
-  <define name="xbeamer">
-    <externalRef href="latex-xbeamer.rng"/>
+  <define name="talk">
+    <externalRef href="ltx-talk.rng"/>
   </define>
   <start>
     <choice>
@@ -21,7 +21,7 @@
       <ref name="ua1"/>
       <ref name="ua2play"/>
       <ref name="ua1play"/>
-      <ref name="xbeamer"/>
+      <ref name="talk"/>
     </choice>
   </start>
 </grammar>

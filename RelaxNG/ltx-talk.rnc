@@ -1,28 +1,28 @@
 
 namespace latexSE = "https://www.latex-project.org/ns/dflt"
-namespace latexSExbeamer = "https://www.latex-project.org/ns/local/xbeamer"
+namespace latexSEtalk = "https://www.latex-project.org/ns/local/talk"
 
 ## PDF/UA-2
 
 include "latex-document.rnc"
 
-# LaTeX Xbeamer Markup Namepace
+# LaTeX Talk Markup Namespace
 
   
-Sect |= element latexSExbeamer:frame {
+Sect |= element latexSEtalk:frame {
   pdf2-attributes,
   attribute rolemaps-to {"Sect"},
   frametitle?,slide*}
 
 
 
-frametitle = element latexSExbeamer:frametitle {
+frametitle = element latexSEtalk:frametitle {
   pdf2-attributes,
   attribute rolemaps-to {"H1"},
   (text|Span)*
 }
 
-slide = element latexSExbeamer:slide {
+slide = element latexSEtalk:slide {
   pdf2-attributes,
   attribute rolemaps-to {"Div"},
   (text|text-unit)*

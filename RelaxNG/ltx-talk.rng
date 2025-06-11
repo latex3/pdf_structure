@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:latexSEtalk="https://www.latex-project.org/ns/local/talk" xmlns:latexSE="https://www.latex-project.org/ns/dflt" xmlns="http://relaxng.org/ns/structure/1.0">
+  <include href="latex-document.rng">
+    <a:documentation>PDF/UA-2</a:documentation>
+  </include>
+  <!-- LaTeX Talk Markup Namespace -->
+  <define name="Sect" combine="choice">
+    <element name="latexSEtalk:frame">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <optional>
+        <ref name="frametitle"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="slide"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="frametitle">
+    <element name="latexSEtalk:frametitle">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H1</value>
+      </attribute>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="Span"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="slide">
+    <element name="latexSEtalk:slide">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-unit"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+</grammar>

@@ -6,7 +6,7 @@ namespace latexSEbible = ""
 
 include "latex-document17.rnc"
 
-# LaTeX Bible Markup Namepace
+# LaTeX Bible Markup Namespace
 
 Sect |= element latexSEbible:Frontmatter {
   showtags-attributes,

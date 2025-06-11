@@ -3,7 +3,7 @@
   <include href="latex-document17.rng">
     <a:documentation>PDF/UA-1</a:documentation>
   </include>
-  <!-- LaTeX Bible Markup Namepace -->
+  <!-- LaTeX Bible Markup Namespace -->
   <define name="Sect" combine="choice">
     <element>
       <name ns="">Frontmatter</name>

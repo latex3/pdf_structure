@@ -28,15 +28,11 @@ runs:
         summary: "Extract PDF tags from tagged PDF files"
         ctan-path: /support/show-pdf-tags
         support: https://github.com/latex3/pdf_structure/issues
-        update: false
+        update: true
         topic: pdf-feat,pdf-view
         description: |
           Extract PDF tags from tagged PDF files as tree structure and represent it as XML or console art.
         filename: ${{ inputs.filename }}
         dry-run: ${{ inputs.dry-run }}
         announcement-filename: ctan.ann
-        note: |
-          This is bug-fix reupload for the not yet processed initial upload (version v1.0), making it work better with TeX Live.
-          Since updates are rejected for not yet existing packages I had to mark it as an initial upload again.
-          Since the previous version was not processed yet I included the same announcement again. Of course I would prefer it
-          to only be announced once if possible.
+        note: Uploaded by GitHub Actions.

@@ -258,7 +258,9 @@ local function convert(ctx, elem, id, page)
   if warnings[1] then
     ctx.warnings[obj] = warnings
   end
-  ctx.id_map[id] = obj
+  if id then
+    ctx.id_map[id] = obj
+  end
   local elem_ref = elem.Ref
   if elem_ref and #elem_ref > 0 then
     local ref = {}

@@ -648,6 +648,19 @@ local function print_tree_xml(tree, ctx)
           lines[#lines + 1] = ' referenced-as="' .. referenced[obj] .. '"'
         end
 	lines[#lines+1] = ">"
+--
+        if obj.associated_files then
+	  local f = {}
+	  local warnings = {}
+	  for i, file in ipairs(obj.associated_files) do
+            if file.EF.F then
+          lines[#lines + 1] = '<AssociatedFile name="' .. get_string(file, "UF", warnings) .. '" xmlns="">'
+          lines[#lines + 1] = pdfe.readwholestream(file.EF.F, true)
+          lines[#lines + 1] = '</AssociatedFile>'
+            end
+	  end
+        end
+--
         if obj.ref then
           local refs = {}
           for i, r in ipairs(obj.ref) do
@@ -679,15 +692,10 @@ local function print_tree_xml(tree, ctx)
       end
     end
   end
-  if #tree == 1 then
-    return recurse(tree, '', '', '', '')
-  else
-    print"<!-- Warning: Multiple document elements -->"
-    print ("<Document>")
-    recurse(tree, '  ', '', '', '')
-    print ("</Document>")
-    return
-  end
+  print ("<PDF>\n <StructTreeRoot>")
+  recurse(tree, '  ', '', '', ' ')
+  print (" </StructTreeRoot>\n</PDF>")
+  return
 end
 
 

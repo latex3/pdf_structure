@@ -14,8 +14,22 @@ namespace Artifact = "http://iso.org/pdf/ssn/Artifact"
 # XHTML Namespace, not currently used
 namespace h = "http://www.w3.org/1999/xhtml"
 
+# slightly modified MathML-Core schema.
+include "latex-mathml.rnc" {start |= notAllowed}
+
+# Extensions
+
+## MathML Namespace (temp actualtext moved to content element in new code)
+mo.attributes &= attribute actualtext {text}?
+
+
+mpadded-length-percentage |= xsd:string {
+  pattern = '\s*(([\-+]?[0-9]*([0-9]\.?|\.[0-9])[0-9]*(r?em|ex|in|cm|mm|p[xtc]|Q|v[hw]|vmin|vmax|%))|0)\s*'
+}
+
+
 # No MathML Structure Elements
-math = notAllowed
+mathse = notAllowed
 
 # Attributes When Rolemaps are needed for PDF2  elements used in PDF1
 pdf1rolemap-Any = attribute rolemaps-to {text}
@@ -24,11 +38,18 @@ pdf1rolemap-Span = attribute rolemaps-to {"Span"}
 pdf1rolemap-Note = attribute rolemaps-to {"Note"}
 
 # UA-1 does not force a single document element.
-start = Document|DocumentFragment|Part|Art|Div|Sect|TOC|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|H|Title|Link|Annot|Form|FENote|Index|L|Table|Figure|Formula|Artifact
+start = PDF
+
+PDF = element NoNS:PDF {StructTreeRoot}
+StructTreeRoot = element NoNS:StructTreeRoot {( Document|DocumentFragment|Part|Art|Div|Sect|TOC|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|H|Title|Link|Annot|Form|FENote|Index|L|Table|Figure|Formula|Artifact)*}
+AssociatedFile = element NoNS:AssociatedFile {
+attribute name {text},
+(text|math)
+}
 
 ## share with pdf1.7 version from here to end
 
-textorHTML &= (Link|Reference|Strong|Code|Em|Lbl|Span|math|Quote|RB|Annot|Figure|Form)*
+textorHTML &= (Link|Reference|Strong|Code|Em|Lbl|Span|mathse|Quote|RB|Annot|Figure|Form)*
 
 
 ### PDF structure Namespace
@@ -42,8 +63,9 @@ pdf2-attributes =
 showtags-attributes =
   attribute af {text}?,
   attribute rolemapped-from {text}?,
-  attribute referenced-as {text}?
-
+  attribute referenced-as {text}?,
+  AssociatedFile*
+  
 # Standard Attribute Owner Namespaces (such as CSS3, HTML-5.00) apart from the ones listed here
 # and also vendor-specific namespaced attributes are allowed with any name/value.
 otherns-attributes =
@@ -239,7 +261,7 @@ Sub = element pdf2:Sub	 {
 Lbl = element pdf2:Lbl {
   pdf2-attributes,
   (text|NonStruct|Private|Note|Code|Sub|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|BibEntry|Figure|Formula|Artifact|
-math)*
+mathse)*
    }
 
 
@@ -265,10 +287,10 @@ Link = element pdf2:Link {
 pdf2-attributes,
 (
 (DocumentFragment|Part|Art|Div|Sect|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|H|Title|Sub|Lbl|Annot|Form|Ruby|Warichu|FENote|L|BibEntry|Table|Caption|Figure|Formula|Artifact|
-math)* # Grouping
+mathse)* # Grouping
 |
 (text|Art|Div|Sect|NonStruct|Private|Note|Code|Sub|Lbl|Em|Strong|Span|Quote|Reference|Annot|Ruby|Warichu|FENote|BibEntry|Table|Figure|Formula|Artifact|
-math)* # 
+mathse)* # 
 )
 }
 
@@ -476,7 +498,7 @@ Formula = element pdf2:Formula {
   attribute Layout:Width {text}?,
   attribute Layout:Height {text}?,
 (H? & Caption? & (text|Part|Div|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Sub|Lbl|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|Index|L|BibEntry|Table|Figure|Formula|Artifact|
-math)*)
+mathse)*)
 }
 
 ### Artifact

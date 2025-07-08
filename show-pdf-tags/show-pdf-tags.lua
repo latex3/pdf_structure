@@ -168,14 +168,14 @@ local function pdf2lua(container, index, t, v, x, warnings)
   return recurse(container, index, t, v, x), warnings[0] and warnings
 end
 
-local function convert_attributes(ctx, attrs, classes)
+local function convert_attributes(ctx, attrs, classes, warnings)
   if not classes and not attrs then return end
   local attributes = {}
   local function apply_attr(attr)
     local owner = assert(attr.O)
     if owner == 'NSO' then
       -- avoid error if  no-namespace attributes to be modelled by missing NS field
-      owner = (attr.NS and attr.NS.NS) or "" 
+      owner = (attr.NS and get_string(attr.NS, 'NS', warnings)) or "" 
     else
       owner = owner_prefix .. owner
     end
@@ -187,11 +187,7 @@ local function convert_attributes(ctx, attrs, classes)
     for i = 1, #attr do
       local key, t, v, extra = pdfe.getfromdictionary(attr, i)
       if key ~= 'O' and key ~= 'NS' then
-        local warnings = ctx.warnings[false] or {}
         owner_dict[key] = pdf2lua(attr, key, t, v, extra, warnings)
-        if warnings[1] then
-          ctx.warnings[false] = warnings
-        end
       end
     end
   end
@@ -237,13 +233,13 @@ local function convert(ctx, elem, id, page)
   elseif elem.Type == 'OBJR' then
     return convert_objr(ctx, elem, get_page(elem) or page)
   end
+  local warnings = {}
   local ns = elem.NS
   local role_mapped_s, role_mapped_ns
-  ns = ns and ns.NS or default_namespace
-  local warnings = {}
+  ns = ns and get_string(ns, 'NS', warnings) or default_namespace
   local obj = {
     subtype = ctx.type_maps[elem.NS and tostring(elem.NS) or false][elem.S],
-    attributes = convert_attributes(ctx, elem.A, elem.C),
+    attributes = convert_attributes(ctx, elem.A, elem.C, warnings),
     title = get_string(elem, 'T', warnings),
     lang = get_string(elem, 'Lang', warnings),
     alt = get_string(elem, 'Alt', warnings),
@@ -341,6 +337,8 @@ local function open(filename)
     return {}, ctx
   end
   local type_maps = {}
+  ctx.warnings = setmetatable({}, {__mode = 'k'})
+  local global_warnings = {}
   do
     local namespaces = structroot.Namespaces
     for i=0, namespaces and #namespaces or 0 do
@@ -350,7 +348,7 @@ local function open(filename)
         role_map = structroot.RoleMap
       else
         local namespace = namespaces[i]
-        ns = namespace.NS
+        ns = get_string(namespace, 'NS', global_warnings)
         ns_key = tostring(namespace)
         role_map = namespace.RoleMapNS
       end
@@ -367,9 +365,9 @@ local function open(filename)
       end})
     end
   end
+  if global_warnings[1] then warnings[false] = global_warnings end
   ctx.type_maps = type_maps
   ctx.ClassMap = structroot.ClassMap
-  ctx.warnings = setmetatable({}, {__mode = 'k'})
   local elements = convert_kids(ctx, structroot)
   ctx.ClassMap = nil
 

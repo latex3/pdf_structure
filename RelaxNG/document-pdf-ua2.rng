@@ -93,6 +93,9 @@
       </choice>
     </zeroOrMore>
   </define>
+  <define name="MathMLPGlobalAttributes" combine="interleave">
+    <ref name="showtags-attributes"/>
+  </define>
   <define name="pdf2-attributes">
     <a:documentation>PDF structure Namespace</a:documentation>
     <ref name="structure-properties"/>
@@ -2171,7 +2174,9 @@
         <optional>
           <ref name="H"/>
         </optional>
-        <ref name="Caption"/>
+        <optional>
+          <ref name="Caption"/>
+        </optional>
         <zeroOrMore>
           <choice>
             <text/>

@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- These Namespaces to be confirmed. "data:,Layout" would be another possibility -->
 <!-- XHTML Namespace, not currently used -->
-<grammar ns="http://iso.org/pdf/ssn/Artifact" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:Table="http://iso.org/pdf/ssn/Table" xmlns:Layout="http://iso.org/pdf/ssn/Layout" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:List="http://iso.org/pdf/ssn/List" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:PrintField="http://iso.org/pdf/ssn/PrintField" xmlns:Artifact="http://iso.org/pdf/ssn/Artifact" xmlns="http://relaxng.org/ns/structure/1.0">
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:Table="http://iso.org/pdf/ssn/Table" xmlns:Layout="http://iso.org/pdf/ssn/Layout" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:List="http://iso.org/pdf/ssn/List" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:PrintField="http://iso.org/pdf/ssn/PrintField" xmlns:Artifact="http://iso.org/pdf/ssn/Artifact" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <!-- slightly modified MathML-Core schema. -->
+  <include href="latex-mathml.rng">
+    <start combine="choice">
+      <notAllowed/>
+    </start>
+  </include>
+  <!-- Extensions -->
+  <define name="mo.attributes" combine="interleave">
+    <a:documentation>MathML Namespace (temp actualtext moved to content element in new code)</a:documentation>
+    <optional>
+      <attribute name="actualtext"/>
+    </optional>
+  </define>
+  <define name="mpadded-length-percentage" combine="choice">
+    <data type="string">
+      <param name="pattern">\s*(([\-+]?[0-9]*([0-9]\.?|\.[0-9])[0-9]*(r?em|ex|in|cm|mm|p[xtc]|Q|v[hw]|vmin|vmax|%))|0)\s*</param>
+    </data>
+  </define>
   <!-- No MathML Structure Elements -->
-  <define name="math">
+  <define name="mathse">
     <notAllowed/>
   </define>
   <!-- Attributes When Rolemaps are needed for PDF2  elements used in PDF1 -->
@@ -27,36 +45,60 @@
   </define>
   <!-- UA-1 does not force a single document element. -->
   <start>
-    <choice>
-      <ref name="Document"/>
-      <ref name="DocumentFragment"/>
-      <ref name="Part"/>
-      <ref name="Art"/>
-      <ref name="Div"/>
-      <ref name="Sect"/>
-      <ref name="TOC"/>
-      <ref name="Aside"/>
-      <ref name="BlockQuote"/>
-      <ref name="NonStruct"/>
-      <ref name="Private"/>
-      <ref name="P"/>
-      <ref name="Note"/>
-      <ref name="Code"/>
-      <ref name="Hn"/>
-      <ref name="H"/>
-      <ref name="Title"/>
-      <ref name="Link"/>
-      <ref name="Annot"/>
-      <ref name="Form"/>
-      <ref name="FENote"/>
-      <ref name="Index"/>
-      <ref name="L"/>
-      <ref name="Table"/>
-      <ref name="Figure"/>
-      <ref name="Formula"/>
-      <ref name="Artifact"/>
-    </choice>
+    <ref name="PDF"/>
   </start>
+  <define name="PDF">
+    <element>
+      <name ns="">PDF</name>
+      <ref name="StructTreeRoot"/>
+    </element>
+  </define>
+  <define name="StructTreeRoot">
+    <element>
+      <name ns="">StructTreeRoot</name>
+      <zeroOrMore>
+        <choice>
+          <ref name="Document"/>
+          <ref name="DocumentFragment"/>
+          <ref name="Part"/>
+          <ref name="Art"/>
+          <ref name="Div"/>
+          <ref name="Sect"/>
+          <ref name="TOC"/>
+          <ref name="Aside"/>
+          <ref name="BlockQuote"/>
+          <ref name="NonStruct"/>
+          <ref name="Private"/>
+          <ref name="P"/>
+          <ref name="Note"/>
+          <ref name="Code"/>
+          <ref name="Hn"/>
+          <ref name="H"/>
+          <ref name="Title"/>
+          <ref name="Link"/>
+          <ref name="Annot"/>
+          <ref name="Form"/>
+          <ref name="FENote"/>
+          <ref name="Index"/>
+          <ref name="L"/>
+          <ref name="Table"/>
+          <ref name="Figure"/>
+          <ref name="Formula"/>
+          <ref name="Artifact"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="AssociatedFile">
+    <element>
+      <name ns="">AssociatedFile</name>
+      <attribute name="name"/>
+      <choice>
+        <text/>
+        <ref name="math"/>
+      </choice>
+    </element>
+  </define>
   <define name="textorHTML" combine="interleave">
     <a:documentation>share with pdf1.7 version from here to end</a:documentation>
     <zeroOrMore>
@@ -68,7 +110,7 @@
         <ref name="Em"/>
         <ref name="Lbl"/>
         <ref name="Span"/>
-        <ref name="math"/>
+        <ref name="mathse"/>
         <ref name="Quote"/>
         <ref name="RB"/>
         <ref name="Annot"/>
@@ -76,6 +118,9 @@
         <ref name="Form"/>
       </choice>
     </zeroOrMore>
+  </define>
+  <define name="MathMLPGlobalAttributes" combine="interleave">
+    <ref name="showtags-attributes"/>
   </define>
   <define name="pdf2-attributes">
     <a:documentation>PDF structure Namespace</a:documentation>
@@ -94,6 +139,9 @@
     <optional>
       <attribute name="referenced-as"/>
     </optional>
+    <zeroOrMore>
+      <ref name="AssociatedFile"/>
+    </zeroOrMore>
   </define>
   <!--
     Standard Attribute Owner Namespaces (such as CSS3, HTML-5.00) apart from the ones listed here
@@ -109,7 +157,7 @@
             <nsName ns="http://iso.org/pdf/ssn/PrintField"/>
             <nsName ns="http://iso.org/pdf/ssn/Table"/>
             <nsName ns="http://iso.org/pdf/ssn/List"/>
-            <nsName/>
+            <nsName ns="http://iso.org/pdf/ssn/Artifact"/>
           </except>
         </anyName>
       </attribute>
@@ -985,7 +1033,7 @@
           <ref name="Figure"/>
           <ref name="Formula"/>
           <ref name="Artifact"/>
-          <ref name="math"/>
+          <ref name="mathse"/>
         </choice>
       </zeroOrMore>
     </element>
@@ -1124,7 +1172,7 @@
             <ref name="Figure"/>
             <ref name="Formula"/>
             <ref name="Artifact"/>
-            <ref name="math"/>
+            <ref name="mathse"/>
           </choice>
         </zeroOrMore>
         <zeroOrMore>
@@ -1154,7 +1202,7 @@
             <ref name="Figure"/>
             <ref name="Formula"/>
             <ref name="Artifact"/>
-            <ref name="math"/>
+            <ref name="mathse"/>
           </choice>
         </zeroOrMore>
       </choice>
@@ -2184,7 +2232,7 @@
             <ref name="Figure"/>
             <ref name="Formula"/>
             <ref name="Artifact"/>
-            <ref name="math"/>
+            <ref name="mathse"/>
           </choice>
         </zeroOrMore>
       </interleave>
@@ -2201,7 +2249,9 @@
         <optional>
           <ref name="H"/>
         </optional>
-        <ref name="Caption"/>
+        <optional>
+          <ref name="Caption"/>
+        </optional>
         <zeroOrMore>
           <choice>
             <text/>

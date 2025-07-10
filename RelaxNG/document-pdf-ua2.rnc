@@ -49,6 +49,7 @@ attribute name {text},
 
 textorHTML &= (Link|Reference|Strong|Code|Em|Lbl|Span|mathse|Quote|RB|Annot|Figure|Form)*
 
+MathMLPGlobalAttributes &= showtags-attributes
 
 ### PDF structure Namespace
 
@@ -505,7 +506,7 @@ Artifact = element pdf2:Artifact {
   pdf1rolemap-Any,
   pdf2-attributes,
   artifact-attributes,
-(H? & Caption & (text|Document|DocumentFragment|Part|Art|Div|Sect|TOC|TOCI|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Title|Sub|Lbl|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|RB|RT|RP|Warichu|WT|WP|FENote|Index|L|LI|LBody|BibEntry|Table|TR|TH|TD|THead|TBody|TFoot|Figure|Formula|Artifact)*)
+(H? & Caption? & (text|Document|DocumentFragment|Part|Art|Div|Sect|TOC|TOCI|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Title|Sub|Lbl|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|RB|RT|RP|Warichu|WT|WP|FENote|Index|L|LI|LBody|BibEntry|Table|TR|TH|TD|THead|TBody|TFoot|Figure|Formula|Artifact)*)
 }
 
 

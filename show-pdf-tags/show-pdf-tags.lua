@@ -1,6 +1,6 @@
 #!/usr/bin/env texlua
 
-local show_pdf_tags_version = "1.1"
+local show_pdf_tags_version = "1.2"
 
 kpse.set_program_name'lualatex'
 

@@ -417,7 +417,7 @@ local function format_subtype_xml(subtype)
     return string.format('<%s xmlns="%s"', subtype.subtype,
                   (hide_w3c and subtype.namespace:gsub('http://www.w3.org', 'http://-www.w3.org')) or subtype.namespace)
   else
-    return "<" .. subtype.subtype
+    return "<" .. subtype.subtype:gsub(":","_x3A_")
   end
 end
 
@@ -680,7 +680,7 @@ local function print_tree_xml(tree, ctx)
         if follow_rolemap and mapped then
 	  print(indent .. "</" .. mapped.subtype ..">")
 	else
-	  print(indent .. "</" .. subtype.subtype ..">")
+	  print(indent .. "</" .. subtype.subtype:gsub(":","_x3A_") ..">")
 	end
         elseif #lines > 0 then
           for i=1, #lines-1 do
@@ -690,7 +690,7 @@ local function print_tree_xml(tree, ctx)
           if follow_rolemap and mapped then
             print(indent .. "</" .. mapped.subtype ..">")
 	  else
-            print(indent .. "</" .. subtype.subtype ..">")
+            print(indent .. "</" .. subtype.subtype:gsub(":","_x3A_") ..">")
 	  end
         end
       end

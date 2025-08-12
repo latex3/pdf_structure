@@ -432,7 +432,6 @@ local function print_tree(tree, ctx)
           print('#  ' .. warning)
         end
       end
-      print(string.format('%sMarked content on page %i: %s', first_prefix, obj.page or -1, obj.content or ''))
       if i == #objs then first_prefix, prefix = last_first_prefix, last_prefix end
       if obj.type == 'MCR' then
         print(string.format('%sMarked content on page %i: %s', first_prefix, obj.page or -1, obj.content or ''))

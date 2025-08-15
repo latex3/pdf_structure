@@ -123,7 +123,7 @@ layout-attributes =
 
 
 list-attributes =
-  attribute List:ListNumbering {"" | "Unordered" | "Description" | "Disc" | "Circle" | "Square" | "Ordered" | "Decimal" | "UpperRoman" | "LowerRoman" | "UpperAlpha" | "LowerAlpha"}?,
+  attribute List:ListNumbering {"" | "None" | "Unordered" | "Description" | "Disc" | "Circle" | "Square" | "Ordered" | "Decimal" | "UpperRoman" | "LowerRoman" | "UpperAlpha" | "LowerAlpha"}?,
   attribute List:ContinuedList {text}?,
   attribute List:ContinuedFrom {text}?
 

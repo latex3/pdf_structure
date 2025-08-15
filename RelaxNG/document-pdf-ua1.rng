@@ -338,6 +338,7 @@
       <attribute name="List:ListNumbering">
         <choice>
           <value/>
+          <value>None</value>
           <value>Unordered</value>
           <value>Description</value>
           <value>Disc</value>

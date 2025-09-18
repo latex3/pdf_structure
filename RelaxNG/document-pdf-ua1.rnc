@@ -75,7 +75,7 @@ otherns-attributes =
 # Properties are modelled as attributes in no namespace
 structure-properties =
   attribute lang {text}?,              # Lang
-  attribute expanded {text}?,          # E
+  attribute expansion {text}?,         # E
   attribute actualtext {text}?,        # ActualText
   attribute alt {text}?,               # Alt
   attribute title {text}?,             # T

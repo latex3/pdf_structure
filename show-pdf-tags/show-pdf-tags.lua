@@ -496,7 +496,7 @@ local function print_tree(tree, ctx)
             end
             table.sort(attrs)
             for j=1, #attrs do
-              attrs[j] = attrs[j] .. ': ' .. require'inspect'(obj.attributes[owners[i]][attrs[j]])
+              attrs[j] = attrs[j] .. ': ' .. require'show-pdf-tags-inspect'(obj.attributes[owners[i]][attrs[j]])
             end
             table.insert(attrs, 1, (owners[i]:sub(1, #owner_prefix) == owner_prefix and '/' .. owners[i]:sub(#owner_prefix+1) or  owners[i]) .. ':')
             for j=1, #attrs-1 do
@@ -618,7 +618,7 @@ local function print_tree_xml(tree, ctx)
               end
               for kk,vv in ordered_pairs(v) do
 	        if type(vv) == "table" then
-	          vv = require'inspect'(vv):gsub('\n[ ]*',' ')
+	          vv = require'show-pdf-tags-inspect'(vv):gsub('\n[ ]*',' ')
 	        end
                 lines[#lines+1] = ' ' ..attrns .. kk .. '="' .. tostring(vv):gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]') .. '"'
               end
@@ -759,6 +759,6 @@ else
   if out_format=="xml" then
     print_tree_xml(struct, ctx)
   else
-    print(require'inspect'(struct))
+    print(require'show-pdf-tags-inspect'(struct))
   end
 end

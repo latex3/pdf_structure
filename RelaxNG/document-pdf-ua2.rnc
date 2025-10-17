@@ -73,7 +73,7 @@ otherns-attributes =
 # Properties are modelled as attributes in no namespace
 structure-properties =
   attribute lang {text}?,              # Lang
-  attribute expanded {text}?,          # E
+  attribute expansion {text}?,         # E
   attribute actualtext {text}?,        # ActualText
   attribute alt {text}?,               # Alt
   attribute title {text}?,             # T
@@ -121,7 +121,7 @@ layout-attributes =
 
 
 list-attributes =
-  attribute List:ListNumbering {"" | "Unordered" | "Description" | "Disc" | "Circle" | "Square" | "Ordered" | "Decimal" | "UpperRoman" | "LowerRoman" | "UpperAlpha" | "LowerAlpha"}?,
+  attribute List:ListNumbering {"" | "None" | "Unordered" | "Description" | "Disc" | "Circle" | "Square" | "Ordered" | "Decimal" | "UpperRoman" | "LowerRoman" | "UpperAlpha" | "LowerAlpha"}?,
   attribute List:ContinuedList {text}?,
   attribute List:ContinuedFrom {text}?
 
@@ -474,7 +474,7 @@ figure-attributes =
   
 Figure = element pdf2:Figure {
   attribute lang {text}?,         # Lang
-  attribute expanded {text}?,     # E
+  attribute expansion {text}?,    # E
   attribute title {text}?,        # T
   attribute id {text}?,           # ID
   layout-attributes,

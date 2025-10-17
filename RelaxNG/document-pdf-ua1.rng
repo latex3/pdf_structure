@@ -170,7 +170,7 @@
     </optional>
     <optional>
       <!-- Lang -->
-      <attribute name="expanded"/>
+      <attribute name="expansion"/>
     </optional>
     <optional>
       <!-- E -->
@@ -338,6 +338,7 @@
       <attribute name="List:ListNumbering">
         <choice>
           <value/>
+          <value>None</value>
           <value>Unordered</value>
           <value>Description</value>
           <value>Disc</value>
@@ -2070,7 +2071,7 @@
       </optional>
       <optional>
         <!-- Lang -->
-        <attribute name="expanded"/>
+        <attribute name="expansion"/>
       </optional>
       <optional>
         <!-- E -->

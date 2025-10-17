@@ -34,5 +34,5 @@ runs:
           Extract PDF tags from tagged PDF files as tree structure and represent it as XML or console art.
         filename: ${{ inputs.filename }}
         dry-run: ${{ inputs.dry-run }}
-        announcement-filename: ctan.ann
+        # announcement-filename: ctan.ann
         note: Uploaded by GitHub Actions.

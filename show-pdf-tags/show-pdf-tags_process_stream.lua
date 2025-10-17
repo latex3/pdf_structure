@@ -73,7 +73,8 @@ end
 local function print_string(ctx, str, font)
   if font.cmap then
     str = font.cmap:match(str)
-  elseif not str then
+  end
+  if not str then
     str = '\xff\xfd'
   end
 

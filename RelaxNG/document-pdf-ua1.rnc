@@ -476,7 +476,7 @@ figure-attributes =
   
 Figure = element pdf2:Figure {
   attribute lang {text}?,         # Lang
-  attribute expanded {text}?,     # E
+  attribute expansion {text}?,    # E
   attribute title {text}?,        # T
   attribute id {text}?,           # ID
   layout-attributes,

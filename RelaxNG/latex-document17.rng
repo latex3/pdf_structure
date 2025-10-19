@@ -217,6 +217,9 @@
           <ref name="Title"/>
         </choice>
       </optional>
+      <optional>
+        <ref name="Caption"/>
+      </optional>
       <zeroOrMore>
         <choice>
           <ref name="H4"/>

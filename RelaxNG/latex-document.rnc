@@ -69,7 +69,7 @@ Sect |= theorem-like
 text-unit = element latexSE:text-unit {
   attribute rolemaps-to {"Part"},
   pdf2-attributes,
-   (title|Title)?,(H4|H5|Div|Sect|P|Aside|Figure|Table|Formula|quote|quotation|\text|itemize|description|enumerate|verbatim|\list|Part)*}
+   (title|Title)?,Caption?,(H4|H5|Div|Sect|P|Aside|Figure|Table|Formula|quote|quotation|\text|itemize|description|enumerate|verbatim|\list|Part)*}
 Part |= text-unit
 
 verbatim = element latexSE:verbatim {

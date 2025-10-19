@@ -36,18 +36,21 @@ document.1 &= figures?
 figures = element latexSE:figures {
   attribute rolemaps-to {"Sect"},
   attribute id {text}?,
+  showtags-attributes,
   float*
  }
 
 tables = element latexSE:tables {
   attribute rolemaps-to {"Sect"},
   attribute id {text}?,
+  showtags-attributes,
   float*
  }
 
 float = element latexSE:float {
   attribute rolemaps-to {"Aside"|"Note"},
   attribute id {text}?,
+  showtags-attributes,
   (Caption|Part|Div|Figure|\text)*
  }
 
@@ -56,6 +59,7 @@ float = element latexSE:float {
 theorem-like = element latexSE:theorem-like {
   attribute rolemaps-to {"Sect"},
   attribute id {text}?,
+  showtags-attributes,
   Caption?,
   Lbl?,
   (Part)*

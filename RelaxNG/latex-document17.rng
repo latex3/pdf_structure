@@ -135,6 +135,7 @@
       <optional>
         <attribute name="id"/>
       </optional>
+      <ref name="showtags-attributes"/>
       <zeroOrMore>
         <ref name="float"/>
       </zeroOrMore>
@@ -149,6 +150,7 @@
       <optional>
         <attribute name="id"/>
       </optional>
+      <ref name="showtags-attributes"/>
       <zeroOrMore>
         <ref name="float"/>
       </zeroOrMore>
@@ -166,6 +168,7 @@
       <optional>
         <attribute name="id"/>
       </optional>
+      <ref name="showtags-attributes"/>
       <zeroOrMore>
         <choice>
           <ref name="Caption"/>
@@ -186,6 +189,7 @@
       <optional>
         <attribute name="id"/>
       </optional>
+      <ref name="showtags-attributes"/>
       <optional>
         <ref name="Caption"/>
       </optional>

@@ -104,6 +104,15 @@
       <ref name="sechead.content"/>
     </element>
   </define>
+  <define name="Title" combine="choice">
+    <element>
+      <name ns="">part</name>
+      <attribute name="rolemaps-to">
+        <value>Title</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
   <!-- This could be restricted to section headings, but for now allow where Lbl is allowed -->
   <define name="Lbl" combine="choice">
     <element>

@@ -25,6 +25,8 @@ H4 |= element latexSEbook:subsubsection {attribute rolemaps-to {"H4"}, sechead.c
 H5 |= element latexSEbook:paragraph     {attribute rolemaps-to {"H5"}, sechead.content}
 H6 |= element latexSEbook:subparagraph  {attribute rolemaps-to {"H6"}, sechead.content}
 
+Title |= element latexSE:part {attribute rolemaps-to {"Title"}, sechead.content}
+
 # This could be restricted to section headings, but for now allow where Lbl is allowed
 Lbl |= element latexSE:section-number {pdf2-attributes, attribute rolemaps-to {"Span"},
  (text|Formula)*

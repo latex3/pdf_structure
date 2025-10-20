@@ -112,7 +112,12 @@
       <attribute name="rolemaps-to">
         <value>Span</value>
       </attribute>
-      <text/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="Formula"/>
+        </choice>
+      </zeroOrMore>
     </element>
   </define>
   <!-- LaTeX NS -->

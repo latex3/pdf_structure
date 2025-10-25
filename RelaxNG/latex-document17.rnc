@@ -74,7 +74,7 @@ Sect |= theorem-like
 text-unit = element latexSE:text-unit {
   attribute rolemaps-to {"Part"},
   pdf2-attributes,
-   (title|Title)?,Caption?,(H4|H5|Div|Sect|P|Aside|Figure|Table|Formula|quote|quotation|\text|itemize|description|enumerate|verbatim|\list|Part)*}
+   (title|Title)?,Caption?,(H4|H5|Div|Sect|P|Aside|Figure|Table|Formula|quote|quotation|\text|itemize|description|enumerate|verbatim|\list|Part|FENote)*}
 Part |= text-unit
 
 verbatim = element latexSE:verbatim {
@@ -161,7 +161,7 @@ Lbl |= element latexSE:footnotemark {
 FENote |= element latexSE:footnote {
   attribute rolemaps-to {"FENote"|"Note"},
   pdf2-attributes,
-  footnotelabel,(Part)*
+  footnotelabel,(Part|\text)*
 }
 
 footnotelabel = element latexSE:footnotelabel {

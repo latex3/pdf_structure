@@ -236,6 +236,7 @@
           <ref name="verbatim"/>
           <ref name="list"/>
           <ref name="Part"/>
+          <ref name="FENote"/>
         </choice>
       </zeroOrMore>
     </element>
@@ -420,7 +421,10 @@
       <ref name="pdf2-attributes"/>
       <ref name="footnotelabel"/>
       <zeroOrMore>
-        <ref name="Part"/>
+        <choice>
+          <ref name="Part"/>
+          <ref name="text"/>
+        </choice>
       </zeroOrMore>
     </element>
   </define>

@@ -58,7 +58,7 @@ attribute name {text},
 formula-requirements = (
   attribute actualtext {text}|
   attribute alt {text} |
-  mathse|
+  (Lbl*,mathse) |
   AssociatedFilemath
 )
 

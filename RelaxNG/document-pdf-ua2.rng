@@ -91,7 +91,12 @@
     <choice>
       <attribute name="actualtext"/>
       <attribute name="alt"/>
-      <ref name="mathse"/>
+      <group>
+        <zeroOrMore>
+          <ref name="Lbl"/>
+        </zeroOrMore>
+        <ref name="mathse"/>
+      </group>
       <ref name="AssociatedFilemath"/>
     </choice>
   </define>

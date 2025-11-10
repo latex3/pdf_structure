@@ -1,0 +1,31 @@
+namespace latexSEplay = "https://www.latex-project.org/ns/local/plays"
+namespace latexSEamse = "https://www.latex-project.org/ns/local/asmeconf"
+
+include "latex-document.rnc"
+
+# LaTeX play
+Span |= element latexSEplay:SceneDescription {pdf2-attributes,attribute rolemaps-to {"Span"}, text}
+Strong |= element latexSEplay:Speaker {pdf2-attributes,attribute rolemaps-to {"Strong"},text}
+
+
+# asmeconf
+Div |= element latexSEamse:Conference_information {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  text-unit*
+  }
+
+Div |= element latexSEamse:Author_Affiliation {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  text-unit*
+  }
+
+Div|= element latexSEamse:Affiliation {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  text-unit*
+  }

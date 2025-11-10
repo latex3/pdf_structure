@@ -1,0 +1,6 @@
+ua2 = external "latex-bible.rnc"
+ua1 = external "latex-bible17.rnc"
+ua2custom = external "latex-custom.rnc"
+ua1custom = external "latex-custom17.rnc"
+talk = external "ltx-talk.rnc"
+start = ua2 | ua1 | ua2custom | ua1custom | talk

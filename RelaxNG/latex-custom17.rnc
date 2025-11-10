@@ -1,0 +1,29 @@
+
+include "latex-document.rnc"
+
+# LaTeX play
+Span |= element SceneDescription {pdf2-attributes,attribute rolemaps-to {"Span"}, text}
+Strong |= element Speaker {pdf2-attributes,attribute rolemaps-to {"Strong"},text}
+
+
+# asmeconf
+Div |= element Conference_information {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  text-unit*
+  }
+
+Div |= element Author_Affiliation {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  text-unit*
+  }
+
+Div|= element Affiliation {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  text-unit*
+  }

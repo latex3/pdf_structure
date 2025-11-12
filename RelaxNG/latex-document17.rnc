@@ -126,7 +126,7 @@ quote = element latexSE:quote {
 quotation = element latexSE:quotation {
  attribute rolemaps-to {"BlockQuote"},
  pdf2-attributes,
- (Part)*
+ (Part|Art|Div|Sect|TOC|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Title|Lbl|Link|Reference|Annot|Form|FENote|Index|L|Table|Figure|Formula|Artifact)*
 }
 
 description= element latexSE:description {

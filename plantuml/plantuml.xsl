@@ -56,8 +56,11 @@ skinparam lengthAdjust spacingAndGlyphs
   <xsl:choose>
     <xsl:when test="empty(@*)">.</xsl:when>
     <xsl:otherwise>
-      <xsl:for-each select="@*">
-	<xsl:value-of select="'**',p:attname(local-name()),'**=',.,' '" separator=""/>
+      <xsl:for-each select="@*[normalize-space(.)]">
+	<xsl:value-of select="'**',p:attname(local-name()),'**=',
+			      substring(replace(.,'[{}]',''),0,20),
+			      ' '"
+		      separator=""/>
       </xsl:for-each>
     </xsl:otherwise>
   </xsl:choose>

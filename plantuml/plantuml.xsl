@@ -89,10 +89,11 @@ skinparam lengthAdjust spacingAndGlyphs
   </xsl:choose>
   <xsl:text> | .</xsl:text>
   <xsl:choose>
-    <xsl:when test="local-name()=$elide-elems">
+    <xsl:when test="local-name()=$elide-elems or
+		    (exists(*) and $level=$maxdepth)">
       <xsl:text>&#10;+</xsl:text>
       <xsl:for-each select="xs:int(1) to xs:int($level)">+</xsl:for-each>
-      <xsl:text> **. . .** | .</xsl:text>
+      <xsl:text> **...** | .</xsl:text>
     </xsl:when>
     <xsl:otherwise>
       <xsl:apply-templates select="*">

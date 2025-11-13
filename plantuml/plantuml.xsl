@@ -16,7 +16,12 @@
   <xsl:param name="at"/>
   <xsl:choose>
     <xsl:when test="$at='id'">ID</xsl:when>
+    <xsl:when test="$at='class'">C</xsl:when>
+    <xsl:when test="$at='revision'">R</xsl:when>
     <xsl:when test="$at='title'">T</xsl:when>
+    <xsl:when test="$at='expansion'">E</xsl:when>
+    <xsl:when test="$at='phoneme'">Phoneme</xsl:when>
+    <xsl:when test="$at='phonetic-alphabet'">PhoneticAlphabet</xsl:when>
     <xsl:when test="$at='title'">AF</xsl:when>
     <xsl:when test="$at='lang'">Lang</xsl:when>
     <xsl:when test="$at='actualtext'">ActualText</xsl:when>

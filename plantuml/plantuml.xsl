@@ -38,7 +38,7 @@
       <xsl:value-of select="$atnode"/>
     </xsl:when>
     <xsl:when test="matches($atnode,'^\{.*\}$')">
-      <xsl:value-of select="translate($atnode,'{}','[]')"/>
+      <xsl:value-of select="replace(translate($atnode,'{}','[]'),', ',' ')"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:text>"</xsl:text>

@@ -9,6 +9,7 @@
 <xsl:param name="occurrence" select="1"/>
 <xsl:param name="maxdepth"/>
 <xsl:param name="elidecontent"/>
+<xsl:param name="maxattlength" select="20"/>
 
 <xsl:variable name="elide-elems" select="tokenize($elidecontent,'[ ,]+')"/>
 
@@ -27,6 +28,23 @@
     <xsl:when test="$at='actualtext'">ActualText</xsl:when>
     <xsl:when test="$at='alt'">Alt</xsl:when>
     <xsl:otherwise><xsl:value-of select="$at"/></xsl:otherwise>
+  </xsl:choose>
+</xsl:function>
+
+<xsl:function name="p:attvalue">
+  <xsl:param name="atnode"/>
+  <xsl:choose>
+    <xsl:when test="matches($atnode,'^[0-9][0-9.]*$')">
+      <xsl:value-of select="$atnode"/>
+    </xsl:when>
+    <xsl:when test="matches($atnode,'^\{.*\}$')">
+      <xsl:value-of select="translate($atnode,'{}','[]')"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:text>"</xsl:text>
+      <xsl:value-of select="substring(replace($atnode,'[{}|]',''),0,xs:int($maxattlength))"/>
+      <xsl:text>"</xsl:text>
+    </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
 
@@ -63,7 +81,7 @@ skinparam lengthAdjust spacingAndGlyphs
     <xsl:otherwise>
       <xsl:for-each select="@*[normalize-space(.)]">
 	<xsl:value-of select="'**',p:attname(local-name()),'**=',
-			      substring(replace(.,'[{}]',''),0,20),
+			     p:attvalue(.), 
 			      ' '"
 		      separator=""/>
       </xsl:for-each>

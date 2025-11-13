@@ -7,7 +7,7 @@
 
 <xsl:param name="rootelem"/>
 <xsl:param name="occurrence" select="1"/>
-<xsl:param name="maxdepth"/>
+<xsl:param name="maxdepth" select="1000"/>
 <xsl:param name="elidecontent"/>
 <xsl:param name="maxattlength" select="20"/>
 
@@ -70,7 +70,7 @@ skinparam lengthAdjust spacingAndGlyphs
 </xsl:template>
 
 <xsl:template match="*">
-  <xsl:param name="level" select="1"/>
+  <xsl:param name="level" select="xs:int(1)"/>
   <xsl:text>&#10;</xsl:text>
   <xsl:for-each select="xs:int(1) to xs:int($level)">+</xsl:for-each>
   <xsl:text> **</xsl:text>
@@ -90,14 +90,14 @@ skinparam lengthAdjust spacingAndGlyphs
   <xsl:text> | .</xsl:text>
   <xsl:choose>
     <xsl:when test="local-name()=$elide-elems or
-		    (exists(*) and $level=$maxdepth)">
+		    (exists(*) and $level=xs:int($maxdepth))">
       <xsl:text>&#10;+</xsl:text>
       <xsl:for-each select="xs:int(1) to xs:int($level)">+</xsl:for-each>
       <xsl:text> **...** | .</xsl:text>
     </xsl:when>
     <xsl:otherwise>
       <xsl:apply-templates select="*">
-	<xsl:with-param name="level" select="$level+1"/>
+	<xsl:with-param name="level" select="xs:int($level+1)"/>
       </xsl:apply-templates>
     </xsl:otherwise>
   </xsl:choose>

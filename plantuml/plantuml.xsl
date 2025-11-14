@@ -69,6 +69,7 @@ skinparam lengthAdjust spacingAndGlyphs
 	    </xsl:if>
       </xsl:otherwise>
     </xsl:choose>
+
       }
 }
 @endsalt

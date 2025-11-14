@@ -8,10 +8,12 @@
 <xsl:param name="rootelem"/>
 <xsl:param name="occurrence" select="1"/>
 <xsl:param name="maxdepth" select="1000"/>
+<xsl:param name="maxsiblings" select="1000"/>
 <xsl:param name="elidecontent"/>
 <xsl:param name="maxattlength" select="20"/>
 
 <xsl:variable name="elide-elems" select="tokenize($elidecontent,'[ ,]+')"/>
+<xsl:variable name="maxsiblingsnum" select="xs:int($maxsiblings)"/>
 
 <xsl:function name="p:attname">
   <xsl:param name="at"/>
@@ -60,7 +62,11 @@ skinparam lengthAdjust spacingAndGlyphs
 	<xsl:apply-templates select="/descendant::*[local-name(.)=$rootelem][xs:int($occurrence)]"/>
       </xsl:when>
       <xsl:otherwise>
-	    <xsl:apply-templates select="StructTreeRoot/*"/>
+	    <xsl:apply-templates select="StructTreeRoot/*[position() le $maxsiblingsnum]"/>
+	    <xsl:if test="*[position() gt $maxsiblingsnum]">
+	      <xsl:text>&#10;+</xsl:text>
+	      <xsl:text> **...** | .</xsl:text>
+	    </xsl:if>
       </xsl:otherwise>
     </xsl:choose>
       }
@@ -96,9 +102,14 @@ skinparam lengthAdjust spacingAndGlyphs
       <xsl:text> **...** | .</xsl:text>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:apply-templates select="*">
+      <xsl:apply-templates select="*[position() le $maxsiblingsnum]">
 	<xsl:with-param name="level" select="xs:int($level+1)"/>
       </xsl:apply-templates>
+      <xsl:if test="*[position() gt $maxsiblingsnum]">
+	<xsl:text>&#10;+</xsl:text>
+	<xsl:for-each select="xs:int(1) to xs:int($level)">+</xsl:for-each>
+	<xsl:text> **...** | .</xsl:text>
+      </xsl:if>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

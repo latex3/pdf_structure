@@ -25,7 +25,7 @@
     <xsl:when test="$at='expansion'">E</xsl:when>
     <xsl:when test="$at='phoneme'">Phoneme</xsl:when>
     <xsl:when test="$at='phonetic-alphabet'">PhoneticAlphabet</xsl:when>
-    <xsl:when test="$at='title'">AF</xsl:when>
+    <xsl:when test="$at='af'">AF</xsl:when>
     <xsl:when test="$at='lang'">Lang</xsl:when>
     <xsl:when test="$at='actualtext'">ActualText</xsl:when>
     <xsl:when test="$at='alt'">Alt</xsl:when>
@@ -49,7 +49,9 @@
     </xsl:when>
     <xsl:otherwise>
       <xsl:text>"</xsl:text>
-      <xsl:value-of select="substring(replace($atnode,'[{}|]',''),0,xs:int($maxattlength))"/>
+      <xsl:variable name="a" select="replace($atnode,'[{}|]','')"/>
+      <xsl:value-of select="substring($a,0,xs:int($maxattlength))"/>
+      <xsl:if test="string-length($a) gt xs:int($maxattlength)">...</xsl:if>
       <xsl:text>"</xsl:text>
     </xsl:otherwise>
   </xsl:choose>

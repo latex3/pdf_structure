@@ -39,6 +39,11 @@
     <xsl:when test="matches($atnode,'^[0-9][0-9.]*$')">
       <xsl:value-of select="$atnode"/>
     </xsl:when>
+    <xsl:when test="local-name($atnode)=
+		    ('TextAlign','Placement','WritingMode','ListNumbering','TextDecorationType','TextPosition')
+		    and matches($atnode,'^[A-Z][a-z]*$')">
+      <xsl:value-of select="'/',$atnode" separator=""/>
+    </xsl:when>
     <xsl:when test="matches($atnode,'^\{.*\}$')">
       <xsl:value-of select="replace(translate($atnode,'{}','[]'),', ',' ')"/>
     </xsl:when>
@@ -84,9 +89,9 @@ skinparam lengthAdjust spacingAndGlyphs
   <xsl:value-of select="local-name()"/>
   <xsl:text>** | </xsl:text>
   <xsl:choose>
-    <xsl:when test="empty(@* except (@rolemaps-to,@rolemapped-from))">.</xsl:when>
+    <xsl:when test="empty(@* except (@rolemaps-to,@rolemapped-from,@referenced-as))">.</xsl:when>
     <xsl:otherwise>
-      <xsl:for-each select="(@* except (@rolemaps-to,@rolemapped-from))[normalize-space(.)]">
+      <xsl:for-each select="(@* except (@rolemaps-to,@rolemapped-from,@referenced-as))[normalize-space(.)]">
 	<xsl:value-of select="'**',p:attname(local-name()),'**=',
 			     p:attvalue(.), 
 			      ' '"

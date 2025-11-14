@@ -65,7 +65,7 @@ skinparam lengthAdjust spacingAndGlyphs
 	    <xsl:apply-templates select="StructTreeRoot/*[position() le $maxsiblingsnum]"/>
 	    <xsl:if test="*[position() gt $maxsiblingsnum]">
 	      <xsl:text>&#10;+</xsl:text>
-	      <xsl:text> **...** | .</xsl:text>
+	      <xsl:text> **...** | . | .</xsl:text>
 	    </xsl:if>
       </xsl:otherwise>
     </xsl:choose>
@@ -99,7 +99,7 @@ skinparam lengthAdjust spacingAndGlyphs
 		    (exists(*) and $level=xs:int($maxdepth))">
       <xsl:text>&#10;+</xsl:text>
       <xsl:for-each select="xs:int(1) to xs:int($level)">+</xsl:for-each>
-      <xsl:text> **...** | .</xsl:text>
+      <xsl:text> **...** | . | .</xsl:text>
     </xsl:when>
     <xsl:otherwise>
       <xsl:apply-templates select="*[position() le $maxsiblingsnum]">
@@ -108,7 +108,7 @@ skinparam lengthAdjust spacingAndGlyphs
       <xsl:if test="*[position() gt $maxsiblingsnum]">
 	<xsl:text>&#10;+</xsl:text>
 	<xsl:for-each select="xs:int(1) to xs:int($level)">+</xsl:for-each>
-	<xsl:text> **...** | .</xsl:text>
+	<xsl:text> **...** | . | .</xsl:text>
       </xsl:if>
     </xsl:otherwise>
   </xsl:choose>

@@ -83,9 +83,9 @@ skinparam lengthAdjust spacingAndGlyphs
   <xsl:value-of select="local-name()"/>
   <xsl:text>** | </xsl:text>
   <xsl:choose>
-    <xsl:when test="empty(@*)">.</xsl:when>
+    <xsl:when test="empty(@* except (@rolemaps-to,@rolemapped-from))">.</xsl:when>
     <xsl:otherwise>
-      <xsl:for-each select="@*[normalize-space(.)]">
+      <xsl:for-each select="(@* except (@rolemaps-to,@rolemapped-from))[normalize-space(.)]">
 	<xsl:value-of select="'**',p:attname(local-name()),'**=',
 			     p:attvalue(.), 
 			      ' '"
@@ -93,7 +93,17 @@ skinparam lengthAdjust spacingAndGlyphs
       </xsl:for-each>
     </xsl:otherwise>
   </xsl:choose>
-  <xsl:text> | .</xsl:text>
+  <xsl:choose>
+    <xsl:when test="@rolemaps-to">
+      <xsl:value-of select="' | maps to **',@rolemaps-to,'**'" separator=""/>
+    </xsl:when>
+    <xsl:when test="@rolemapped-from">
+      <xsl:value-of select="' | mapped from **',replace(@rolemapped-from,'.*:',''),'**'" separator=""/>
+    </xsl:when>
+    <xsl:otherwise>
+        <xsl:text> | .</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
   <xsl:choose>
     <xsl:when test="local-name()=$elide-elems or
 		    (exists(*) and $level=xs:int($maxdepth))">

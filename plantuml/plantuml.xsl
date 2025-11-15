@@ -93,7 +93,7 @@ skinparam lengthAdjust spacingAndGlyphs
   <xsl:value-of select="local-name()"/>
   <xsl:text>** | </xsl:text>
   <xsl:choose>
-    <xsl:when test="empty((@* except (@rolemaps-to,@rolemapped-from,@referenced-as))[not(p:attname(local-name(.))=$omit-atts)])"
+    <xsl:when test="empty((@* except (@rolemaps-to,@rolemapped-from,@referenced-as))[not(p:attname(local-name(.))=$omit-atts)][normalize-space(.)])"
 	      >.</xsl:when>
     <xsl:otherwise>
       <xsl:for-each select="(@* except (@rolemaps-to,@rolemapped-from,@referenced-as))[normalize-space(.)]">

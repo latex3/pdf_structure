@@ -11,10 +11,12 @@
 <xsl:param name="maxsiblings" select="1000"/>
 <xsl:param name="elidecontent"/>
 <xsl:param name="omitatts"/>
+<xsl:param name="showemptyatts" select="'no'"/>
 <xsl:param name="maxattlength" select="20"/>
 
 <xsl:variable name="elide-elems" select="tokenize($elidecontent,'[ ,]+')"/>
 <xsl:variable name="omit-atts" select="tokenize($omitatts,'[ ,]+')"/>
+<xsl:variable name="show-empty" select="matches($showemptyatts,'true|yes')" as="xs:boolean"/>
 <xsl:variable name="maxsiblingsnum" select="xs:int($maxsiblings)"/>
 
 <xsl:function name="p:attname">
@@ -93,10 +95,10 @@ skinparam lengthAdjust spacingAndGlyphs
   <xsl:value-of select="local-name()"/>
   <xsl:text>** | </xsl:text>
   <xsl:choose>
-    <xsl:when test="empty((@* except (@rolemaps-to,@rolemapped-from,@referenced-as))[not(p:attname(local-name(.))=$omit-atts)][normalize-space(.)])"
+    <xsl:when test="empty((@* except (@rolemaps-to,@rolemapped-from,@referenced-as))[not(p:attname(local-name(.))=$omit-atts)][$show-empty or normalize-space(.)])"
 	      >.</xsl:when>
     <xsl:otherwise>
-      <xsl:for-each select="(@* except (@rolemaps-to,@rolemapped-from,@referenced-as))[normalize-space(.)]">
+      <xsl:for-each select="(@* except (@rolemaps-to,@rolemapped-from,@referenced-as))[$show-empty or normalize-space(.)]">
 	<xsl:variable name="n" select="p:attname(local-name())"/>
 	<xsl:if test="not($n=$omit-atts)">
 	  <xsl:value-of select="'**',$n,'**=',p:attvalue(.),' '" separator=""/>

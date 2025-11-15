@@ -10,9 +10,11 @@
 <xsl:param name="maxdepth" select="1000"/>
 <xsl:param name="maxsiblings" select="1000"/>
 <xsl:param name="elidecontent"/>
+<xsl:param name="omitatts"/>
 <xsl:param name="maxattlength" select="20"/>
 
 <xsl:variable name="elide-elems" select="tokenize($elidecontent,'[ ,]+')"/>
+<xsl:variable name="omit-atts" select="tokenize($omitatts,'[ ,]+')"/>
 <xsl:variable name="maxsiblingsnum" select="xs:int($maxsiblings)"/>
 
 <xsl:function name="p:attname">
@@ -94,10 +96,10 @@ skinparam lengthAdjust spacingAndGlyphs
     <xsl:when test="empty(@* except (@rolemaps-to,@rolemapped-from,@referenced-as))">.</xsl:when>
     <xsl:otherwise>
       <xsl:for-each select="(@* except (@rolemaps-to,@rolemapped-from,@referenced-as))[normalize-space(.)]">
-	<xsl:value-of select="'**',p:attname(local-name()),'**=',
-			     p:attvalue(.), 
-			      ' '"
-		      separator=""/>
+	<xsl:variable name="n" select="p:attname(local-name())"/>
+	<xsl:if test="not($n=$omit-atts)">
+	  <xsl:value-of select="'**',$n,'**=',p:attvalue(.),' '" separator=""/>
+	</xsl:if>
       </xsl:for-each>
     </xsl:otherwise>
   </xsl:choose>

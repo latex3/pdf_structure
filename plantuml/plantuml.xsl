@@ -64,6 +64,12 @@
 <xsl:template match="PDF">
 [plantuml]
 ....
+'
+' <xsl:value-of select="replace(base-uri(),'.*/|\.*[a-z]+$',''),
+  $rootelem,
+  $occurrence[$rootelem]
+  "/>
+'
 @startsalt
 skinparam lengthAdjust spacingAndGlyphs
 {

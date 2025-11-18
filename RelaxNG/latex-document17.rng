@@ -443,6 +443,7 @@
           <ref name="Strong"/>
           <ref name="FENote"/>
           <ref name="Formula"/>
+          <ref name="Ruby"/>
         </choice>
       </zeroOrMore>
     </element>

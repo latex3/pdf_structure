@@ -146,7 +146,7 @@ title = element latexSE:title {
 \text = element latexSE:text {
  attribute rolemaps-to {"P"},
  pdf2-attributes,
- (text|Figure|Span|Link|Lbl|Reference|Em|Strong|FENote|Formula)*
+ (text|Figure|Span|Link|Lbl|Reference|Em|Strong|FENote|Formula|Ruby)*
 }
 P |= \text
 

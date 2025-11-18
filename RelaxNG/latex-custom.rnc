@@ -1,5 +1,6 @@
 namespace latexSEplay = "https://www.latex-project.org/ns/local/plays"
 namespace latexSEamse = "https://www.latex-project.org/ns/local/asmeconf"
+namespace luatexko = "https://www.latex-project.org/ns/local/luatexko"
 
 include "latex-document.rnc"
 
@@ -28,4 +29,25 @@ Div|= element latexSEamse:Affiliation {
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
   text-unit*
+  }
+
+
+# luatexko
+
+Span |= element luatexko:StrikeOut {
+  pdf2-attributes,
+  attribute rolemaps-to {"Span"},
+  (text|Span)*
+  }
+
+Div|= element luatexko:Vertical {
+  pdf2-attributes,
+  attribute rolemaps-to {"Div"},
+  (text-unit|P)*
+  }
+  
+Div|= element luatexko:Horizontal {
+  pdf2-attributes,
+  attribute rolemaps-to {"Div"},
+  (text-unit|P)*
   }

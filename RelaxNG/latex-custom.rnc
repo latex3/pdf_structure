@@ -1,6 +1,7 @@
 namespace latexSEplay = "https://www.latex-project.org/ns/local/plays"
 namespace latexSEamse = "https://www.latex-project.org/ns/local/asmeconf"
 namespace luatexko = "https://www.latex-project.org/ns/local/luatexko"
+namespace latexSEamsej = "https://www.latex-project.org/ns/local/asmejour"
 
 include "latex-document.rnc"
 
@@ -31,6 +32,14 @@ Div|= element latexSEamse:Affiliation {
   text-unit*
   }
 
+Div |= element latexSEamsej:Author_Block {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  text-unit*
+  }
+
 
 # luatexko
 
@@ -50,4 +59,4 @@ Div|= element luatexko:Horizontal {
   pdf2-attributes,
   attribute rolemaps-to {"Div"},
   (text-unit|P)*
-  }
+}

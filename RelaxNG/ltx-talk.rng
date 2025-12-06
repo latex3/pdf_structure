@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:latexSEtalk="https://www.latex-project.org/ns/local/talk" xmlns:latexSE="https://www.latex-project.org/ns/dflt" xmlns="http://relaxng.org/ns/structure/1.0">
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:latexSEtalk="https://www.latex-project.org/ns/local/ltx-talk" xmlns:latexSE="https://www.latex-project.org/ns/dflt" xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="latex-document.rng">
     <a:documentation>PDF/UA-2</a:documentation>
   </include>
@@ -14,6 +14,9 @@
         <ref name="frametitle"/>
       </optional>
       <zeroOrMore>
+        <ref name="text-unit"/>
+      </zeroOrMore>
+      <zeroOrMore>
         <ref name="slide"/>
       </zeroOrMore>
     </element>
@@ -22,11 +25,15 @@
     <element name="latexSEtalk:frametitle">
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
-        <value>H1</value>
+        <choice>
+          <value>H1</value>
+          <value>H4</value>
+        </choice>
       </attribute>
       <zeroOrMore>
         <choice>
           <text/>
+          <ref name="Formula"/>
           <ref name="Span"/>
         </choice>
       </zeroOrMore>

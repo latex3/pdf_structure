@@ -51,6 +51,9 @@
     <element>
       <name ns="">PDF</name>
       <ref name="StructTreeRoot"/>
+      <optional>
+        <ref name="XMP"/>
+      </optional>
     </element>
   </define>
   <define name="StructTreeRoot">
@@ -119,8 +122,30 @@
       <attribute name="alt"/>
     </choice>
   </define>
-  <define name="textorHTML" combine="interleave">
+  <define name="XMP">
     <a:documentation>share with pdf1.7 version from here to end</a:documentation>
+    <element>
+      <name ns="">XMP</name>
+      <zeroOrMore>
+        <ref name="anyelem"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="anyelem">
+    <element>
+      <anyName/>
+      <zeroOrMore>
+        <choice>
+          <attribute>
+            <anyName/>
+          </attribute>
+          <text/>
+          <ref name="anyelem"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="textorHTML" combine="interleave">
     <zeroOrMore>
       <choice>
         <ref name="Link"/>

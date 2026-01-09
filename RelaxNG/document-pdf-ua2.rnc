@@ -38,7 +38,8 @@ pdf1rolemap-Note = notAllowed?
 # UA-2 Single Document element root.
 start = PDF
 
-PDF = element NoNS:PDF {StructTreeRoot}
+PDF = element NoNS:PDF {StructTreeRoot,XMP?}
+
 StructTreeRoot = element NoNS:StructTreeRoot {Document|DocumentFragment}
 
 AssociatedFile = element NoNS:AssociatedFile {
@@ -63,6 +64,10 @@ formula-requirements = (
 )
 
 ## share with pdf1.7 version from here to end
+
+XMP = element NoNS:XMP {anyelem*}
+
+anyelem = element * {(attribute * {text} | text | anyelem) *}
 
 textorHTML &= (Link|Reference|Strong|Code|Em|Lbl|Span|mathse|Quote|RB|Annot|Figure|Form)*
 

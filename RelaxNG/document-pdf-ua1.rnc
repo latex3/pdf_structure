@@ -40,7 +40,8 @@ pdf1rolemap-Note = attribute rolemaps-to {"Note"}
 # UA-1 does not force a single document element.
 start = PDF
 
-PDF = element NoNS:PDF {StructTreeRoot}
+PDF = element NoNS:PDF {StructTreeRoot,XMP?}
+
 StructTreeRoot = element NoNS:StructTreeRoot {( Document|DocumentFragment|Part|Art|Div|Sect|TOC|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|H|Title|Link|Annot|Form|FENote|Index|L|Table|Figure|Formula|Artifact)*}
 
 AssociatedFile = element NoNS:AssociatedFile {
@@ -63,6 +64,10 @@ formula-requirements = (
 )
 
 ## share with pdf1.7 version from here to end
+
+XMP = element NoNS:XMP {anyelem*}
+
+anyelem = element * {(attribute * {text} | text | anyelem) *}
 
 textorHTML &= (Link|Reference|Strong|Code|Em|Lbl|Span|mathse|Quote|RB|Annot|Figure|Form)*
 
@@ -601,4 +606,5 @@ Quote = element pdf1:Quote {
 pdf2-attributes,
 (text|NonStruct|Private|Note|Code|Sub|Lbl|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|BibEntry|Figure|Formula|Artifact)*
   }
+
 

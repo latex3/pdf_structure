@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- These Namespaces to be confirmed. "data:,Layout" would be another possibility -->
+<!-- XMP -->
 <!-- XHTML Namespace, not currently used -->
-<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:Table="http://iso.org/pdf/ssn/Table" xmlns:Layout="http://iso.org/pdf/ssn/Layout" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:List="http://iso.org/pdf/ssn/List" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:PrintField="http://iso.org/pdf/ssn/PrintField" xmlns:Artifact="http://iso.org/pdf/ssn/Artifact" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:Table="http://iso.org/pdf/ssn/Table" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:pdfuaid="http://www.aiim.org/pdfua/ns/id/" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:Artifact="http://iso.org/pdf/ssn/Artifact" xmlns:Layout="http://iso.org/pdf/ssn/Layout" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:x="adobe:ns:meta/" xmlns:List="http://iso.org/pdf/ssn/List" xmlns:PrintField="http://iso.org/pdf/ssn/PrintField" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <!-- slightly modified MathML-Core schema. -->
   <include href="latex-mathml.rng">
     <start combine="choice">
@@ -122,29 +123,87 @@
       <attribute name="alt"/>
     </choice>
   </define>
-  <define name="XMP">
-    <a:documentation>share with pdf1.7 version from here to end</a:documentation>
-    <element>
-      <name ns="">XMP</name>
-      <zeroOrMore>
-        <ref name="anyelem"/>
-      </zeroOrMore>
+  <define name="pdfuaid_part">
+    <a:documentation>PDF/UA-1</a:documentation>
+    <element name="pdfuaid:part">
+      <value>1</value>
     </element>
   </define>
+  <!-- XMP data -->
   <define name="anyelem">
+    <a:documentation>share with pdf1.7 version from here to end</a:documentation>
     <element>
       <anyName/>
       <zeroOrMore>
         <choice>
-          <attribute>
-            <anyName/>
-          </attribute>
+          <zeroOrMore>
+            <attribute>
+              <anyName/>
+            </attribute>
+          </zeroOrMore>
           <text/>
           <ref name="anyelem"/>
         </choice>
       </zeroOrMore>
     </element>
   </define>
+  <define name="XMP">
+    <element>
+      <name ns="">XMP</name>
+      <interleave>
+        <ref name="x_xmpmeta"/>
+        <zeroOrMore>
+          <ref name="anyelem"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="x_xmpmeta">
+    <element name="x:xmpmeta">
+      <zeroOrMore>
+        <attribute>
+          <anyName/>
+        </attribute>
+      </zeroOrMore>
+      <interleave>
+        <ref name="rdf_RDF"/>
+        <zeroOrMore>
+          <ref name="anyelem"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="rdf_RDF">
+    <element name="rdf:RDF">
+      <zeroOrMore>
+        <attribute>
+          <anyName/>
+        </attribute>
+      </zeroOrMore>
+      <interleave>
+        <ref name="rdf_Description"/>
+        <zeroOrMore>
+          <ref name="anyelem"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="rdf_Description">
+    <element name="rdf:Description">
+      <zeroOrMore>
+        <attribute>
+          <anyName/>
+        </attribute>
+      </zeroOrMore>
+      <interleave>
+        <ref name="pdfuaid_part"/>
+        <zeroOrMore>
+          <ref name="anyelem"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <!-- end of XMP -->
   <define name="textorHTML" combine="interleave">
     <zeroOrMore>
       <choice>

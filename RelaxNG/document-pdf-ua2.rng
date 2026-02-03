@@ -2109,7 +2109,7 @@
       </optional>
       <optional>
         <!-- Lang -->
-        <attribute name="expanded"/>
+        <attribute name="expansion"/>
       </optional>
       <optional>
         <!-- E -->

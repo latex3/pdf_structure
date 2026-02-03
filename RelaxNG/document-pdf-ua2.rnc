@@ -11,6 +11,12 @@ namespace Table = "http://iso.org/pdf/ssn/Table"
 namespace List = "http://iso.org/pdf/ssn/List"
 namespace Artifact = "http://iso.org/pdf/ssn/Artifact"
 
+# XMP
+namespace x = "adobe:ns:meta/"
+namespace rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+namespace dc = "http://purl.org/dc/elements/1.1/"
+namespace pdfuaid = "http://www.aiim.org/pdfua/ns/id/"
+
 # XHTML Namespace, not currently used
 namespace h = "http://www.w3.org/1999/xhtml"
 
@@ -38,7 +44,8 @@ pdf1rolemap-Note = notAllowed?
 # UA-2 Single Document element root.
 start = PDF
 
-PDF = element NoNS:PDF {StructTreeRoot}
+PDF = element NoNS:PDF {StructTreeRoot,XMP?}
+
 StructTreeRoot = element NoNS:StructTreeRoot {Document|DocumentFragment}
 
 AssociatedFile = element NoNS:AssociatedFile {
@@ -62,7 +69,23 @@ formula-requirements = (
   AssociatedFilemath
 )
 
+## PDF/UA-2
+pdfuaid_part = element pdfuaid:part {"2"}
+
 ## share with pdf1.7 version from here to end
+
+# XMP data
+anyelem = element * {(attribute * {text}* | text | anyelem) *}
+
+XMP = element NoNS:XMP {x_xmpmeta & anyelem*}
+
+x_xmpmeta = element x:xmpmeta {attribute * {text}*,(rdf_RDF &  anyelem*)}
+
+rdf_RDF= element rdf:RDF {attribute * {text}*, (rdf_Description & anyelem*)}
+
+rdf_Description= element rdf:Description {attribute * {text}*, (pdfuaid_part & anyelem*)}
+
+# end of XMP
 
 textorHTML &= (Link|Reference|Strong|Code|Em|Lbl|Span|mathse|Quote|RB|Annot|Figure|Form)*
 

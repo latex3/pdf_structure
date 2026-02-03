@@ -99,26 +99,6 @@
       </choice>
     </element>
   </define>
-  <define name="AssociatedFilemath">
-    <element>
-      <name ns="">AssociatedFile</name>
-      <attribute name="name"/>
-      <ref name="math"/>
-    </element>
-  </define>
-  <define name="AssociatedFiletext">
-    <element>
-      <name ns="">AssociatedFile</name>
-      <attribute name="name"/>
-      <text/>
-    </element>
-  </define>
-  <define name="formula-requirements">
-    <choice>
-      <attribute name="actualtext"/>
-      <attribute name="alt"/>
-    </choice>
-  </define>
   <define name="textorHTML" combine="interleave">
     <a:documentation>share with pdf1.7 version from here to end</a:documentation>
     <zeroOrMore>
@@ -2091,7 +2071,7 @@
       </optional>
       <optional>
         <!-- Lang -->
-        <attribute name="expanded"/>
+        <attribute name="expansion"/>
       </optional>
       <optional>
         <!-- E -->
@@ -2202,109 +2182,61 @@
       <!---->
     </element>
   </define>
-  <!-- expanded pdf2-attributes to avoid so much backtracking -->
   <define name="Formula">
     <a:documentation>Formula</a:documentation>
     <element>
       <name ns="">Formula</name>
-      <zeroOrMore>
-        <ref name="AssociatedFiletext"/>
-      </zeroOrMore>
-      <ref name="formula-requirements"/>
-      <zeroOrMore>
-        <ref name="AssociatedFiletext"/>
-      </zeroOrMore>
-      <group>
+      <ref name="pdf2-attributes"/>
+      <optional>
+        <attribute name="Layout:Width"/>
+      </optional>
+      <optional>
+        <attribute name="Layout:Height"/>
+      </optional>
+      <interleave>
         <optional>
-          <attribute name="lang"/>
+          <ref name="H"/>
         </optional>
         <optional>
-          <!-- Lang -->
-          <attribute name="expansion"/>
+          <ref name="Caption"/>
         </optional>
-        <optional>
-          <!-- E -->
-          <attribute name="title"/>
-        </optional>
-        <optional>
-          <!-- T -->
-          <attribute name="id"/>
-        </optional>
-        <optional>
-          <!-- ID -->
-          <attribute name="phoneme"/>
-        </optional>
-        <optional>
-          <!-- Phoneme -->
-          <attribute name="phonetic-alphabet"/>
-        </optional>
-        <optional>
-          <!-- PhoneticAlphabet -->
-          <attribute name="revision"/>
-        </optional>
-        <!-- R -->
-        <ref name="layout-attributes"/>
-        <ref name="otherns-attributes"/>
-        <optional>
-          <attribute name="af"/>
-        </optional>
-        <optional>
-          <attribute name="rolemapped-from"/>
-        </optional>
-        <optional>
-          <attribute name="referenced-as"/>
-        </optional>
-        <optional>
-          <attribute name="Layout:Width"/>
-        </optional>
-        <optional>
-          <attribute name="Layout:Height"/>
-        </optional>
-        <interleave>
-          <optional>
-            <ref name="H"/>
-          </optional>
-          <optional>
-            <ref name="Caption"/>
-          </optional>
-          <zeroOrMore>
-            <choice>
-              <text/>
-              <ref name="Part"/>
-              <ref name="Div"/>
-              <ref name="Aside"/>
-              <ref name="BlockQuote"/>
-              <ref name="NonStruct"/>
-              <ref name="Private"/>
-              <ref name="P"/>
-              <ref name="Note"/>
-              <ref name="Code"/>
-              <ref name="Hn"/>
-              <ref name="Sub"/>
-              <ref name="Lbl"/>
-              <ref name="Em"/>
-              <ref name="Strong"/>
-              <ref name="Span"/>
-              <ref name="Quote"/>
-              <ref name="Link"/>
-              <ref name="Reference"/>
-              <ref name="Annot"/>
-              <ref name="Form"/>
-              <ref name="Ruby"/>
-              <ref name="Warichu"/>
-              <ref name="FENote"/>
-              <ref name="Index"/>
-              <ref name="L"/>
-              <ref name="BibEntry"/>
-              <ref name="Table"/>
-              <ref name="Figure"/>
-              <ref name="Formula"/>
-              <ref name="Artifact"/>
-              <ref name="mathse"/>
-            </choice>
-          </zeroOrMore>
-        </interleave>
-      </group>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="Part"/>
+            <ref name="Div"/>
+            <ref name="Aside"/>
+            <ref name="BlockQuote"/>
+            <ref name="NonStruct"/>
+            <ref name="Private"/>
+            <ref name="P"/>
+            <ref name="Note"/>
+            <ref name="Code"/>
+            <ref name="Hn"/>
+            <ref name="Sub"/>
+            <ref name="Lbl"/>
+            <ref name="Em"/>
+            <ref name="Strong"/>
+            <ref name="Span"/>
+            <ref name="Quote"/>
+            <ref name="Link"/>
+            <ref name="Reference"/>
+            <ref name="Annot"/>
+            <ref name="Form"/>
+            <ref name="Ruby"/>
+            <ref name="Warichu"/>
+            <ref name="FENote"/>
+            <ref name="Index"/>
+            <ref name="L"/>
+            <ref name="BibEntry"/>
+            <ref name="Table"/>
+            <ref name="Figure"/>
+            <ref name="Formula"/>
+            <ref name="Artifact"/>
+            <ref name="mathse"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
     </element>
   </define>
   <define name="Artifact">

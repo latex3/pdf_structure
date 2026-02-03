@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rm -rf build/show-pdf-tags
+mkdir -p build/show-pdf-tags
+cp LICENSE show-pdf-tags/{*.md,*.1,*.lua,*.tex,*.pdf} RelaxNG/*.rn?  build/show-pdf-tags
+cd build
+zip -qr show-pdf-tags.zip show-pdf-tags

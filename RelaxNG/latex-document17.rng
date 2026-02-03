@@ -104,6 +104,15 @@
       <ref name="sechead.content"/>
     </element>
   </define>
+  <define name="Title" combine="choice">
+    <element>
+      <name ns="">part</name>
+      <attribute name="rolemaps-to">
+        <value>Title</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
   <!-- This could be restricted to section headings, but for now allow where Lbl is allowed -->
   <define name="Lbl" combine="choice">
     <element>
@@ -112,7 +121,12 @@
       <attribute name="rolemaps-to">
         <value>Span</value>
       </attribute>
-      <text/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="Formula"/>
+        </choice>
+      </zeroOrMore>
     </element>
   </define>
   <!-- LaTeX NS -->
@@ -135,6 +149,7 @@
       <optional>
         <attribute name="id"/>
       </optional>
+      <ref name="showtags-attributes"/>
       <zeroOrMore>
         <ref name="float"/>
       </zeroOrMore>
@@ -149,6 +164,7 @@
       <optional>
         <attribute name="id"/>
       </optional>
+      <ref name="showtags-attributes"/>
       <zeroOrMore>
         <ref name="float"/>
       </zeroOrMore>
@@ -166,6 +182,7 @@
       <optional>
         <attribute name="id"/>
       </optional>
+      <ref name="showtags-attributes"/>
       <zeroOrMore>
         <choice>
           <ref name="Caption"/>
@@ -186,6 +203,7 @@
       <optional>
         <attribute name="id"/>
       </optional>
+      <ref name="showtags-attributes"/>
       <optional>
         <ref name="Caption"/>
       </optional>
@@ -213,6 +231,9 @@
           <ref name="Title"/>
         </choice>
       </optional>
+      <optional>
+        <ref name="Caption"/>
+      </optional>
       <zeroOrMore>
         <choice>
           <ref name="H4"/>
@@ -233,6 +254,7 @@
           <ref name="verbatim"/>
           <ref name="list"/>
           <ref name="Part"/>
+          <ref name="FENote"/>
         </choice>
       </zeroOrMore>
     </element>
@@ -344,7 +366,33 @@
       </attribute>
       <ref name="pdf2-attributes"/>
       <zeroOrMore>
-        <ref name="Part"/>
+        <choice>
+          <ref name="Part"/>
+          <ref name="Art"/>
+          <ref name="Div"/>
+          <ref name="Sect"/>
+          <ref name="TOC"/>
+          <ref name="BlockQuote"/>
+          <ref name="NonStruct"/>
+          <ref name="Private"/>
+          <ref name="P"/>
+          <ref name="Note"/>
+          <ref name="Code"/>
+          <ref name="Hn"/>
+          <ref name="Title"/>
+          <ref name="Lbl"/>
+          <ref name="Link"/>
+          <ref name="Reference"/>
+          <ref name="Annot"/>
+          <ref name="Form"/>
+          <ref name="FENote"/>
+          <ref name="Index"/>
+          <ref name="L"/>
+          <ref name="Table"/>
+          <ref name="Figure"/>
+          <ref name="Formula"/>
+          <ref name="Artifact"/>
+        </choice>
       </zeroOrMore>
     </element>
   </define>
@@ -395,6 +443,7 @@
           <ref name="Strong"/>
           <ref name="FENote"/>
           <ref name="Formula"/>
+          <ref name="Ruby"/>
         </choice>
       </zeroOrMore>
     </element>
@@ -429,7 +478,10 @@
       <ref name="pdf2-attributes"/>
       <ref name="footnotelabel"/>
       <zeroOrMore>
-        <ref name="Part"/>
+        <choice>
+          <ref name="Part"/>
+          <ref name="text"/>
+        </choice>
       </zeroOrMore>
     </element>
   </define>

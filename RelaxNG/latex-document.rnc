@@ -24,8 +24,12 @@ H4 |= element latexSEbook:subsubsection {attribute rolemaps-to {"H4"}, sechead.c
 H5 |= element latexSEbook:paragraph     {attribute rolemaps-to {"H5"}, sechead.content}
 H6 |= element latexSEbook:subparagraph  {attribute rolemaps-to {"H6"}, sechead.content}
 
+Title |= element latexSE:part {attribute rolemaps-to {"Title"}, sechead.content}
+
 # This could be restricted to section headings, but for now allow where Lbl is allowed
-Lbl |= element latexSE:section-number {pdf2-attributes, attribute rolemaps-to {"Span"}, text} 
+Lbl |= element latexSE:section-number {pdf2-attributes, attribute rolemaps-to {"Span"},
+ (text|Formula)*
+ } 
 
 # LaTeX NS
 
@@ -35,18 +39,21 @@ document.1 &= figures?
 figures = element latexSE:figures {
   attribute rolemaps-to {"Sect"},
   attribute id {text}?,
+  showtags-attributes,
   float*
  }
 
 tables = element latexSE:tables {
   attribute rolemaps-to {"Sect"},
   attribute id {text}?,
+  showtags-attributes,
   float*
  }
 
 float = element latexSE:float {
   attribute rolemaps-to {"Aside"|"Note"},
   attribute id {text}?,
+  showtags-attributes,
   (Caption|Part|Div|Figure|\text)*
  }
 
@@ -55,6 +62,7 @@ float = element latexSE:float {
 theorem-like = element latexSE:theorem-like {
   attribute rolemaps-to {"Sect"},
   attribute id {text}?,
+  showtags-attributes,
   Caption?,
   Lbl?,
   (Part)*
@@ -65,7 +73,7 @@ Sect |= theorem-like
 text-unit = element latexSE:text-unit {
   attribute rolemaps-to {"Part"},
   pdf2-attributes,
-   (title|Title)?,(H4|H5|Div|Sect|P|Aside|Figure|Table|Formula|quote|quotation|\text|itemize|description|enumerate|verbatim|\list|Part)*}
+   (title|Title)?,Caption?,(H4|H5|Div|Sect|P|Aside|Figure|Table|Formula|quote|quotation|\text|itemize|description|enumerate|verbatim|\list|Part|FENote)*}
 Part |= text-unit
 
 verbatim = element latexSE:verbatim {
@@ -117,7 +125,7 @@ quote = element latexSE:quote {
 quotation = element latexSE:quotation {
  attribute rolemaps-to {"BlockQuote"},
  pdf2-attributes,
- (Part)*
+ (Part|Art|Div|Sect|TOC|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Title|Lbl|Link|Reference|Annot|Form|FENote|Index|L|Table|Figure|Formula|Artifact)*
 }
 
 description= element latexSE:description {
@@ -138,7 +146,7 @@ title = element latexSE:title {
 \text = element latexSE:text {
  attribute rolemaps-to {"P"},
  pdf2-attributes,
- (text|Figure|Span|Link|Lbl|Reference|Em|Strong|FENote|Formula)*
+ (text|Figure|Span|Link|Lbl|Reference|Em|Strong|FENote|Formula|Ruby)*
 }
 P |= \text
 
@@ -152,7 +160,7 @@ Lbl |= element latexSE:footnotemark {
 FENote |= element latexSE:footnote {
   attribute rolemaps-to {"FENote"|"Note"},
   pdf2-attributes,
-  footnotelabel,(Part)*
+  footnotelabel,(Part|\text)*
 }
 
 footnotelabel = element latexSE:footnotelabel {

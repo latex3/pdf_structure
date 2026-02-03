@@ -1,6 +1,6 @@
 
 namespace latexSE = "https://www.latex-project.org/ns/dflt"
-namespace latexSEtalk = "https://www.latex-project.org/ns/local/talk"
+namespace latexSEtalk = "https://www.latex-project.org/ns/local/ltx-talk"
 
 ## PDF/UA-2
 
@@ -12,14 +12,14 @@ include "latex-document.rnc"
 Sect |= element latexSEtalk:frame {
   pdf2-attributes,
   attribute rolemaps-to {"Sect"},
-  frametitle?,slide*}
+  frametitle?,text-unit*,slide*}
 
 
 
 frametitle = element latexSEtalk:frametitle {
   pdf2-attributes,
-  attribute rolemaps-to {"H1"},
-  (text|Span)*
+  attribute rolemaps-to {"H1"|"H4"},
+  (text|Formula|Span)*
 }
 
 slide = element latexSEtalk:slide {

@@ -40,10 +40,27 @@ start = PDF
 
 PDF = element NoNS:PDF {StructTreeRoot}
 StructTreeRoot = element NoNS:StructTreeRoot {Document|DocumentFragment}
+
 AssociatedFile = element NoNS:AssociatedFile {
 attribute name {text},
 (text|math)
 }
+
+AssociatedFilemath = element NoNS:AssociatedFile {
+attribute name {text},
+(math)
+}
+AssociatedFiletext = element NoNS:AssociatedFile {
+attribute name {text},
+(text)
+}
+
+formula-requirements = (
+  attribute actualtext {text}|
+  attribute alt {text} |
+  (Lbl*,mathse) |
+  AssociatedFilemath
+)
 
 ## share with pdf1.7 version from here to end
 
@@ -491,13 +508,29 @@ Figure = element pdf2:Figure {
 }
 
 ### Formula
-
+# expanded pdf2-attributes to avoid so much backtracking
 Formula = element pdf2:Formula {
-  pdf2-attributes,
+    AssociatedFiletext*,
+    formula-requirements ,
+    AssociatedFiletext*,
+  (
+  attribute lang {text}?,              # Lang
+  attribute expansion {text}?,         # E
+  attribute title {text}?,             # T
+  attribute id {text}?,                # ID
+  attribute phoneme {text}?,           # Phoneme
+  attribute phonetic-alphabet {text}?, # PhoneticAlphabet
+  attribute revision {text}?,          # R
+  layout-attributes,
+  otherns-attributes,
+  attribute af {text}?,
+  attribute rolemapped-from {text}?,
+  attribute referenced-as {text}?,
   attribute Layout:Width {text}?,
   attribute Layout:Height {text}?,
 (H? & Caption? & (text|Part|Div|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Sub|Lbl|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|Index|L|BibEntry|Table|Figure|Formula|Artifact|
 mathse)*)
+)
 }
 
 ### Artifact

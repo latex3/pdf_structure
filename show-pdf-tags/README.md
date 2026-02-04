@@ -1,6 +1,6 @@
 # Print structure element hierarchy for Tagged PDF
 
-show-pdf-tags version 1.3
+show-pdf-tags version 1.4
 
 Print a plain text or XML tree representing the structure of tagged PDF files.
 
@@ -23,6 +23,7 @@ Options
   --xml            show as XML
   --table          show Lua table structure
   --map            Follow role mapping (xml printer)
+  --xmp            Include XMP XML (xml printer)
   --w3c-           Add - to w3c namespaces to force browser tree display
 ```
 

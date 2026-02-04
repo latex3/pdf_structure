@@ -1,0 +1,144 @@
+namespace latexSEplay = "https://www.latex-project.org/ns/local/plays"
+namespace latexSEamse = "https://www.latex-project.org/ns/local/asmeconf"
+namespace luatexko = "https://www.latex-project.org/ns/local/luatexko"
+namespace latexSEamsej = "https://www.latex-project.org/ns/local/asmejour"
+namespace mitthesis = "https://www.latex-project.org/ns/local/mitthesis"
+
+include "latex-document.rnc"
+
+# LaTeX play
+Span |= element latexSEplay:SceneDescription {pdf2-attributes,attribute rolemaps-to {"Span"}, text}
+Strong |= element latexSEplay:Speaker {pdf2-attributes,attribute rolemaps-to {"Strong"},text}
+
+
+# asmeconf
+Div |= element latexSEamse:Conference_information {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  text-unit*
+  }
+
+Div |= element latexSEamse:Author_Affiliation {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  text-unit*
+  }
+
+Div|= element latexSEamse:Affiliation {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  text-unit*
+  }
+
+Div |= element latexSEamsej:Author_Block {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  text-unit*
+  }
+
+Div |= element latexSEamse:Paper_number {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  text-unit*
+  }
+
+
+# luatexko
+
+Span |= element luatexko:StrikeOut {
+  pdf2-attributes,
+  attribute rolemaps-to {"Span"},
+  (text|Span)*
+  }
+
+Div|= element luatexko:Vertical {
+  pdf2-attributes,
+  attribute rolemaps-to {"Div"},
+  (text-unit|P)*
+  }
+  
+Div|= element luatexko:Horizontal {
+  pdf2-attributes,
+  attribute rolemaps-to {"Div"},
+  (text-unit|P)*
+}
+
+## mithesis
+Div |= element mitthesis:Author{
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  text-unit*
+  }
+Div |= element mitthesis:Degree{
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  text-unit*
+  }
+Div |= element mitthesis:Copyright{
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  text-unit*
+  }
+
+Div |= element mitthesis:Title_sig_block{
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  text-unit*
+  }
+Div |= element mitthesis:Nomenclature_list{
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  text-unit*
+  }
+Div |= element mitthesis:Abstract_title{
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  text-unit*
+  }
+Div |= element mitthesis:Abstract_text{
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  text-unit*
+  }
+Div |= element mitthesis:Abstract_supervisor{
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  text-unit*
+  }
+Sect |= element mitthesis:Abstract_page{
+  showtags-attributes,
+  attribute rolemaps-to {"Sect"},
+  attribute id {text}?,
+  attribute title {text}?,
+  (Div|text-unit)*
+  }
+Span |= element mitthesis:Nomenclature_entry_heading{
+  showtags-attributes,
+  attribute rolemaps-to {"Span"},
+  attribute id {text}?,
+  attribute title {text}?,
+  (Em|Span)*
+  }

@@ -1,47 +1,49 @@
-.TH SHOW-PDF-TAGS 1 "2025-01-28" "LaTeX"
+.TH SHOW-PDF-TAGS 1 2025-01-28 LaTeX
 
 .SH NAME
-show-pdf-tags
+show-pdf-tags \- show the internal Structure Tree of a tagged PDF file
 
 .SH SYNOPSIS
-.B  show-pdf-tags
-.RI [<options>]
-.RI <PDF-File>
+.B show-pdf-tags
+.RI [ <options> ]
+.I <PDF-File>
 
 .SH DESCRIPTION
 
-The \fBshow-pdf-tags\fR  script shows the internal Structure Tree
+The \fBshow-pdf-tags\fR script shows the internal Structure Tree
 of a tagged PDF File.
 
 The structure may be shown using an indented tree display
 using Unicode line characters, or as XML, or (primarily for debugging)
 as a linearisation of the Lua table structure obtained from the PDF file.
 
-The XML display will use element names mmatching the names of the
-structure elements unless the \fB--map\fR option is used, in which case the
+The XML display will use element names matching the names of the
+structure elements unless the \fB\-\-map\fR option is used, in which case the
 standard PDF Structure element names will be used, as specified in the
-role maping in the file.
+role mapping in the file.
 
 It accepts a single PDF File and outputs to the standard
 output stream.
 
 Valid <options> are:
 
-.NF
+.nf
 .TP
-   \fB--help|-h\fR        Prints this message and exits
+   \fB\-\-help|-h\fR        Prints this message and exits
 .TP
-   \fB--ignore-case\fR    Ignore case when sorting directory listing
+   \fB\-\-ignore-case\fR    Ignore case when sorting directory listing
 .TP
-   \fB--tree\fR (default) Show as tree
+   \fB\-\-tree\fR (default) Show as tree
 .TP
-   \fB--xml\fR            Show as XML
+   \fB\-\-xml\fR            Show as XML
 .TP
-   \fB--table\fR          Show Lua table structure
+   \fB\-\-table\fR          Show Lua table structure
 .TP
-   \fB--map\fR            Follow role mapping (xml printer)
+   \fB\-\-map\fR            Follow role mapping (xml printer)
 .TP
-   \fB--w3c-\fR           Add - to w3c namespaces to force browser display
+   \fB\-\-xmp\fR            Include XMP XML (xml printer)
+.TP
+   \fB\-\-w3c-\fR           Add - to w3c namespaces to force browser display
 .PP
 .FI
 
@@ -53,4 +55,4 @@ Repository : https://github.com/latex3/pdf_structure
 Bug tracker: https://github.com/latex3/pdf_structure/issues
 
 .SH AUTHORS
-Copyright (C) 2024-2025 The LaTeX Project
+Copyright (C) 2024\(en2026 The LaTeX Project

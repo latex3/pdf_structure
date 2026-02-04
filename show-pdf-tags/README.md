@@ -23,6 +23,7 @@ Options
   --xml            show as XML
   --table          show Lua table structure
   --map            Follow role mapping (xml printer)
+  --xmp            Include XMP XML (xml printer)
   --w3c-           Add - to w3c namespaces to force browser tree display
 ```
 

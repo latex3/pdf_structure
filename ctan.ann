@@ -1,6 +1,2 @@
-show-pdf-tags provides a tool to make the structure of tagged PDF files visible.
-It parses a PDF files and extracts most tagging related information to turn it into
-either a visual tree structure or a XML document representing the tags.
-
-The package is released together with a collection of schemas which can be used to
-check that the resulting XML structure follows specified rules.
+version 1.5
+A small update to avoid spurious blank lines in the XML output.

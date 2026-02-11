@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns:Layout="http://iso.org/pdf/ssn/Layout" xmlns:PrintField="http://iso.org/pdf/ssn/PrintField" xmlns="http://relaxng.org/ns/structure/1.0">
+  <include href="document-pdf-ua1.rng">
+    <define name="StructTreeRoot">
+      <element>
+        <name ns="">StructTreeRoot</name>
+        <zeroOrMore>
+          <choice>
+            <ref name="Document"/>
+            <ref name="DocumentFragment"/>
+            <ref name="Part"/>
+            <ref name="Art"/>
+            <ref name="Div"/>
+            <ref name="Sect"/>
+            <ref name="TOC"/>
+            <ref name="Aside"/>
+            <ref name="BlockQuote"/>
+            <ref name="NonStruct"/>
+            <ref name="Private"/>
+            <ref name="P"/>
+            <ref name="Note"/>
+            <ref name="Code"/>
+            <ref name="Hn"/>
+            <ref name="H"/>
+            <ref name="Title"/>
+            <ref name="Link"/>
+            <ref name="Annot"/>
+            <ref name="Form"/>
+            <ref name="FENote"/>
+            <ref name="Index"/>
+            <ref name="L"/>
+            <ref name="Figure"/>
+            <ref name="Formula"/>
+            <ref name="Artifact"/>
+          </choice>
+        </zeroOrMore>
+      </element>
+    </define>
+    <!-- no Annot but allow text|Span?? -->
+    <define name="document.n">
+      <choice>
+        <text/>
+        <ref name="Span"/>
+        <ref name="Document"/>
+        <ref name="DocumentFragment"/>
+        <ref name="Annot"/>
+        <ref name="Part"/>
+        <ref name="Art"/>
+        <ref name="Div"/>
+        <ref name="Sect"/>
+        <ref name="TOC"/>
+        <ref name="Aside"/>
+        <ref name="BlockQuote"/>
+        <ref name="NonStruct"/>
+        <ref name="Private"/>
+        <ref name="P"/>
+        <ref name="Note"/>
+        <ref name="Code"/>
+        <ref name="Hn"/>
+        <ref name="Title"/>
+        <ref name="Link"/>
+        <ref name="Form"/>
+        <ref name="FENote"/>
+        <ref name="Index"/>
+        <ref name="L"/>
+        <ref name="Table"/>
+        <ref name="Figure"/>
+        <ref name="Formula"/>
+        <ref name="Artifact"/>
+      </choice>
+    </define>
+    <define name="Form">
+      <element name="Form">
+        <ref name="pdf2-attributes"/>
+        <optional>
+          <attribute name="Layout:Width"/>
+        </optional>
+        <optional>
+          <attribute name="Layout:Height"/>
+        </optional>
+        <optional>
+          <attribute name="PrintField:Checked"/>
+        </optional>
+        <optional>
+          <attribute name="PrintField:checked"/>
+        </optional>
+        <optional>
+          <attribute name="PrintField:Desc"/>
+        </optional>
+        <choice>
+          <group>
+            <attribute name="PrintField:Role"/>
+            <zeroOrMore>
+              <interleave>
+                <optional>
+                  <ref name="Caption"/>
+                </optional>
+                <choice>
+                  <ref name="Part"/>
+                  <ref name="Div"/>
+                  <ref name="NonStruct"/>
+                  <ref name="Private"/>
+                  <ref name="Note"/>
+                  <ref name="Code"/>
+                  <ref name="Lbl"/>
+                  <ref name="Reference"/>
+                  <ref name="FENote"/>
+                  <ref name="L"/>
+                  <ref name="BibEntry"/>
+                  <ref name="Table"/>
+                  <ref name="Figure"/>
+                  <ref name="Formula"/>
+                  <ref name="Artifact"/>
+                </choice>
+              </interleave>
+            </zeroOrMore>
+          </group>
+          <text/>
+        </choice>
+      </element>
+    </define>
+    <!-- Table, TOC, Sect,P,L in Span -->
+    <define name="Span">
+      <element>
+        <name ns="">Span</name>
+        <ref name="pdf2-attributes"/>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="Table"/>
+            <ref name="TOC"/>
+            <ref name="Sect"/>
+            <ref name="P"/>
+            <ref name="L"/>
+            <ref name="Hn"/>
+            <ref name="Document"/>
+            <ref name="NonStruct"/>
+            <ref name="Private"/>
+            <ref name="Note"/>
+            <ref name="Code"/>
+            <ref name="Sub"/>
+            <ref name="Lbl"/>
+            <ref name="Em"/>
+            <ref name="Strong"/>
+            <ref name="Span"/>
+            <ref name="Quote"/>
+            <ref name="Link"/>
+            <ref name="Reference"/>
+            <ref name="Annot"/>
+            <ref name="Form"/>
+            <ref name="Ruby"/>
+            <ref name="Warichu"/>
+            <ref name="FENote"/>
+            <ref name="BibEntry"/>
+            <ref name="Figure"/>
+            <ref name="Formula"/>
+            <ref name="Artifact"/>
+          </choice>
+        </zeroOrMore>
+      </element>
+    </define>
+    <define name="Sect">
+      <element>
+        <name ns="">Sect</name>
+        <ref name="pdf2-attributes"/>
+        <interleave>
+          <optional>
+            <ref name="H"/>
+          </optional>
+          <zeroOrMore>
+            <choice>
+              <text/>
+              <ref name="Document"/>
+              <ref name="DocumentFragment"/>
+              <ref name="Part"/>
+              <ref name="Art"/>
+              <ref name="Div"/>
+              <ref name="Sect"/>
+              <ref name="TOC"/>
+              <ref name="Aside"/>
+              <ref name="BlockQuote"/>
+              <ref name="NonStruct"/>
+              <ref name="Private"/>
+              <ref name="P"/>
+              <ref name="Note"/>
+              <ref name="Code"/>
+              <ref name="Hn"/>
+              <ref name="Title"/>
+              <ref name="Lbl"/>
+              <ref name="Link"/>
+              <ref name="Annot"/>
+              <ref name="Form"/>
+              <ref name="FENote"/>
+              <ref name="Index"/>
+              <ref name="L"/>
+              <ref name="Table"/>
+              <ref name="Caption"/>
+              <ref name="Figure"/>
+              <ref name="Formula"/>
+              <ref name="Artifact"/>
+              <ref name="Span"/>
+            </choice>
+          </zeroOrMore>
+        </interleave>
+      </element>
+    </define>
+    <define name="sechead.content">
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <optional>
+          <ref name="Art"/>
+        </optional>
+        <optional>
+          <ref name="Sect"/>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="P"/>
+            <ref name="Table"/>
+            <ref name="TOC"/>
+            <ref name="L"/>
+            <ref name="Hn"/>
+            <ref name="Document"/>
+            <ref name="NonStruct"/>
+            <ref name="Private"/>
+            <ref name="Note"/>
+            <ref name="Code"/>
+            <ref name="Sub"/>
+            <ref name="Lbl"/>
+            <ref name="Em"/>
+            <ref name="Strong"/>
+            <ref name="Span"/>
+            <ref name="Quote"/>
+            <ref name="Link"/>
+            <ref name="Reference"/>
+            <ref name="Annot"/>
+            <ref name="Form"/>
+            <ref name="Ruby"/>
+            <ref name="Warichu"/>
+            <ref name="FENote"/>
+            <ref name="BibEntry"/>
+            <ref name="Figure"/>
+            <ref name="Formula"/>
+            <ref name="Artifact"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </define>
+    <define name="P">
+      <element>
+        <name ns="">P</name>
+        <ref name="pdf2-attributes"/>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="TOC"/>
+            <ref name="Sect"/>
+            <ref name="P"/>
+            <ref name="Hn"/>
+            <ref name="Document"/>
+            <ref name="NonStruct"/>
+            <ref name="Private"/>
+            <ref name="Note"/>
+            <ref name="Code"/>
+            <ref name="Sub"/>
+            <ref name="Lbl"/>
+            <ref name="Em"/>
+            <ref name="Strong"/>
+            <ref name="Span"/>
+            <ref name="Quote"/>
+            <ref name="Link"/>
+            <ref name="Reference"/>
+            <ref name="Annot"/>
+            <ref name="Form"/>
+            <ref name="Ruby"/>
+            <ref name="Warichu"/>
+            <ref name="FENote"/>
+            <ref name="L"/>
+            <ref name="BibEntry"/>
+            <ref name="Table"/>
+            <ref name="Figure"/>
+            <ref name="Formula"/>
+            <ref name="Artifact"/>
+          </choice>
+        </zeroOrMore>
+      </element>
+    </define>
+    <define name="Link">
+      <element>
+        <name ns="">Link</name>
+        <ref name="pdf2-attributes"/>
+        <choice>
+          <zeroOrMore>
+            <choice>
+              <ref name="DocumentFragment"/>
+              <ref name="Document"/>
+              <ref name="TOC"/>
+              <ref name="Part"/>
+              <ref name="Art"/>
+              <ref name="Div"/>
+              <ref name="Sect"/>
+              <ref name="Aside"/>
+              <ref name="BlockQuote"/>
+              <ref name="NonStruct"/>
+              <ref name="Private"/>
+              <ref name="P"/>
+              <ref name="Note"/>
+              <ref name="Code"/>
+              <ref name="Hn"/>
+              <ref name="H"/>
+              <ref name="Title"/>
+              <ref name="Sub"/>
+              <ref name="Lbl"/>
+              <ref name="Annot"/>
+              <ref name="Form"/>
+              <ref name="Ruby"/>
+              <ref name="Warichu"/>
+              <ref name="FENote"/>
+              <ref name="L"/>
+              <ref name="BibEntry"/>
+              <ref name="Table"/>
+              <ref name="Caption"/>
+              <ref name="Figure"/>
+              <ref name="Formula"/>
+              <ref name="Artifact"/>
+              <ref name="mathse"/>
+            </choice>
+          </zeroOrMore>
+          <zeroOrMore>
+            <!-- Grouping -->
+            <choice>
+              <text/>
+              <ref name="Art"/>
+              <ref name="Div"/>
+              <ref name="Sect"/>
+              <ref name="NonStruct"/>
+              <ref name="Private"/>
+              <ref name="Note"/>
+              <ref name="Code"/>
+              <ref name="Sub"/>
+              <ref name="Lbl"/>
+              <ref name="Em"/>
+              <ref name="Strong"/>
+              <ref name="Span"/>
+              <ref name="Quote"/>
+              <ref name="Reference"/>
+              <ref name="Annot"/>
+              <ref name="Ruby"/>
+              <ref name="Warichu"/>
+              <ref name="FENote"/>
+              <ref name="BibEntry"/>
+              <ref name="Table"/>
+              <ref name="Figure"/>
+              <ref name="Formula"/>
+              <ref name="Artifact"/>
+              <ref name="mathse"/>
+            </choice>
+          </zeroOrMore>
+        </choice>
+        <!---->
+      </element>
+    </define>
+    <define name="LI">
+      <element>
+        <name ns="">LI</name>
+        <ref name="pdf2-attributes"/>
+        <zeroOrMore>
+          <choice>
+            <ref name="Div"/>
+            <ref name="NonStruct"/>
+            <ref name="Private"/>
+            <ref name="Lbl"/>
+            <ref name="LBody"/>
+            <ref name="Artifact"/>
+          </choice>
+        </zeroOrMore>
+      </element>
+    </define>
+    <define name="LBody">
+      <element>
+        <name ns="">LBody</name>
+        <ref name="pdf2-attributes"/>
+        <interleave>
+          <optional>
+            <ref name="H"/>
+          </optional>
+          <optional>
+            <ref name="Caption"/>
+          </optional>
+          <zeroOrMore>
+            <choice>
+              <text/>
+              <ref name="TOC"/>
+              <ref name="Document"/>
+              <ref name="Part"/>
+              <ref name="Art"/>
+              <ref name="Div"/>
+              <ref name="Sect"/>
+              <ref name="Aside"/>
+              <ref name="BlockQuote"/>
+              <ref name="NonStruct"/>
+              <ref name="Private"/>
+              <ref name="P"/>
+              <ref name="Note"/>
+              <ref name="Code"/>
+              <ref name="Hn"/>
+              <ref name="Sub"/>
+              <ref name="Em"/>
+              <ref name="Strong"/>
+              <ref name="Span"/>
+              <ref name="Quote"/>
+              <ref name="Link"/>
+              <ref name="Reference"/>
+              <ref name="Annot"/>
+              <ref name="Form"/>
+              <ref name="Ruby"/>
+              <ref name="Warichu"/>
+              <ref name="FENote"/>
+              <ref name="Index"/>
+              <ref name="L"/>
+              <ref name="BibEntry"/>
+              <ref name="Table"/>
+              <ref name="Figure"/>
+              <ref name="Formula"/>
+              <ref name="Artifact"/>
+            </choice>
+          </zeroOrMore>
+        </interleave>
+      </element>
+    </define>
+    <define name="Annot">
+      <element>
+        <name ns="">Annot</name>
+        <ref name="pdf2-attributes"/>
+        <choice>
+          <zeroOrMore>
+            <choice>
+              <ref name="DocumentFragment"/>
+              <ref name="Document"/>
+              <ref name="TOC"/>
+              <ref name="Part"/>
+              <ref name="Art"/>
+              <ref name="Div"/>
+              <ref name="Sect"/>
+              <ref name="Aside"/>
+              <ref name="BlockQuote"/>
+              <ref name="NonStruct"/>
+              <ref name="Private"/>
+              <ref name="P"/>
+              <ref name="Note"/>
+              <ref name="Code"/>
+              <ref name="Hn"/>
+              <ref name="H"/>
+              <ref name="Title"/>
+              <ref name="Sub"/>
+              <ref name="Lbl"/>
+              <ref name="Link"/>
+              <ref name="Reference"/>
+              <ref name="Annot"/>
+              <ref name="Form"/>
+              <ref name="Ruby"/>
+              <ref name="Warichu"/>
+              <ref name="FENote"/>
+              <ref name="L"/>
+              <ref name="BibEntry"/>
+              <ref name="Table"/>
+              <ref name="Caption"/>
+              <ref name="Figure"/>
+              <ref name="Formula"/>
+              <ref name="Artifact"/>
+            </choice>
+          </zeroOrMore>
+          <zeroOrMore>
+            <!-- Grouping -->
+            <choice>
+              <text/>
+              <ref name="Art"/>
+              <ref name="Div"/>
+              <ref name="Sect"/>
+              <ref name="NonStruct"/>
+              <ref name="Private"/>
+              <ref name="Note"/>
+              <ref name="Code"/>
+              <ref name="Sub"/>
+              <ref name="Lbl"/>
+              <ref name="Em"/>
+              <ref name="Strong"/>
+              <ref name="Span"/>
+              <ref name="Quote"/>
+              <ref name="Link"/>
+              <ref name="Annot"/>
+              <ref name="Ruby"/>
+              <ref name="Warichu"/>
+              <ref name="FENote"/>
+              <ref name="BibEntry"/>
+              <ref name="Figure"/>
+              <ref name="Formula"/>
+              <ref name="Artifact"/>
+            </choice>
+          </zeroOrMore>
+        </choice>
+        <!---->
+      </element>
+    </define>
+  </include>
+</grammar>

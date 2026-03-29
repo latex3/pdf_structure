@@ -2,20 +2,20 @@
 
 show-pdf-tags version 1.5
 
-Print a plain text or XML tree representing the structure of tagged PDF files.
+Print a plain text or XML tree representing the structure of Tagged PDF files.
 
 Usage:
 
-    show-pdf-tags <options> <filename>.pdf
+`show-pdf-tags <options> <filename>.pdf`
 
-The tree output format is documented in show-pdf-tags-format.pdf.
+The tree output format is documented in [show-pdf-tags-format.pdf](show-pdf-tags-format.pdf).
 
 The XML format shows (mostly) the same information and may be validated with
-the RelaxNG schema included in the distribution.
+the [RelaxNG schema](../RelaxNG/) included in the distribution.
 
-The options are
+The options are:
 
-```
+```text
 Options
   --help|-h        show this help
   --version|-v     show the current version

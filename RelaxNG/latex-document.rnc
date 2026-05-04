@@ -135,6 +135,32 @@ description= element latexSE:description {
  LI*
 }
 
+item = element latexSE:item {
+  pdf2-attributes,
+  attribute rolemaps-to {"LI"},
+  (itemlabel?,itembody?)
+}
+
+LI |= item
+
+itemlabel = element latexSE:itemlabel {
+  pdf2-attributes,
+  attribute rolemaps-to {"Lbl"},
+  (text|text-unit|\text)*
+}
+
+itembody = element latexSE:itembody {
+  pdf2-attributes,
+  attribute rolemaps-to {"LBody"},
+  (H?&Caption?&
+(text|Part|Art|Div|Sect|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Sub|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|Index|L|BibEntry|Table|Figure|Formula|Artifact)*)
+ }
+
+
+LBody |= itembody
+
+
+
 
 title = element latexSE:title {
  attribute rolemaps-to {"Title"},

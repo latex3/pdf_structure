@@ -383,6 +383,95 @@
       </zeroOrMore>
     </element>
   </define>
+  <define name="item">
+    <element name="latexSE:item">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>LI</value>
+      </attribute>
+      <group>
+        <optional>
+          <ref name="itemlabel"/>
+        </optional>
+        <optional>
+          <ref name="itembody"/>
+        </optional>
+      </group>
+    </element>
+  </define>
+  <define name="LI" combine="choice">
+    <ref name="item"/>
+  </define>
+  <define name="itemlabel">
+    <element name="latexSE:itemlabel">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Lbl</value>
+      </attribute>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-unit"/>
+          <ref name="text"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="itembody">
+    <element name="latexSE:itembody">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>LBody</value>
+      </attribute>
+      <interleave>
+        <optional>
+          <ref name="H"/>
+        </optional>
+        <optional>
+          <ref name="Caption"/>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="Part"/>
+            <ref name="Art"/>
+            <ref name="Div"/>
+            <ref name="Sect"/>
+            <ref name="Aside"/>
+            <ref name="BlockQuote"/>
+            <ref name="NonStruct"/>
+            <ref name="Private"/>
+            <ref name="P"/>
+            <ref name="Note"/>
+            <ref name="Code"/>
+            <ref name="Hn"/>
+            <ref name="Sub"/>
+            <ref name="Em"/>
+            <ref name="Strong"/>
+            <ref name="Span"/>
+            <ref name="Quote"/>
+            <ref name="Link"/>
+            <ref name="Reference"/>
+            <ref name="Annot"/>
+            <ref name="Form"/>
+            <ref name="Ruby"/>
+            <ref name="Warichu"/>
+            <ref name="FENote"/>
+            <ref name="Index"/>
+            <ref name="L"/>
+            <ref name="BibEntry"/>
+            <ref name="Table"/>
+            <ref name="Figure"/>
+            <ref name="Formula"/>
+            <ref name="Artifact"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="LBody" combine="choice">
+    <ref name="itembody"/>
+  </define>
   <define name="title">
     <element name="latexSE:title">
       <attribute name="rolemaps-to">

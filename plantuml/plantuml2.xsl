@@ -1,3 +1,15 @@
+<!--
+    Process the output from
+    show-pdf-tags - -xml - -map
+    to make PlantUML diagrams and associated tables for
+    PDF Association Tag Tree Diagrams
+
+
+David Carlisle
+Licence: MIT
+-->
+
+
 <xsl:stylesheet version="3.0"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -8,15 +20,50 @@
 
 <xsl:param name="rootelem"/>
 <xsl:param name="occurrence" select="1"/>
+<!--
+    If these are set, start the display at the nth occurrence of the
+    element with local name "rootelem"
+-->
+
 <xsl:param name="maxdepth" select="1000"/>
 <xsl:param name="maxsiblings" select="1000"/>
+<!--
+    Maximum depth and sibling count, any elements
+    exceeding these limits are omoited with ... marker
+-->
+
 <xsl:param name="elidecontent"/>
+<!--
+    Space separated list of element local-names
+    any children of these elements are just shown as ...
+-->
+
 <xsl:param name="omitatts"/>
-<xsl:param name="showrolemap" select="'yes'"/>
+<!--
+    Space separated list of attribute local names
+    that shoul dnot be displayed
+-->
+
 <xsl:param name="showemptyatts" select="'no'"/>
+<!--
+    yes/no option on whether to sow attributes with empty value
+    such as Alt=""
+-->
+
 <xsl:param name="maxattlength" select="20"/>
+<!--
+    Attribute values longer than this are truncated with a ... marker"
+-->
+
 <xsl:param name="nsprefix"/>
 <xsl:param name="nsurl"/>
+<!--
+    Space separated lists of namespace prefixes and namespace URI
+    provides the prefixes to use when displaying namespaces
+    as the PDF file does not provide prefixes and show-pdf
+    can not generate "good" ones.
+-->
+    
 <xsl:param name="descname"/>
 <xsl:param name="destext"/>
 <xsl:param name="namestyle" select="0"/>
@@ -28,7 +75,13 @@
     3   section                      H1
     4   H1                           H1
 -->
+
 <xsl:param name="maxstringlength" select="0"/>
+<!--
+    If this is non zero element content is displayed as a "-delimited string
+    in the comments column of the UML, truncated to this length if necessary.
+-->
+
 
 <xsl:variable name="elide-elems" select="tokenize($elidecontent,'[ ,]+')"/>
 <xsl:variable name="omit-atts" select="tokenize($omitatts,'[ ,]+')"/>
@@ -41,7 +94,7 @@
 <xsl:variable name="nsurlseq" select="tokenize($nsurl,'\s+')"/>
 
 <xsl:variable  name="namespacemap">
-  <xsl:for-each select="distinct-values(//*/namespace::*)">
+  <xsl:for-each select="distinct-values(//*/namespace::*)[not(starts-with(.,'http://iso.org/pdf/ssn/'))]">
     <n uri="{.}">
       <xsl:choose>
 	<xsl:when test=".=$nsurlseq">
@@ -103,7 +156,12 @@
 </xsl:function>
 
 <xsl:template match="PDF">
-  <xsl:message select="$namespacemap"/>
+  <xsl:result-document href="document-ns.txt">
+    <xsl:for-each select="$namespacemap/n">
+      <xsl:value-of select="'|',.,substring('    ',string-length(.)),'|',@uri,'|&#10;'"/>
+    </xsl:for-each>		  
+  </xsl:result-document>
+<xsl:result-document href="document.puml">
 [plantuml]
 ....
 '
@@ -133,6 +191,24 @@ skinparam lengthAdjust spacingAndGlyphs
 }
 @endsalt
 ....
+</xsl:result-document>
+<xsl:variable name="table">
+    <xsl:choose>
+      <xsl:when test="$rootelem">
+	<xsl:apply-templates mode="tbl1" select="/descendant::*[local-name(.)=$rootelem][xs:int($occurrence)]"/>
+      </xsl:when>
+      <xsl:otherwise>
+	    <xsl:apply-templates mode="tbl1" select="StructTreeRoot/*[position() le $maxsiblingsnum]"/>
+	    <xsl:if test="*[position() gt $maxsiblingsnum]">
+	      <row><prefix/><tag>...</tag><attributes/><comment>&lt;&lt;skipped&gt;&gt;</comment></row>
+	    </xsl:if>
+      </xsl:otherwise>
+    </xsl:choose>
+</xsl:variable>
+<xsl:result-document href="document-table.txt">
+<xsl:text>| Row number | Depth | Parent row         | Prefix | Tag        | Attributes        | Comment&#10;</xsl:text>
+<xsl:apply-templates mode="tbl2"  select="$table//row"/>  
+</xsl:result-document>
 </xsl:template>
 
 <xsl:template match="*">
@@ -198,6 +274,110 @@ skinparam lengthAdjust spacingAndGlyphs
       </xsl:if>
     </xsl:otherwise>
   </xsl:choose>
+</xsl:template>
+
+
+<xsl:template mode="tbl1" match="*">
+  <xsl:param name="level" select="xs:int(1)"/>
+  <xsl:text>&#10;</xsl:text>
+  <row>
+    <prefix>
+      <xsl:choose>
+	<xsl:when test="@rolemapped-from">
+	  <xsl:variable name="nu" select="string(namespace::orig-ns)"/>
+	  <xsl:value-of select="$namespacemap/n[@uri=$nu]" separator=""/>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:value-of select="$namespacemap/n[@uri=namespace-uri(current())]"/>
+	</xsl:otherwise>
+      </xsl:choose>
+    </prefix>
+    <tag>
+  <xsl:if test="@rolemapped-from and $namestylenum=(0,1,2,3,4)">
+    <xsl:value-of select="substring-after(@rolemapped-from,':')" separator=""/>
+  </xsl:if>
+  <xsl:if test="@rolemapped-from and $namestylenum=(0,1,2)">
+    <xsl:text>-&gt;</xsl:text>
+  </xsl:if>
+  <xsl:value-of select="local-name()" separator=""/>
+    </tag>
+    <attributes>
+  <xsl:choose>
+    <xsl:when test="empty((@* except (@rolemaps-to,@rolemapped-from,@referenced-as))[not(p:attname(local-name(.))=$omit-atts)][$show-empty or normalize-space(.)])">
+      <xsl:text> </xsl:text>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:for-each select="(@* except (@rolemaps-to,@rolemapped-from,@referenced-as))[$show-empty or normalize-space(.)]">
+	<xsl:variable name="n" select="p:attname(local-name())"/>
+	<xsl:if test="not($n=$omit-atts)">
+	  <xsl:value-of select="' ',$n,'=',p:attvalue(.),' '" separator=""/>
+	</xsl:if>
+      </xsl:for-each>
+    </xsl:otherwise>
+  </xsl:choose>
+    </attributes>
+    <comment>
+  <xsl:variable name="t" select="normalize-space(.)"/>
+  <xsl:choose>
+    <xsl:when test="not(*) and $t and ($maxstringlengthnum gt 0)">
+      <xsl:value-of select="'&quot;',substring($t,0,$maxstringlengthnum)" separator=""/>
+      <xsl:if test="string-length($t) gt xs:int($maxstringlengthnum)">...</xsl:if>
+      <xsl:text>"</xsl:text>
+    </xsl:when>
+  </xsl:choose>
+    </comment>
+ <xsl:choose>      
+    <xsl:when test="local-name()=$elide-elems or
+		    (exists(*) and $level=xs:int($maxdepth))">
+      <xsl:text>&#10;</xsl:text>
+      <row><prefix/><tag>...</tag><attributes/><comment>&lt;&lt;skipped&gt;&gt;</comment></row>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates mode="tbl1" select="*[position() le $maxsiblingsnum]">
+	<xsl:with-param name="level" select="xs:int($level+1)"/>
+      </xsl:apply-templates>
+      <xsl:if test="*[position() gt $maxsiblingsnum]">
+	<xsl:text>&#10;</xsl:text>
+	<row><prefix/><tag>...</tag><attributes/><comment>&lt;&lt;skipped&gt;&gt;</comment></row>
+      </xsl:if>
+    </xsl:otherwise>
+  </xsl:choose>
+  </row>
+</xsl:template>
+
+
+
+<xsl:template mode="tbl2" match="row">
+  <xsl:text>| </xsl:text>
+  <xsl:variable name="n"><xsl:number level="any"/></xsl:variable>
+  <xsl:value-of select="substring('         ',string-length($n)),$n" separator=""/>
+  <xsl:text> | </xsl:text>
+  <xsl:variable name="n"><xsl:value-of select="count(ancestor::*)+1"/></xsl:variable>
+  <xsl:value-of select="substring('    ',string-length($n)),$n" separator=""/>
+  <xsl:text> | </xsl:text>
+  <xsl:choose>
+    <xsl:when test="parent::row">
+      <xsl:text>Row </xsl:text>
+      <xsl:variable name="n"><xsl:number level="any" select=".."/></xsl:variable>
+      <xsl:value-of select="substring(' ',string-length($n)),$n" separator=""/>
+      <xsl:text>: </xsl:text>
+      <xsl:value-of select="../tag"/>
+    </xsl:when>
+    <xsl:otherwise><xsl:text>        </xsl:text></xsl:otherwise>
+  </xsl:choose>
+  <xsl:value-of select="substring('          ',1+string-length(../tag))" separator=""/>
+  <xsl:text> | </xsl:text>
+  <xsl:value-of select="prefix"/>
+  <xsl:value-of select="substring('      ',1+string-length(prefix))" separator=""/>
+  <xsl:text> | </xsl:text>
+  <xsl:value-of select="tag"/>
+  <xsl:value-of select="substring('          ',1+string-length(tag))" separator=""/>
+  <xsl:text> | </xsl:text>
+  <xsl:value-of select="attributes"/>
+  <xsl:value-of select="substring('                 ',1+string-length(attributes))" separator=""/>
+  <xsl:text> | </xsl:text>
+  <xsl:value-of select="comment"/>
+  <xsl:text> |&#10;</xsl:text>
 </xsl:template>
 
 </xsl:stylesheet>

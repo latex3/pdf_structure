@@ -244,8 +244,8 @@ skinparam lengthAdjust spacingAndGlyphs
     </xsl:otherwise>
   </xsl:choose>
   <xsl:text> | </xsl:text>
-  <!-- {} in string content messes up the layout or breaks the plantuml editor if mis-matched -->
-  <xsl:variable name="t" select="replace(normalize-space(.),'[{}]','...')"/>
+  <!-- {|} in string content messes up the layout or breaks the plantuml editor if mis-matched -->
+  <xsl:variable name="t" select="replace(replace(replace(normalize-space(.),'[{]','&lt;U+007B>'),'[|]','&lt;U+007C>'),'[}]','&lt;U+007D>')"/>
   <xsl:choose>
     <xsl:when test="not(*) and $t and ($maxstringlengthnum gt 0)">
       <xsl:value-of select="'&quot;',substring($t,0,$maxstringlengthnum)" separator=""/>

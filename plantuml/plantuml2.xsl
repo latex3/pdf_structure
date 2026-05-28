@@ -206,7 +206,9 @@ skinparam lengthAdjust spacingAndGlyphs
     </xsl:choose>
 </xsl:variable>
 <xsl:result-document href="document-table.txt">
+<xsl:text>span class="adoc">[%header,cols="6h,6d,12d,8d,8d,20d,20d"]&#10;.Table &#10;|===/span>&#10;</xsl:text>
 <xsl:text>| Row number | Depth | Parent row         | Prefix | Tag        | Attributes        | Comment&#10;</xsl:text>
+<xsl:text>span class="md">|----        |----   |----                |----    |----        |----               |----/span>&#10;</xsl:text>
 <xsl:apply-templates mode="tbl2"  select="$table//row"/>  
 </xsl:result-document>
 </xsl:template>
@@ -376,8 +378,8 @@ skinparam lengthAdjust spacingAndGlyphs
   <xsl:value-of select="attributes"/>
   <xsl:value-of select="substring('                 ',1+string-length(attributes))" separator=""/>
   <xsl:text> | </xsl:text>
-  <xsl:value-of select="comment"/>
-  <xsl:text> |&#10;</xsl:text>
+  <xsl:value-of select="replace(comment,'[|]','\\|')"/>
+  <xsl:text>&#10;</xsl:text>
 </xsl:template>
 
 </xsl:stylesheet>

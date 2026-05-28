@@ -56,7 +56,7 @@ Licence: MIT
 -->
 
 <xsl:param name="nsprefix"/>
-<xsl:param name="nsurl"/>
+<xsl:param name="nsuri"/>
 <!--
     Space separated lists of namespace prefixes and namespace URI
     provides the prefixes to use when displaying namespaces
@@ -91,14 +91,14 @@ Licence: MIT
 <xsl:variable name="maxstringlengthnum" select="xs:int($maxstringlength)"/>
 
 <xsl:variable name="nsprefixseq" select="tokenize($nsprefix,'\s+')"/>
-<xsl:variable name="nsurlseq" select="tokenize($nsurl,'\s+')"/>
+<xsl:variable name="nsuriseq" select="tokenize($nsuri,'\s+')"/>
 
 <xsl:variable  name="namespacemap">
   <xsl:for-each select="distinct-values(//*/namespace::*)[not(starts-with(.,'http://iso.org/pdf/ssn/'))]">
     <n uri="{.}">
       <xsl:choose>
-	<xsl:when test=".=$nsurlseq">
-	  <xsl:value-of select="$nsprefixseq[index-of($nsurlseq,current())]"/>
+	<xsl:when test=".=$nsuriseq">
+	  <xsl:value-of select="$nsprefixseq[index-of($nsuriseq,current())]"/>
 	</xsl:when>
 	<xsl:when test=".='http://www.w3.org/XML/1998/namespace'">xml</xsl:when>
 	<xsl:when test=".='http://iso.org/pdf/ssn'">pdf1</xsl:when>

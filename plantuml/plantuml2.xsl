@@ -140,7 +140,7 @@ Licence: MIT
     <xsl:when test="local-name($atnode)=
 		    ('TextAlign','Placement','WritingMode','ListNumbering','TextDecorationType','TextPosition')
 		    and matches($atnode,'^[A-Z][a-z]*$')">
-      <xsl:value-of select="'/',$atnode" separator=""/>
+      <xsl:value-of select="'//',$atnode,'//'" separator=""/>
     </xsl:when>
     <xsl:when test="matches($atnode,'^\{.*\}$')">
       <xsl:value-of select="replace(translate($atnode,'{}','[]'),', ',' ')"/>

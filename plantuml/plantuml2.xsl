@@ -82,6 +82,11 @@ Licence: MIT
     in the comments column of the UML, truncated to this length if necessary.
 -->
 
+<xsl:param name="scale"/>
+<!--
+    If this is set to a number add a scale parameter to the generated PlantUML
+-->
+
 
 <xsl:variable name="elide-elems" select="tokenize($elidecontent,'[ ,]+')"/>
 <xsl:variable name="omit-atts" select="tokenize($omitatts,'[ ,]+')"/>
@@ -171,7 +176,7 @@ Licence: MIT
   "/>
 '
 @startsalt
-skinparam lengthAdjust spacingAndGlyphs
+skinparam lengthAdjust none<xsl:if test="$scale">&#10; scale <xsl:value-of select="$scale"/></xsl:if>
 {
     {T!
     <xsl:choose>
@@ -182,11 +187,10 @@ skinparam lengthAdjust spacingAndGlyphs
 	    <xsl:apply-templates select="StructTreeRoot/*[position() le $maxsiblingsnum]"/>
 	    <xsl:if test="*[position() gt $maxsiblingsnum]">
 	      <xsl:text>&#10;+</xsl:text>
-	      <xsl:text> **...** | . | .</xsl:text>
+	      <xsl:text> **...** | .</xsl:text>
 	    </xsl:if>
       </xsl:otherwise>
     </xsl:choose>
-
       }
 }
 @endsalt

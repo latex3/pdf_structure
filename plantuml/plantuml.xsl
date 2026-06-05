@@ -13,6 +13,7 @@
 <xsl:param name="omitatts"/>
 <xsl:param name="showemptyatts" select="'no'"/>
 <xsl:param name="maxattlength" select="20"/>
+<xsl:param name="scale"/>
 
 <xsl:variable name="elide-elems" select="tokenize($elidecontent,'[ ,]+')"/>
 <xsl:variable name="omit-atts" select="tokenize($omitatts,'[ ,]+')"/>
@@ -71,7 +72,7 @@
   "/>
 '
 @startsalt
-skinparam lengthAdjust spacingAndGlyphs
+skinparam lengthAdjust none<xsl:if test="$scale">&#10; scale <xsl:value-of select="$scale"/></xsl:if>
 {
     {T!
     <xsl:choose>
@@ -85,8 +86,7 @@ skinparam lengthAdjust spacingAndGlyphs
 	      <xsl:text> **...** | . | .</xsl:text>
 	    </xsl:if>
       </xsl:otherwise>
-    </xsl:choose>
-
+    </xs
       }
 }
 @endsalt

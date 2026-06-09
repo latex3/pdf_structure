@@ -12,7 +12,7 @@ include "latex-document.rnc"
 Sect |= element latexSEtalk:frame {
   pdf2-attributes,
   attribute rolemaps-to {"Sect"},
-  frametitle?,text-unit*,slide*}
+  frametitle?,(text-unit|Aside)*,slide*}
 
 
 
@@ -25,6 +25,6 @@ frametitle = element latexSEtalk:frametitle {
 slide = element latexSEtalk:slide {
   pdf2-attributes,
   attribute rolemaps-to {"Div"},
-  (text|text-unit)*
+  (text|text-unit|Aside)*
 }
 

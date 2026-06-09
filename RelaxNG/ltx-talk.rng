@@ -14,7 +14,10 @@
         <ref name="frametitle"/>
       </optional>
       <zeroOrMore>
-        <ref name="text-unit"/>
+        <choice>
+          <ref name="text-unit"/>
+          <ref name="Aside"/>
+        </choice>
       </zeroOrMore>
       <zeroOrMore>
         <ref name="slide"/>
@@ -49,6 +52,7 @@
         <choice>
           <text/>
           <ref name="text-unit"/>
+          <ref name="Aside"/>
         </choice>
       </zeroOrMore>
     </element>

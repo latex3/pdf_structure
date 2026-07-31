@@ -202,7 +202,11 @@
     <ref name="theorem-like"/>
   </define>
   <define name="text-unit">
-    <element name="latexSE:text-unit">
+    <element>
+      <choice>
+        <name>latexSE:text-unit</name>
+        <name>latexSE:semantic-para</name>
+      </choice>
       <attribute name="rolemaps-to">
         <value>Part</value>
       </attribute>
@@ -273,6 +277,7 @@
       <zeroOrMore>
         <choice>
           <text/>
+          <ref name="Formula"/>
           <ref name="Lbl"/>
         </choice>
       </zeroOrMore>
@@ -487,7 +492,11 @@
     </element>
   </define>
   <define name="text">
-    <element name="latexSE:text">
+    <element>
+      <choice>
+        <name>latexSE:text</name>
+        <name>latexSE:text-block</name>
+      </choice>
       <attribute name="rolemaps-to">
         <value>P</value>
       </attribute>

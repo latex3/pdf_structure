@@ -71,7 +71,7 @@ theorem-like = element latexSE:theorem-like {
 Sect |= theorem-like
 
 
-text-unit = element latexSE:text-unit {
+text-unit = element (latexSE:text-unit | latexSE:semantic-para) {
   attribute rolemaps-to {"Part"},
   pdf2-attributes,
    (title|Title)?,Caption?,(H4|H5|Div|Sect|P|Aside|Figure|Table|Formula|quote|quotation|\text|itemize|description|enumerate|verbatim|\list|Part|FENote)*}
@@ -87,7 +87,7 @@ P |= verbatim
 codeline = element latexSE:codeline {
   attribute rolemaps-to {"Sub"|"Span"},
   pdf2-attributes,
-  (text|Lbl)*
+  (text|Formula|Lbl)*
 }
 
 
@@ -136,6 +136,30 @@ description= element latexSE:description {
  LI*
 }
 
+item = element latexSE:item {
+  pdf2-attributes,
+  attribute rolemaps-to {"LI"},
+  (itemlabel?,itembody?)
+}
+
+LI |= item
+
+itemlabel = element latexSE:itemlabel {
+  pdf2-attributes,
+  attribute rolemaps-to {"Lbl"},
+  (text|text-unit|\text)*
+}
+
+itembody = element latexSE:itembody {
+  pdf2-attributes,
+  attribute rolemaps-to {"LBody"},
+  (H?&Caption?&
+(text|Part|Art|Div|Sect|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Sub|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|Index|L|BibEntry|Table|Figure|Formula|Artifact)*)
+ }
+
+
+LBody |= itembody
+
 
 title = element latexSE:title {
  attribute rolemaps-to {"Title"},
@@ -144,7 +168,7 @@ title = element latexSE:title {
  }
 
 
-\text = element latexSE:text {
+\text = element (latexSE:text | latexSE:text-block) {
  attribute rolemaps-to {"P"},
  pdf2-attributes,
  (text|Figure|Span|Link|Lbl|Reference|Em|Strong|FENote|Formula|Ruby)*

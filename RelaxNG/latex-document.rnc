@@ -170,10 +170,15 @@ title = element latexSE:title {
 \text = element (latexSE:text | latexSE:text-block) {
  attribute rolemaps-to {"P"},
  pdf2-attributes,
- (text|Figure|Span|Link|Lbl|Reference|Em|Strong|FENote|Formula|Ruby)*
+ (text|Figure|Span|text-fragment|Link|Lbl|Reference|Em|Strong|FENote|Formula|Ruby)*
 }
 P |= \text
 
+text-fragment = element latexSE:text-fragment {
+attribute rolemaps-to {"Span"},
+pdf2-attributes,
+(text|NonStruct|Private|Note|Code|Sub|Lbl|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|BibEntry|Figure|Formula|Artifact)*
+}
 
 Lbl |= element latexSE:footnotemark {
  attribute rolemaps-to {"Lbl"},
@@ -192,5 +197,4 @@ footnotelabel = element latexSE:footnotelabel {
  pdf2-attributes,
  (text|NonStruct)*
 }
-
 

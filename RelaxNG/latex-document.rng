@@ -506,6 +506,7 @@
           <text/>
           <ref name="Figure"/>
           <ref name="Span"/>
+          <ref name="text-fragment"/>
           <ref name="Link"/>
           <ref name="Lbl"/>
           <ref name="Reference"/>
@@ -520,6 +521,40 @@
   </define>
   <define name="P" combine="choice">
     <ref name="text"/>
+  </define>
+  <define name="text-fragment">
+    <element name="latexSE:text-fragment">
+      <attribute name="rolemaps-to">
+        <value>Span</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="NonStruct"/>
+          <ref name="Private"/>
+          <ref name="Note"/>
+          <ref name="Code"/>
+          <ref name="Sub"/>
+          <ref name="Lbl"/>
+          <ref name="Em"/>
+          <ref name="Strong"/>
+          <ref name="Span"/>
+          <ref name="Quote"/>
+          <ref name="Link"/>
+          <ref name="Reference"/>
+          <ref name="Annot"/>
+          <ref name="Form"/>
+          <ref name="Ruby"/>
+          <ref name="Warichu"/>
+          <ref name="FENote"/>
+          <ref name="BibEntry"/>
+          <ref name="Figure"/>
+          <ref name="Formula"/>
+          <ref name="Artifact"/>
+        </choice>
+      </zeroOrMore>
+    </element>
   </define>
   <define name="Lbl" combine="choice">
     <element name="latexSE:footnotemark">

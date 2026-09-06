@@ -418,14 +418,14 @@ end
 
 local function format_xml_name(s)
 -- %p would include _
-   return s:gsub("([:+(),@%s])",
+   return s:gsub("([:+(),@%s#])",
                  function (c) return string.format("_x%02X_",c:byte()) end
 		 )
  end
 
 local function format_subtype_xml(subtype)
   if subtype.namespace then
-    return string.format('<%s xmlns="%s"', subtype.subtype,
+    return string.format('<%s xmlns="%s"', format_xml_name(subtype.subtype),
                   (hide_w3c and subtype.namespace:gsub('http://www.w3.org', 'http://-www.w3.org')) or subtype.namespace)
   else
     return "<" .. format_xml_name(subtype.subtype)
@@ -688,7 +688,7 @@ local function print_tree_xml(tree, ctx)
           end
           recurse(obj.kids, indent .. ' ')
         if follow_rolemap and mapped then
-	  print(indent .. "</" .. mapped.subtype ..">")
+	  print(indent .. "</" .. format_xml_name(mapped.subtype) ..">")
 	else
 	  print(indent .. "</" .. format_xml_name(subtype.subtype) ..">")
 	end
@@ -698,7 +698,7 @@ local function print_tree_xml(tree, ctx)
           end
           print(indent .. '  ' .. lines[#lines]:gsub('\n', '\n' .. indent .. '   '))
           if follow_rolemap and mapped then
-            print(indent .. "</" .. mapped.subtype ..">")
+            print(indent .. "</" .. format_xml_name(mapped.subtype) ..">")
 	  else
             print(indent .. "</" .. format_xml_name(subtype.subtype) ..">")
 	  end

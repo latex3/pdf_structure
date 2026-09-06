@@ -1,0 +1,52 @@
+<PDF>
+ <StructTreeRoot>
+  <Document xmlns="http://iso.org/pdf2/ssn"
+     id="ID.002"
+    >
+   <Part xmlns="http://iso.org/pdf2/ssn"
+      id="ID.006"
+      xmlns:orig-ns="https://www.latex-project.org/ns/dflt"
+      rolemapped-from="orig-ns:text-unit"
+     >
+    <P xmlns="http://iso.org/pdf2/ssn"
+       id="ID.007"
+       xmlns:Layout="http://iso.org/pdf/ssn/Layout"
+       Layout:TextAlign="Justify"
+       xmlns:orig-ns="https://www.latex-project.org/ns/dflt"
+       rolemapped-from="orig-ns:text"
+      >
+     <?MarkedContent page="1" ?>text 
+     <i xmlns="http://www.w3.org/1999/xhtml"
+        id="ID.008"
+        xmlns:orig-ns="https://www.latex-project.org/ns/local/testing"
+        rolemapped-from="orig-ns:this#20#39#20#28name#29"
+       >
+      <?MarkedContent page="1" ?>hello1
+     </i>
+    </P>
+   </Part>
+   <Part xmlns="http://iso.org/pdf2/ssn"
+      id="ID.009"
+      xmlns:orig-ns="https://www.latex-project.org/ns/dflt"
+      rolemapped-from="orig-ns:text-unit"
+     >
+    <P xmlns="http://iso.org/pdf2/ssn"
+       id="ID.010"
+       xmlns:Layout="http://iso.org/pdf/ssn/Layout"
+       Layout:TextAlign="Justify"
+       xmlns:orig-ns="https://www.latex-project.org/ns/dflt"
+       rolemapped-from="orig-ns:text"
+      >
+     <?MarkedContent page="1" ?>text 
+     <Span xmlns="http://iso.org/pdf2/ssn"
+        id="ID.011"
+        xmlns:orig-ns="http://www.w3.org/1999/xhtml"
+        rolemapped-from="orig-ns:i"
+       >
+      <?MarkedContent page="1" ?>hello2
+     </Span>
+    </P>
+   </Part>
+  </Document>
+ </StructTreeRoot>
+</PDF>

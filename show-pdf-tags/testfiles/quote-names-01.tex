@@ -1,0 +1,26 @@
+\DocumentMetadata{tagging=on,uncompress}
+\documentclass{article}
+
+\ExplSyntaxOn
+\__tag_role_NS_new:nnn {html}   {http://www.w3.org/1999/xhtml}{}
+\tagpdfsetup{
+  role/new-tag={tag=i, role=Span, tag-namespace=html},
+ }
+
+\ExplSyntaxOff
+
+\catcode`\#=12
+\tagpdfsetup{
+  role/user-NS=testing,
+  role/new-tag = {tag={this#20#39#20#28name#29},role=i}}
+\catcode`\#=6
+
+\begin{document}
+
+\catcode`\#=12
+text \tagstructbegin{tag={this#20#39#20#28name#29}}\tagmcbegin{}hello1\tagmcend{}\tagstructend{}
+\catcode`\#=6
+
+text \tagstructbegin{tag=i}\tagmcbegin{}hello2\tagmcend{}\tagstructend{}
+
+\end{document}

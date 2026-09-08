@@ -93,27 +93,53 @@
       <ref name="sechead.content"/>
     </element>
   </define>
+  <define name="sechead.content" combine="interleave">
+    <ref name="heading-number"/>
+  </define>
+  <define name="heading-number">
+    <element>
+      <choice>
+        <name>latexSE:heading-number</name>
+        <name>latexSE:section-number</name>
+      </choice>
+      <attribute name="rolemaps-to">
+        <value>Lbl</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="NonStruct"/>
+          <ref name="Private"/>
+          <ref name="Note"/>
+          <ref name="Code"/>
+          <ref name="Sub"/>
+          <ref name="Em"/>
+          <ref name="Strong"/>
+          <ref name="Span"/>
+          <ref name="Quote"/>
+          <ref name="Link"/>
+          <ref name="Reference"/>
+          <ref name="Annot"/>
+          <ref name="Form"/>
+          <ref name="Ruby"/>
+          <ref name="Warichu"/>
+          <ref name="FENote"/>
+          <ref name="BibEntry"/>
+          <ref name="Figure"/>
+          <ref name="Formula"/>
+          <ref name="Artifact"/>
+          <ref name="mathse"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
   <define name="Title" combine="choice">
     <element name="latexSE:part">
       <attribute name="rolemaps-to">
         <value>Title</value>
       </attribute>
       <ref name="sechead.content"/>
-    </element>
-  </define>
-  <!-- This could be restricted to section headings, but for now allow where Lbl is allowed -->
-  <define name="Lbl" combine="choice">
-    <element name="latexSE:section-number">
-      <ref name="pdf2-attributes"/>
-      <attribute name="rolemaps-to">
-        <value>Span</value>
-      </attribute>
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="Formula"/>
-        </choice>
-      </zeroOrMore>
     </element>
   </define>
   <!-- LaTeX NS -->

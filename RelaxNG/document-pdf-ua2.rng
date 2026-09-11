@@ -92,17 +92,21 @@
     </element>
   </define>
   <define name="formula-requirements">
-    <choice>
-      <attribute name="actualtext"/>
-      <attribute name="alt"/>
-      <group>
-        <zeroOrMore>
-          <ref name="Lbl"/>
-        </zeroOrMore>
-        <ref name="mathse"/>
-      </group>
-      <ref name="AssociatedFilemath"/>
-    </choice>
+    <interleave>
+      <optional>
+        <attribute name="alt"/>
+      </optional>
+      <choice>
+        <attribute name="actualtext"/>
+        <group>
+          <zeroOrMore>
+            <ref name="Lbl"/>
+          </zeroOrMore>
+          <ref name="mathse"/>
+        </group>
+        <ref name="AssociatedFilemath"/>
+      </choice>
+    </interleave>
   </define>
   <define name="pdfuaid_part">
     <a:documentation>PDF/UA-2</a:documentation>

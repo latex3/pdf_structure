@@ -63,11 +63,11 @@ attribute name {text},
 }
 
 formula-requirements = (
-  attribute actualtext {text}|
-  attribute alt {text} |
-  (Lbl*,mathse) |
-  AssociatedFilemath
-)
+  attribute alt {text}? & (
+    attribute actualtext {text}|
+    (Lbl*,mathse) |
+    AssociatedFilemath
+))
 
 ## PDF/UA-2
 pdfuaid_part = element pdfuaid:part {"2"}

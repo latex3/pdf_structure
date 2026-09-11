@@ -631,7 +631,7 @@ local function print_tree_xml(tree, ctx)
 	        if type(vv) == "table" then
 	          vv = require'show-pdf-tags-inspect'(vv):gsub('\n[ ]*',' ')
 	        end
-                lines[#lines+1] = ' ' ..attrns .. kk .. '="' .. tostring(vv):gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]') .. '"'
+                lines[#lines+1] = ' ' ..attrns .. format_xml_name(kk) .. '="' .. tostring(vv):gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]') .. '"'
               end
             else
               io.stderr:write("Unexpected attributes object\n")

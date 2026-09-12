@@ -50,15 +50,21 @@ StructTreeRoot = element NoNS:StructTreeRoot {Document|DocumentFragment}
 
 AssociatedFile = element NoNS:AssociatedFile {
 attribute name {text},
+attribute relationship {text}?,
+attribute media-type {text}?,
 (text|math)
 }
 
 AssociatedFilemath = element NoNS:AssociatedFile {
 attribute name {text},
+attribute relationship {"Supplement"},
+attribute media-type {"application/mathml+xml"},
 (math)
 }
 AssociatedFiletext = element NoNS:AssociatedFile {
 attribute name {text},
+attribute relationship {text}?,
+attribute media-type {text}?,
 (text)
 }
 

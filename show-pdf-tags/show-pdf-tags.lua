@@ -663,7 +663,6 @@ local function print_tree_xml(tree, ctx)
 	  local warnings = {}
 	  for i, file in ipairs(obj.associated_files) do
             if file.EF.F then
-	      local filet=pdfe.dictionarytotable(file)
 	      af_output = pdfe.readwholestream(file.EF.F, true)
               lines[#lines + 1] = '<AssociatedFile name="' .. get_string(file, "UF", warnings) .. '"' ..
 	                           (file.AFRelationship and (' relationship="' .. file.AFRelationship ..'"') or '') ..

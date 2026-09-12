@@ -65,6 +65,8 @@ attribute media-type {text}?,
 }
 AssociatedFiletext = element NoNS:AssociatedFile {
 attribute name {text},
+attribute relationship {text}?,
+attribute media-type {text}?,
 (text)
 }
 

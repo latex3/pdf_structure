@@ -126,6 +126,12 @@
     <element>
       <name ns="">AssociatedFile</name>
       <attribute name="name"/>
+      <optional>
+        <attribute name="relationship"/>
+      </optional>
+      <optional>
+        <attribute name="media-type"/>
+      </optional>
       <text/>
     </element>
   </define>

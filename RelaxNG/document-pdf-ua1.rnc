@@ -52,15 +52,21 @@ StructTreeRoot = element NoNS:StructTreeRoot {( Document|DocumentFragment|Part|A
 
 AssociatedFile = element NoNS:AssociatedFile {
 attribute name {text},
+attribute relationship {text}?,
+attribute media-type {text}?,
 (text|math)
 }
 
 AssociatedFilemath = element NoNS:AssociatedFile {
 attribute name {text},
+attribute relationship {text}?,
+attribute media-type {text}?,
 (math)
 }
 AssociatedFiletext = element NoNS:AssociatedFile {
 attribute name {text},
+attribute relationship {text}?,
+attribute media-type {text}?,
 (text)
 }
 

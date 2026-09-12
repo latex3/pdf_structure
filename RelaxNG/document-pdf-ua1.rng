@@ -97,6 +97,12 @@
     <element>
       <name ns="">AssociatedFile</name>
       <attribute name="name"/>
+      <optional>
+        <attribute name="relationship"/>
+      </optional>
+      <optional>
+        <attribute name="media-type"/>
+      </optional>
       <choice>
         <text/>
         <ref name="math"/>
@@ -107,6 +113,12 @@
     <element>
       <name ns="">AssociatedFile</name>
       <attribute name="name"/>
+      <optional>
+        <attribute name="relationship"/>
+      </optional>
+      <optional>
+        <attribute name="media-type"/>
+      </optional>
       <ref name="math"/>
     </element>
   </define>
@@ -114,6 +126,12 @@
     <element>
       <name ns="">AssociatedFile</name>
       <attribute name="name"/>
+      <optional>
+        <attribute name="relationship"/>
+      </optional>
+      <optional>
+        <attribute name="media-type"/>
+      </optional>
       <text/>
     </element>
   </define>

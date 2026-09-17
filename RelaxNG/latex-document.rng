@@ -177,7 +177,11 @@
     </element>
   </define>
   <define name="heading-parbox">
-    <element name="latexSE:heading-parbox">
+    <element>
+      <choice>
+        <name>latexSE:heading-parbox</name>
+        <name>latexSE:heading-minipage</name>
+      </choice>
       <attribute name="rolemaps-to">
         <value>Span</value>
       </attribute>
@@ -629,40 +633,6 @@
   <define name="P" combine="choice">
     <ref name="text"/>
   </define>
-  <define name="text-fragment">
-    <element name="latexSE:text-fragment">
-      <attribute name="rolemaps-to">
-        <value>Span</value>
-      </attribute>
-      <ref name="pdf2-attributes"/>
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="NonStruct"/>
-          <ref name="Private"/>
-          <ref name="Note"/>
-          <ref name="Code"/>
-          <ref name="Sub"/>
-          <ref name="Lbl"/>
-          <ref name="Em"/>
-          <ref name="Strong"/>
-          <ref name="Span"/>
-          <ref name="Quote"/>
-          <ref name="Link"/>
-          <ref name="Reference"/>
-          <ref name="Annot"/>
-          <ref name="Form"/>
-          <ref name="Ruby"/>
-          <ref name="Warichu"/>
-          <ref name="FENote"/>
-          <ref name="BibEntry"/>
-          <ref name="Figure"/>
-          <ref name="Formula"/>
-          <ref name="Artifact"/>
-        </choice>
-      </zeroOrMore>
-    </element>
-  </define>
   <define name="Lbl" combine="choice">
     <element name="latexSE:footnotemark">
       <attribute name="rolemaps-to">
@@ -710,5 +680,113 @@
         </choice>
       </zeroOrMore>
     </element>
+  </define>
+  <define name="text-minipage">
+    <element>
+      <choice>
+        <name>latexSE:text-minipage</name>
+        <name>latexSE:text-parbox</name>
+      </choice>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="Document"/>
+          <ref name="DocumentFragment"/>
+          <ref name="Part"/>
+          <ref name="Art"/>
+          <ref name="Div"/>
+          <ref name="Sect"/>
+          <ref name="TOC"/>
+          <ref name="TOCI"/>
+          <ref name="Aside"/>
+          <ref name="BlockQuote"/>
+          <ref name="NonStruct"/>
+          <ref name="Private"/>
+          <ref name="P"/>
+          <ref name="Note"/>
+          <ref name="Code"/>
+          <ref name="Hn"/>
+          <ref name="H"/>
+          <ref name="Title"/>
+          <ref name="Sub"/>
+          <ref name="Lbl"/>
+          <ref name="Em"/>
+          <ref name="Strong"/>
+          <ref name="Span"/>
+          <ref name="Quote"/>
+          <ref name="Link"/>
+          <ref name="Reference"/>
+          <ref name="Annot"/>
+          <ref name="Form"/>
+          <ref name="Ruby"/>
+          <ref name="RB"/>
+          <ref name="RT"/>
+          <ref name="RP"/>
+          <ref name="Warichu"/>
+          <ref name="WT"/>
+          <ref name="WP"/>
+          <ref name="FENote"/>
+          <ref name="Index"/>
+          <ref name="L"/>
+          <ref name="LI"/>
+          <ref name="LBody"/>
+          <ref name="BibEntry"/>
+          <ref name="Table"/>
+          <ref name="TR"/>
+          <ref name="TH"/>
+          <ref name="TD"/>
+          <ref name="THead"/>
+          <ref name="TBody"/>
+          <ref name="TFoot"/>
+          <ref name="Caption"/>
+          <ref name="Figure"/>
+          <ref name="Formula"/>
+          <ref name="Artifact"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Div" combine="choice">
+    <ref name="text-minipage"/>
+  </define>
+  <define name="text-fragment">
+    <element name="latexSE:text-fragment">
+      <attribute name="rolemaps-to">
+        <value>Span</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="NonStruct"/>
+          <ref name="Private"/>
+          <ref name="Note"/>
+          <ref name="Code"/>
+          <ref name="Sub"/>
+          <ref name="Lbl"/>
+          <ref name="Em"/>
+          <ref name="Strong"/>
+          <ref name="Span"/>
+          <ref name="Quote"/>
+          <ref name="Link"/>
+          <ref name="Reference"/>
+          <ref name="Annot"/>
+          <ref name="Form"/>
+          <ref name="Ruby"/>
+          <ref name="Warichu"/>
+          <ref name="FENote"/>
+          <ref name="BibEntry"/>
+          <ref name="Figure"/>
+          <ref name="Formula"/>
+          <ref name="Artifact"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Span" combine="choice">
+    <ref name="text-fragment"/>
   </define>
 </grammar>

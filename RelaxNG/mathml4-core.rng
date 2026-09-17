@@ -648,6 +648,16 @@
   </define>
   <define name="mtext.attributes">
     <ref name="MathMLPGlobalAttributes"/>
+    <optional>
+      <attribute name="lspace">
+        <ref name="length-percentage"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rspace">
+        <ref name="length-percentage"/>
+      </attribute>
+    </optional>
   </define>
   <define name="mspace">
     <element name="mspace">

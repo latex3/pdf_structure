@@ -87,12 +87,16 @@
     <element>
       <name ns="">AssociatedFile</name>
       <attribute name="name"/>
-      <attribute name="relationship">
-        <value>Supplement</value>
-      </attribute>
-      <attribute name="media-type">
-        <value>application/mathml+xml</value>
-      </attribute>
+      <optional>
+        <attribute name="relationship">
+          <value>Supplement</value>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="media-type">
+          <value>application/mathml+xml</value>
+        </attribute>
+      </optional>
       <ref name="math"/>
     </element>
   </define>

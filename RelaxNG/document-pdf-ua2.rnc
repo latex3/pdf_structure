@@ -57,8 +57,8 @@ attribute media-type {text}?,
 
 AssociatedFilemath = element NoNS:AssociatedFile {
 attribute name {text},
-attribute relationship {"Supplement"},
-attribute media-type {"application/mathml+xml"},
+attribute relationship {"Supplement"}?,
+attribute media-type {"application/mathml+xml"}?,
 (math)
 }
 AssociatedFiletext = element NoNS:AssociatedFile {

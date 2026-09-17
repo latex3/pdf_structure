@@ -24,17 +24,28 @@ H4 |= element latexSEbook:subsubsection {attribute rolemaps-to {"H4"}, sechead.c
 H5 |= element latexSEbook:paragraph     {attribute rolemaps-to {"H5"}, sechead.content}
 H6 |= element latexSEbook:subparagraph  {attribute rolemaps-to {"H6"}, sechead.content}
 
-sechead.content &= heading-number
+Title |= element latexSE:part {attribute rolemaps-to {"Title"}, sechead.content}
 
 heading-number = element (latexSE:heading-number | latexSE:section-number) {
-  attribute rolemaps-to {"Lbl"},			
+  attribute rolemaps-to {"Lbl"|"Span"},			
   pdf2-attributes,
   (text|NonStruct|Private|Note|Code|Sub|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|BibEntry|Figure|Formula|Artifact|
 mathse)*
 }
 
-Title |= element latexSE:part {attribute rolemaps-to {"Title"}, sechead.content}
+heading-fragment = element latexSE:heading-fragment {
+  attribute rolemaps-to {"Span"},
+pdf2-attributes,
+(text|NonStruct|Private|Note|Code|Sub|Lbl|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|BibEntry|Figure|Formula|Artifact)*
+}
+heading-parbox = element latexSE:heading-parbox {
+  attribute rolemaps-to {"Span"},
+pdf2-attributes,
+(text|NonStruct|Private|Note|Code|Sub|Lbl|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|BibEntry|Figure|Formula|Artifact)*
+}
 
+Lbl |= heading-number
+Span |= heading-fragment|heading-parbox
 
 # LaTeX NS
 
@@ -151,7 +162,7 @@ LI |= item
 itemlabel = element latexSE:itemlabel {
   pdf2-attributes,
   attribute rolemaps-to {"Lbl"},
-  (text|text-unit|\text)*
+  (text|text-unit|Formula|Span|\text)*
 }
 
 itembody = element latexSE:itembody {
@@ -175,7 +186,7 @@ title = element latexSE:title {
 \text = element (latexSE:text | latexSE:text-block) {
  attribute rolemaps-to {"P"},
  pdf2-attributes,
- (text|Figure|Span|text-fragment|Link|Lbl|Reference|Em|Strong|FENote|Formula|Ruby)*
+ (text|Figure|Span|text-fragment|Link|Lbl|Reference|Em|Strong|FENote|Formula|Ruby|Form|Code)*
 }
 P |= \text
 
@@ -188,7 +199,7 @@ pdf2-attributes,
 Lbl |= element latexSE:footnotemark {
  attribute rolemaps-to {"Lbl"},
  pdf2-attributes,
-(text|Link)*
+(text|Link|Span)*
 }
 
 FENote |= element latexSE:footnote {
@@ -200,6 +211,6 @@ FENote |= element latexSE:footnote {
 footnotelabel = element latexSE:footnotelabel {
  attribute rolemaps-to {"Lbl"},
  pdf2-attributes,
- (text|NonStruct)*
+ (text|Span|NonStruct)*
 }
 

@@ -104,8 +104,14 @@
       <ref name="sechead.content"/>
     </element>
   </define>
-  <define name="sechead.content" combine="interleave">
-    <ref name="heading-number"/>
+  <define name="Title" combine="choice">
+    <element>
+      <name ns="">part</name>
+      <attribute name="rolemaps-to">
+        <value>Title</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
   </define>
   <define name="heading-number">
     <element>
@@ -114,7 +120,10 @@
         <name ns="">section-number</name>
       </choice>
       <attribute name="rolemaps-to">
-        <value>Lbl</value>
+        <choice>
+          <value>Lbl</value>
+          <value>Span</value>
+        </choice>
       </attribute>
       <ref name="pdf2-attributes"/>
       <zeroOrMore>
@@ -145,14 +154,84 @@
       </zeroOrMore>
     </element>
   </define>
-  <define name="Title" combine="choice">
+  <define name="heading-fragment">
     <element>
-      <name ns="">part</name>
+      <name ns="">heading-fragment</name>
       <attribute name="rolemaps-to">
-        <value>Title</value>
+        <value>Span</value>
       </attribute>
-      <ref name="sechead.content"/>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="NonStruct"/>
+          <ref name="Private"/>
+          <ref name="Note"/>
+          <ref name="Code"/>
+          <ref name="Sub"/>
+          <ref name="Lbl"/>
+          <ref name="Em"/>
+          <ref name="Strong"/>
+          <ref name="Span"/>
+          <ref name="Quote"/>
+          <ref name="Link"/>
+          <ref name="Reference"/>
+          <ref name="Annot"/>
+          <ref name="Form"/>
+          <ref name="Ruby"/>
+          <ref name="Warichu"/>
+          <ref name="FENote"/>
+          <ref name="BibEntry"/>
+          <ref name="Figure"/>
+          <ref name="Formula"/>
+          <ref name="Artifact"/>
+        </choice>
+      </zeroOrMore>
     </element>
+  </define>
+  <define name="heading-parbox">
+    <element>
+      <name ns="">heading-parbox</name>
+      <attribute name="rolemaps-to">
+        <value>Span</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="NonStruct"/>
+          <ref name="Private"/>
+          <ref name="Note"/>
+          <ref name="Code"/>
+          <ref name="Sub"/>
+          <ref name="Lbl"/>
+          <ref name="Em"/>
+          <ref name="Strong"/>
+          <ref name="Span"/>
+          <ref name="Quote"/>
+          <ref name="Link"/>
+          <ref name="Reference"/>
+          <ref name="Annot"/>
+          <ref name="Form"/>
+          <ref name="Ruby"/>
+          <ref name="Warichu"/>
+          <ref name="FENote"/>
+          <ref name="BibEntry"/>
+          <ref name="Figure"/>
+          <ref name="Formula"/>
+          <ref name="Artifact"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Lbl" combine="choice">
+    <ref name="heading-number"/>
+  </define>
+  <define name="Span" combine="choice">
+    <choice>
+      <ref name="heading-fragment"/>
+      <ref name="heading-parbox"/>
+    </choice>
   </define>
   <!-- LaTeX NS -->
   <define name="document.1" combine="interleave">
@@ -469,6 +548,8 @@
         <choice>
           <text/>
           <ref name="text-unit"/>
+          <ref name="Formula"/>
+          <ref name="Span"/>
           <ref name="text"/>
         </choice>
       </zeroOrMore>
@@ -569,6 +650,8 @@
           <ref name="FENote"/>
           <ref name="Formula"/>
           <ref name="Ruby"/>
+          <ref name="Form"/>
+          <ref name="Code"/>
         </choice>
       </zeroOrMore>
     </element>
@@ -622,6 +705,7 @@
         <choice>
           <text/>
           <ref name="Link"/>
+          <ref name="Span"/>
         </choice>
       </zeroOrMore>
     </element>
@@ -655,6 +739,7 @@
       <zeroOrMore>
         <choice>
           <text/>
+          <ref name="Span"/>
           <ref name="NonStruct"/>
         </choice>
       </zeroOrMore>

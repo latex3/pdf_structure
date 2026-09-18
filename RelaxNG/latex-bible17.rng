@@ -82,7 +82,10 @@
       </optional>
       <attribute name="title"/>
       <zeroOrMore>
-        <ref name="Span"/>
+        <choice>
+          <text/>
+          <ref name="Span"/>
+        </choice>
       </zeroOrMore>
     </element>
   </define>
@@ -97,9 +100,17 @@
         <attribute name="id"/>
       </optional>
       <attribute name="title"/>
-      <zeroOrMore>
-        <ref name="Span"/>
-      </zeroOrMore>
+      <interleave>
+        <optional>
+          <ref name="heading-number"/>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="Span"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
     </element>
   </define>
   <define name="Book">
@@ -139,7 +150,10 @@
       </optional>
       <attribute name="title"/>
       <zeroOrMore>
-        <ref name="Span"/>
+        <choice>
+          <text/>
+          <ref name="Span"/>
+        </choice>
       </zeroOrMore>
     </element>
   </define>

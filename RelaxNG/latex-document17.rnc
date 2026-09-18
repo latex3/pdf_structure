@@ -1,7 +1,6 @@
 
 namespace latexSE = ""
 namespace latexSEbook = ""
-namespace latexSEbible = ""
 
 ## PDF/UA-1
 
@@ -39,7 +38,8 @@ heading-fragment = element latexSE:heading-fragment {
 pdf2-attributes,
 (text|NonStruct|Private|Note|Code|Sub|Lbl|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|BibEntry|Figure|Formula|Artifact)*
 }
-heading-parbox = element latexSE:heading-parbox {
+
+heading-parbox = element (latexSE:heading-parbox|latexSE:heading-minipage) {
   attribute rolemaps-to {"Span"},
 pdf2-attributes,
 (text|NonStruct|Private|Note|Code|Sub|Lbl|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|BibEntry|Figure|Formula|Artifact)*
@@ -187,7 +187,7 @@ title = element latexSE:title {
 \text = element (latexSE:text | latexSE:text-block) {
  attribute rolemaps-to {"P"},
  pdf2-attributes,
- (text|Figure|Span|text-fragment|Link|Lbl|Reference|Em|Strong|FENote|Formula|Ruby|Form|Code)*
+ (text|Figure|Span|Link|Lbl|Reference|Em|Strong|FENote|Formula|Ruby|Form|Code)*
 }
 P |= \text
 
@@ -196,6 +196,8 @@ attribute rolemaps-to {"Span"},
 pdf2-attributes,
 (text|NonStruct|Private|Note|Code|Sub|Lbl|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|BibEntry|Figure|Formula|Artifact)*
 }
+
+Span |= text-fragment
 
 Lbl |= element latexSE:footnotemark {
  attribute rolemaps-to {"Lbl"},
@@ -215,3 +217,10 @@ footnotelabel = element latexSE:footnotelabel {
  (text|Span|NonStruct)*
 }
 
+text-minipage =  element (latexSE:text-minipage|latexSE:text-parbox) {
+  attribute rolemaps-to {"Div"},
+  pdf2-attributes,
+(Document|DocumentFragment|Part|Art|Div|Sect|TOC|TOCI|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|H|Title|Sub|Lbl|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|RB|RT|RP|Warichu|WT|WP|FENote|Index|L|LI|LBody|BibEntry|Table|TR|TH|TD|THead|TBody|TFoot|Caption|Figure|Formula|Artifact)*
+}
+
+Div |= text-minipage

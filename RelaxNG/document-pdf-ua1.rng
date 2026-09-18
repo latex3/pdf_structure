@@ -140,6 +140,9 @@
       <attribute name="actualtext"/>
       <attribute name="alt"/>
     </choice>
+    <zeroOrMore>
+      <ref name="AssociatedFile"/>
+    </zeroOrMore>
   </define>
   <define name="pdfuaid_part">
     <a:documentation>PDF/UA-1</a:documentation>

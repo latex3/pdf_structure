@@ -7,3 +7,7 @@ The Schema have been updated to optionally allow this attribute
 and if present enforce that it has value 2.0 for the PDF/UA-2 schema
 or 1.4, .. 1.7 or 2.0 for the UA-1 schema.
 
+In addition several new structure elements that are introduced in the
+current latex-dev release are now supported by the schema.
+
+

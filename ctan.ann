@@ -1,22 +1,9 @@
-show-pdf-tags v1.6
+show-pdf-tags v1.7
 
 The XML output from show-pdf-tags has been extended to show the
-AF relationship and media-type of associated files.
+PDF version as <PDF version="2.0">
 
-This is a breaking change, generated XML will show this information.
+The Schema have been updated to optionally allow this attribute
+and if present enforce that it has value 2.0 for the PDF/UA-2 schema
+or 1.4, .. 1.7 or 2.0 for the UA-1 schema.
 
-All associated files associated to Formula will have the same values added:
-so it should be easy to update any test suites testing for the original format.
-
-< AssociatedFile name="mathml-1.xml" xmlns="" >
-< AssociatedFile name="mathml-1.xml" relationship="Supplement" media-type="application/mathml+xml" xmlns="" >
-
-< AssociatedFile name="tag-AFfile2.tex" xmlns="" >
-< AssociatedFile name="tag-AFfile2.tex" relationship="Source" media-type="application/x-tex" xmlns="" >
-
-The Schema have been updated to allow for these attributes (and to check that MathML associated files
-have relationship Supplement). They also allow some modified strucure element names in the LaTeX namespace
-to match code in current and planned latex-dev releases.
-
-Some experimental support to generate PDF Association "Tag Tree Diagrams" using PlantUML is also provided
-as XSLT stylesheets transforming the XML output to PlantUML syntax.

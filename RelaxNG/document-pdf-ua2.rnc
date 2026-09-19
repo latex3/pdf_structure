@@ -44,7 +44,11 @@ pdf1rolemap-Note = notAllowed?
 # UA-2 Single Document element root.
 start = PDF
 
-PDF = element NoNS:PDF {StructTreeRoot,XMP?}
+PDF = element NoNS:PDF {
+attribute version {"2.0"}?,
+StructTreeRoot,
+XMP?
+}
 
 StructTreeRoot = element NoNS:StructTreeRoot {Document|DocumentFragment}
 

@@ -51,6 +51,17 @@
   <define name="PDF">
     <element>
       <name ns="">PDF</name>
+      <optional>
+        <attribute name="version">
+          <choice>
+            <value>1.4</value>
+            <value>1.5</value>
+            <value>1.6</value>
+            <value>1.7</value>
+            <value>2.0</value>
+          </choice>
+        </attribute>
+      </optional>
       <ref name="StructTreeRoot"/>
       <optional>
         <ref name="XMP"/>

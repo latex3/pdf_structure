@@ -45,7 +45,11 @@ pdf1rolemap-Note = attribute rolemaps-to {"Note"}
 # UA-1 does not force a single document element.
 start = PDF
 
-PDF = element NoNS:PDF {StructTreeRoot,XMP?}
+PDF = element NoNS:PDF {
+attribute version {"1.4"|"1.5"|"1.6"|"1.7"|"2.0"}?,
+StructTreeRoot,
+XMP?
+}
 
 StructTreeRoot = element NoNS:StructTreeRoot {( Document|DocumentFragment|Part|Art|Div|Sect|TOC|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|H|Title|Link|Annot|Form|FENote|Index|L|Table|Figure|Formula|Artifact)*}
 

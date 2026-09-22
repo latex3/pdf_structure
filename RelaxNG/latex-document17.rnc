@@ -163,7 +163,7 @@ LI |= item
 itemlabel = element latexSE:itemlabel {
   pdf2-attributes,
   attribute rolemaps-to {"Lbl"},
-  (text|text-unit|Formula|Em|Strong|Span|\text)*
+  (text|text-unit|Formula|Em|Strong|Span|Link|\text)*
 }
 
 itembody = element latexSE:itembody {

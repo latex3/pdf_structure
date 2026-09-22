@@ -556,6 +556,7 @@
           <ref name="Em"/>
           <ref name="Strong"/>
           <ref name="Span"/>
+          <ref name="Link"/>
           <ref name="text"/>
         </choice>
       </zeroOrMore>

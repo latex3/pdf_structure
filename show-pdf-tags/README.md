@@ -1,6 +1,6 @@
 # Print structure element hierarchy for Tagged PDF
 
-show-pdf-tags version 1.6
+show-pdf-tags version 1.7
 
 Print a plain text or XML tree representing the structure of Tagged PDF files.
 

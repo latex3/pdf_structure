@@ -103,7 +103,7 @@ P |= verbatim
 codeline = element latexSE:codeline {
   attribute rolemaps-to {"Sub"|"Span"},
   pdf2-attributes,
-  (text|Formula|Lbl)*
+  (text|Em|Formula|Lbl)*
 }
 
 
@@ -163,7 +163,7 @@ LI |= item
 itemlabel = element latexSE:itemlabel {
   pdf2-attributes,
   attribute rolemaps-to {"Lbl"},
-  (text|text-unit|Formula|Span|\text)*
+  (text|text-unit|Formula|Em|Strong|Span|Link|\text)*
 }
 
 itembody = element latexSE:itembody {
@@ -187,7 +187,7 @@ title = element latexSE:title {
 \text = element (latexSE:text | latexSE:text-block) {
  attribute rolemaps-to {"P"},
  pdf2-attributes,
- (text|Figure|Span|Link|Lbl|Reference|Em|Strong|FENote|Formula|Ruby|Form|Code)*
+ (text|Figure|Span|Link|Lbl|Reference|Em|Strong|FENote|Formula|Ruby|Form|Code|Annot)*
 }
 P |= \text
 

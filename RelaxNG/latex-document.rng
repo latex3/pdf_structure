@@ -384,6 +384,7 @@
       <zeroOrMore>
         <choice>
           <text/>
+          <ref name="Em"/>
           <ref name="Formula"/>
           <ref name="Lbl"/>
         </choice>
@@ -525,7 +526,10 @@
           <text/>
           <ref name="text-unit"/>
           <ref name="Formula"/>
+          <ref name="Em"/>
+          <ref name="Strong"/>
           <ref name="Span"/>
+          <ref name="Link"/>
           <ref name="text"/>
         </choice>
       </zeroOrMore>
@@ -625,6 +629,7 @@
           <ref name="Ruby"/>
           <ref name="Form"/>
           <ref name="Code"/>
+          <ref name="Annot"/>
         </choice>
       </zeroOrMore>
     </element>

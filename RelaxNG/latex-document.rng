@@ -177,7 +177,7 @@
     </element>
   </define>
   <define name="H2" combine="choice">
-    <element name="latexSEbook:section">
+    <element name="latexSE:section">
       <attribute name="rolemaps-to">
         <value>H2</value>
       </attribute>
@@ -185,7 +185,7 @@
     </element>
   </define>
   <define name="H3" combine="choice">
-    <element name="latexSEbook:subsection">
+    <element name="latexSE:subsection">
       <attribute name="rolemaps-to">
         <value>H3</value>
       </attribute>
@@ -193,7 +193,7 @@
     </element>
   </define>
   <define name="H4" combine="choice">
-    <element name="latexSEbook:subsubsection">
+    <element name="latexSE:subsubsection">
       <attribute name="rolemaps-to">
         <value>H4</value>
       </attribute>
@@ -201,7 +201,7 @@
     </element>
   </define>
   <define name="H5" combine="choice">
-    <element name="latexSEbook:paragraph">
+    <element name="latexSE:paragraph">
       <attribute name="rolemaps-to">
         <value>H5</value>
       </attribute>
@@ -209,7 +209,7 @@
     </element>
   </define>
   <define name="H6" combine="choice">
-    <element name="latexSEbook:subparagraph">
+    <element name="latexSE:subparagraph">
       <attribute name="rolemaps-to">
         <value>H6</value>
       </attribute>
@@ -218,7 +218,7 @@
   </define>
   <define name="bookheading1">
     <a:documentation>new form</a:documentation>
-    <element name="latexSE:chapter-heading">
+    <element name="latexSEbook:chapter-heading">
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
         <value>H1</value>
@@ -227,7 +227,7 @@
     </element>
   </define>
   <define name="bookheading2">
-    <element name="latexSE:section-heading">
+    <element name="latexSEbook:section-heading">
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
         <value>H2</value>
@@ -236,7 +236,7 @@
     </element>
   </define>
   <define name="bookheading3">
-    <element name="latexSE:subsection-heading">
+    <element name="latexSEbook:subsection-heading">
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
         <value>H3</value>
@@ -245,7 +245,7 @@
     </element>
   </define>
   <define name="bookheading4">
-    <element name="latexSE:subsubsection-heading">
+    <element name="latexSEbook:subsubsection-heading">
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
         <value>H4</value>
@@ -254,7 +254,7 @@
     </element>
   </define>
   <define name="bookheading5">
-    <element name="latexSE:paragraph-heading">
+    <element name="latexSEbook:paragraph-heading">
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
         <value>H5</value>
@@ -263,7 +263,7 @@
     </element>
   </define>
   <define name="bookheading6">
-    <element name="latexSE:subparagraph-heading">
+    <element name="latexSEbook:subparagraph-heading">
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
         <value>H6</value>
@@ -272,7 +272,7 @@
     </element>
   </define>
   <define name="bookchapter">
-    <element name="latexSE:section">
+    <element name="latexSEbook:chapter">
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
         <value>Sect</value>
@@ -280,7 +280,7 @@
       <ref name="bookheading1"/>
       <zeroOrMore>
         <choice>
-          <ref name="section"/>
+          <ref name="booksection"/>
           <ref name="Sect.content"/>
         </choice>
       </zeroOrMore>
@@ -295,7 +295,7 @@
       <ref name="bookheading2"/>
       <zeroOrMore>
         <choice>
-          <ref name="subsection"/>
+          <ref name="booksubsection"/>
           <ref name="Sect.content"/>
         </choice>
       </zeroOrMore>
@@ -310,7 +310,7 @@
       <ref name="bookheading3"/>
       <zeroOrMore>
         <choice>
-          <ref name="subsubsection"/>
+          <ref name="booksubsubsection"/>
           <ref name="Sect.content"/>
         </choice>
       </zeroOrMore>
@@ -325,7 +325,7 @@
       <ref name="bookheading4"/>
       <zeroOrMore>
         <choice>
-          <ref name="paragraph"/>
+          <ref name="bookparagraph"/>
           <ref name="Sect.content"/>
         </choice>
       </zeroOrMore>
@@ -340,7 +340,7 @@
       <ref name="bookheading5"/>
       <zeroOrMore>
         <choice>
-          <ref name="subparagraph"/>
+          <ref name="booksubparagraph"/>
           <ref name="Sect.content"/>
         </choice>
       </zeroOrMore>

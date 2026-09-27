@@ -300,7 +300,7 @@
   </define>
   <define name="bookchapter">
     <element>
-      <name ns="">section</name>
+      <name ns="">chapter</name>
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
         <value>Sect</value>
@@ -308,7 +308,7 @@
       <ref name="bookheading1"/>
       <zeroOrMore>
         <choice>
-          <ref name="section"/>
+          <ref name="booksection"/>
           <ref name="Sect.content"/>
         </choice>
       </zeroOrMore>
@@ -324,7 +324,7 @@
       <ref name="bookheading2"/>
       <zeroOrMore>
         <choice>
-          <ref name="subsection"/>
+          <ref name="booksubsection"/>
           <ref name="Sect.content"/>
         </choice>
       </zeroOrMore>
@@ -340,7 +340,7 @@
       <ref name="bookheading3"/>
       <zeroOrMore>
         <choice>
-          <ref name="subsubsection"/>
+          <ref name="booksubsubsection"/>
           <ref name="Sect.content"/>
         </choice>
       </zeroOrMore>
@@ -356,7 +356,7 @@
       <ref name="bookheading4"/>
       <zeroOrMore>
         <choice>
-          <ref name="paragraph"/>
+          <ref name="bookparagraph"/>
           <ref name="Sect.content"/>
         </choice>
       </zeroOrMore>
@@ -372,7 +372,7 @@
       <ref name="bookheading5"/>
       <zeroOrMore>
         <choice>
-          <ref name="subparagraph"/>
+          <ref name="booksubparagraph"/>
           <ref name="Sect.content"/>
         </choice>
       </zeroOrMore>

@@ -1,9 +1,9 @@
 
-include "latex-document.rnc"
+include "latex-document17.rnc"
 
 # LaTeX play
 Span |= element SceneDescription {pdf2-attributes,attribute rolemaps-to {"Span"}, text}
-Strong |= element Speaker {pdf2-attributes,attribute rolemaps-to {"Strong"},text}
+Strong |= element Speaker {pdf2-attributes,attribute rolemaps-to {"Span"},text}
 
 
 # asmeconf

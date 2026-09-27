@@ -35,7 +35,7 @@ Frontmatter-Title = element latexSEbible:Frontmatter-Title {
   attribute rolemaps-to {"H1"},
   attribute id {text}?,
   attribute title {text},
-  Span*
+  (text|Span)*
 }
 
 Testament-Title = element latexSEbible:Testament-Title {
@@ -43,7 +43,7 @@ Testament-Title = element latexSEbible:Testament-Title {
   attribute rolemaps-to {"H1"},
   attribute id {text}?,
   attribute title {text},
-  Span*
+  (heading-number?&(text|Span)*)
 }
 
 Book = element latexSEbible:Book {
@@ -61,7 +61,7 @@ Book-Title = element latexSEbible:Book-Title {
   attribute rolemaps-to {"H2"},
   attribute id {text}?,
   attribute title {text},
-  Span*
+  (text|Span)*
 }
 
 BChapter= element latexSEbible:Chapter {

@@ -52,6 +52,11 @@
   <define name="PDF">
     <element>
       <name ns="">PDF</name>
+      <optional>
+        <attribute name="version">
+          <value>2.0</value>
+        </attribute>
+      </optional>
       <ref name="StructTreeRoot"/>
       <optional>
         <ref name="XMP"/>
@@ -598,6 +603,37 @@
       </zeroOrMore>
     </element>
   </define>
+  <define name="Sect.content">
+    <choice>
+      <ref name="DocumentFragment"/>
+      <ref name="Part"/>
+      <ref name="Art"/>
+      <ref name="Div"/>
+      <ref name="Sect"/>
+      <ref name="TOC"/>
+      <ref name="Aside"/>
+      <ref name="BlockQuote"/>
+      <ref name="NonStruct"/>
+      <ref name="Private"/>
+      <ref name="P"/>
+      <ref name="Note"/>
+      <ref name="Code"/>
+      <ref name="Hn"/>
+      <ref name="Title"/>
+      <ref name="Lbl"/>
+      <ref name="Link"/>
+      <ref name="Annot"/>
+      <ref name="Form"/>
+      <ref name="FENote"/>
+      <ref name="Index"/>
+      <ref name="L"/>
+      <ref name="Table"/>
+      <ref name="Caption"/>
+      <ref name="Figure"/>
+      <ref name="Formula"/>
+      <ref name="Artifact"/>
+    </choice>
+  </define>
   <define name="Sect">
     <element name="pdf2:Sect">
       <ref name="pdf2-attributes"/>
@@ -606,35 +642,7 @@
           <ref name="H"/>
         </optional>
         <zeroOrMore>
-          <choice>
-            <ref name="DocumentFragment"/>
-            <ref name="Part"/>
-            <ref name="Art"/>
-            <ref name="Div"/>
-            <ref name="Sect"/>
-            <ref name="TOC"/>
-            <ref name="Aside"/>
-            <ref name="BlockQuote"/>
-            <ref name="NonStruct"/>
-            <ref name="Private"/>
-            <ref name="P"/>
-            <ref name="Note"/>
-            <ref name="Code"/>
-            <ref name="Hn"/>
-            <ref name="Title"/>
-            <ref name="Lbl"/>
-            <ref name="Link"/>
-            <ref name="Annot"/>
-            <ref name="Form"/>
-            <ref name="FENote"/>
-            <ref name="Index"/>
-            <ref name="L"/>
-            <ref name="Table"/>
-            <ref name="Caption"/>
-            <ref name="Figure"/>
-            <ref name="Formula"/>
-            <ref name="Artifact"/>
-          </choice>
+          <ref name="Sect.content"/>
         </zeroOrMore>
       </interleave>
     </element>

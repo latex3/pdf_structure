@@ -8,21 +8,54 @@ include "document-pdf-ua2.rnc"
 
 ## Default Article Namespace
 
+### old form
 H1 |= element latexSE:section       {attribute rolemaps-to {"H1"}, sechead.content}
 H2 |= element latexSE:subsection    {attribute rolemaps-to {"H2"}, sechead.content}
 H3 |= element latexSE:subsubsection {attribute rolemaps-to {"H3"}, sechead.content}
 H4 |= element latexSE:paragraph     {attribute rolemaps-to {"H4"}, sechead.content}
 H5 |= element latexSE:subparagraph  {attribute rolemaps-to {"H5"}, sechead.content}
 
+### new form
+
+heading1 = element latexSE:section-heading       {pdf2-attributes, attribute rolemaps-to {"H1"}, sechead.content}
+heading2 = element latexSE:subsection-heading    {pdf2-attributes, attribute rolemaps-to {"H2"}, sechead.content}
+heading3 = element latexSE:subsubsection-heading {pdf2-attributes, attribute rolemaps-to {"H3"}, sechead.content}
+heading4 = element latexSE:paragraph-heading     {pdf2-attributes, attribute rolemaps-to {"H4"}, sechead.content}
+heading5 = element latexSE:subparagraph-heading  {pdf2-attributes, attribute rolemaps-to {"H5"}, sechead.content}
+section = element latexSE:section            {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading1,(subsection|Sect.content)*}
+subsection = element latexSE:subsection      {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading2,(subsubsection|Sect.content)*}
+subsubsection = element latexSE:subsubection {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading3,(paragraph|Sect.content)*}
+paragraph = element latexSE:paragraph        {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading4,(subparagraph|Sect.content)*}
+subparagraph = element latexSE:subparagraph  {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading5,(Sect.content)*}
+
+Sect |= section
 
 ## LaTeX Book structure Namespace
 
+### old form
 H1 |= element latexSEbook:chapter       {attribute rolemaps-to {"H1"}, sechead.content}
 H2 |= element latexSEbook:section       {attribute rolemaps-to {"H2"}, sechead.content}
 H3 |= element latexSEbook:subsection    {attribute rolemaps-to {"H3"}, sechead.content}
 H4 |= element latexSEbook:subsubsection {attribute rolemaps-to {"H4"}, sechead.content}
 H5 |= element latexSEbook:paragraph     {attribute rolemaps-to {"H5"}, sechead.content}
 H6 |= element latexSEbook:subparagraph  {attribute rolemaps-to {"H6"}, sechead.content}
+
+### new form
+
+bookheading1 = element latexSE:chapter-heading       {pdf2-attributes, attribute rolemaps-to {"H1"}, sechead.content}
+bookheading2 = element latexSE:section-heading       {pdf2-attributes, attribute rolemaps-to {"H2"}, sechead.content}
+bookheading3 = element latexSE:subsection-heading    {pdf2-attributes, attribute rolemaps-to {"H3"}, sechead.content}
+bookheading4 = element latexSE:subsubsection-heading {pdf2-attributes, attribute rolemaps-to {"H4"}, sechead.content}
+bookheading5 = element latexSE:paragraph-heading     {pdf2-attributes, attribute rolemaps-to {"H5"}, sechead.content}
+bookheading6 = element latexSE:subparagraph-heading  {pdf2-attributes, attribute rolemaps-to {"H6"}, sechead.content}
+bookchapter = element latexSE:section            {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading1,(section|Sect.content)*}
+booksection = element latexSE:section            {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading2,(subsection|Sect.content)*}
+booksubsection = element latexSE:subsection      {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading3,(subsubsection|Sect.content)*}
+booksubsubsection = element latexSE:subsubection {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading4,(paragraph|Sect.content)*}
+bookparagraph = element latexSE:paragraph        {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading5,(subparagraph|Sect.content)*}
+booksubparagraph = element latexSE:subparagraph  {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading6,(Sect.content)*}
+
+Sect |= bookchapter
 
 Title |= element latexSE:part {attribute rolemaps-to {"Title"}, sechead.content}
 

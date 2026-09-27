@@ -71,7 +71,7 @@
   <define name="StructTreeRoot">
     <element>
       <name ns="">StructTreeRoot</name>
-      <zeroOrMore>
+      <oneOrMore>
         <choice>
           <ref name="Document"/>
           <ref name="DocumentFragment"/>
@@ -101,7 +101,7 @@
           <ref name="Formula"/>
           <ref name="Artifact"/>
         </choice>
-      </zeroOrMore>
+      </oneOrMore>
     </element>
   </define>
   <define name="AssociatedFile">
@@ -626,6 +626,37 @@
       </zeroOrMore>
     </element>
   </define>
+  <define name="Sect.content">
+    <choice>
+      <ref name="DocumentFragment"/>
+      <ref name="Part"/>
+      <ref name="Art"/>
+      <ref name="Div"/>
+      <ref name="Sect"/>
+      <ref name="TOC"/>
+      <ref name="Aside"/>
+      <ref name="BlockQuote"/>
+      <ref name="NonStruct"/>
+      <ref name="Private"/>
+      <ref name="P"/>
+      <ref name="Note"/>
+      <ref name="Code"/>
+      <ref name="Hn"/>
+      <ref name="Title"/>
+      <ref name="Lbl"/>
+      <ref name="Link"/>
+      <ref name="Annot"/>
+      <ref name="Form"/>
+      <ref name="FENote"/>
+      <ref name="Index"/>
+      <ref name="L"/>
+      <ref name="Table"/>
+      <ref name="Caption"/>
+      <ref name="Figure"/>
+      <ref name="Formula"/>
+      <ref name="Artifact"/>
+    </choice>
+  </define>
   <define name="Sect">
     <element>
       <name ns="">Sect</name>
@@ -635,35 +666,7 @@
           <ref name="H"/>
         </optional>
         <zeroOrMore>
-          <choice>
-            <ref name="DocumentFragment"/>
-            <ref name="Part"/>
-            <ref name="Art"/>
-            <ref name="Div"/>
-            <ref name="Sect"/>
-            <ref name="TOC"/>
-            <ref name="Aside"/>
-            <ref name="BlockQuote"/>
-            <ref name="NonStruct"/>
-            <ref name="Private"/>
-            <ref name="P"/>
-            <ref name="Note"/>
-            <ref name="Code"/>
-            <ref name="Hn"/>
-            <ref name="Title"/>
-            <ref name="Lbl"/>
-            <ref name="Link"/>
-            <ref name="Annot"/>
-            <ref name="Form"/>
-            <ref name="FENote"/>
-            <ref name="Index"/>
-            <ref name="L"/>
-            <ref name="Table"/>
-            <ref name="Caption"/>
-            <ref name="Figure"/>
-            <ref name="Formula"/>
-            <ref name="Artifact"/>
-          </choice>
+          <ref name="Sect.content"/>
         </zeroOrMore>
       </interleave>
     </element>

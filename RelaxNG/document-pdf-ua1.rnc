@@ -51,7 +51,7 @@ StructTreeRoot,
 XMP?
 }
 
-StructTreeRoot = element NoNS:StructTreeRoot {( Document|DocumentFragment|Part|Art|Div|Sect|TOC|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|H|Title|Link|Annot|Form|FENote|Index|L|Table|Figure|Formula|Artifact)*}
+StructTreeRoot = element NoNS:StructTreeRoot {( Document|DocumentFragment|Part|Art|Div|Sect|TOC|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|H|Title|Link|Annot|Form|FENote|Index|L|Table|Figure|Formula|Artifact)+}
 
 AssociatedFile = element NoNS:AssociatedFile {
 attribute name {text},
@@ -220,10 +220,12 @@ Part = element pdf2:Part {
   (document.n|H|TOCI|Sub|Lbl|Reference|BibEntry|Caption)*
    }
 
+Sect.content = DocumentFragment|Part|Art|Div|Sect|TOC|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Title|Lbl|Link|Annot|Form|FENote|Index|L|Table|Caption|Figure|Formula|Artifact
+
 Sect = element pdf2:Sect{
    pdf2-attributes,
    (H? &
-   (DocumentFragment|Part|Art|Div|Sect|TOC|Aside|BlockQuote|NonStruct|Private|P|Note|Code|Hn|Title|Lbl|Link|Annot|Form|FENote|Index|L|Table|Caption|Figure|Formula|Artifact)*)
+   (Sect.content)*)
    }
 
 

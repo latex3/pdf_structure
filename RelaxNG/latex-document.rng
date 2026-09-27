@@ -5,6 +5,7 @@
   </include>
   <define name="H1" combine="choice">
     <a:documentation>Default Article Namespace</a:documentation>
+    <a:documentation>old form</a:documentation>
     <element name="latexSE:section">
       <attribute name="rolemaps-to">
         <value>H1</value>
@@ -44,8 +45,130 @@
       <ref name="sechead.content"/>
     </element>
   </define>
+  <define name="heading1">
+    <a:documentation>new form</a:documentation>
+    <element name="latexSE:section-heading">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H1</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="heading2">
+    <element name="latexSE:subsection-heading">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H2</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="heading3">
+    <element name="latexSE:subsubsection-heading">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H3</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="heading4">
+    <element name="latexSE:paragraph-heading">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H4</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="heading5">
+    <element name="latexSE:subparagraph-heading">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H5</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="section">
+    <element name="latexSE:section">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="heading1"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="subsection"/>
+          <ref name="Sect.content"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="subsection">
+    <element name="latexSE:subsection">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="heading2"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="subsubsection"/>
+          <ref name="Sect.content"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="subsubsection">
+    <element name="latexSE:subsubection">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="heading3"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="paragraph"/>
+          <ref name="Sect.content"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="paragraph">
+    <element name="latexSE:paragraph">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="heading4"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="subparagraph"/>
+          <ref name="Sect.content"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="subparagraph">
+    <element name="latexSE:subparagraph">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="heading5"/>
+      <zeroOrMore>
+        <ref name="Sect.content"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Sect" combine="choice">
+    <ref name="section"/>
+  </define>
   <define name="H1" combine="choice">
     <a:documentation>LaTeX Book structure Namespace</a:documentation>
+    <a:documentation>old form</a:documentation>
     <element name="latexSEbook:chapter">
       <attribute name="rolemaps-to">
         <value>H1</value>
@@ -92,6 +215,151 @@
       </attribute>
       <ref name="sechead.content"/>
     </element>
+  </define>
+  <define name="bookheading1">
+    <a:documentation>new form</a:documentation>
+    <element name="latexSE:chapter-heading">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H1</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="bookheading2">
+    <element name="latexSE:section-heading">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H2</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="bookheading3">
+    <element name="latexSE:subsection-heading">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H3</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="bookheading4">
+    <element name="latexSE:subsubsection-heading">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H4</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="bookheading5">
+    <element name="latexSE:paragraph-heading">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H5</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="bookheading6">
+    <element name="latexSE:subparagraph-heading">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H6</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="bookchapter">
+    <element name="latexSE:section">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="bookheading1"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="section"/>
+          <ref name="Sect.content"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="booksection">
+    <element name="latexSE:section">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="bookheading2"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="subsection"/>
+          <ref name="Sect.content"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="booksubsection">
+    <element name="latexSE:subsection">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="bookheading3"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="subsubsection"/>
+          <ref name="Sect.content"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="booksubsubsection">
+    <element name="latexSE:subsubection">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="bookheading4"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="paragraph"/>
+          <ref name="Sect.content"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="bookparagraph">
+    <element name="latexSE:paragraph">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="bookheading5"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="subparagraph"/>
+          <ref name="Sect.content"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="booksubparagraph">
+    <element name="latexSE:subparagraph">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="bookheading6"/>
+      <zeroOrMore>
+        <ref name="Sect.content"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Sect" combine="choice">
+    <ref name="bookchapter"/>
   </define>
   <define name="Title" combine="choice">
     <element name="latexSE:part">

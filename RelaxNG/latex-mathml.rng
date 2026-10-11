@@ -2,23 +2,23 @@
 <grammar ns="http://www.w3.org/1998/Math/MathML" xmlns:h="http://www.w3.org/1999/xhtml" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <include href="mathml4-core.rng"/>
   <start combine="choice">
-    <ref name="html"/>
+    <ref name="xhtml"/>
   </start>
-  <define name="html">
+  <define name="xhtml">
     <element name="h:html">
       <zeroOrMore>
         <ref name="div"/>
       </zeroOrMore>
     </element>
   </define>
-  <define name="h2">
+  <define name="xh2">
     <element name="h:h2">
       <text/>
     </element>
   </define>
   <define name="div">
     <element name="h:div">
-      <ref name="h2"/>
+      <ref name="xh2"/>
       <ref name="p"/>
       <ref name="p"/>
       <ref name="math"/>

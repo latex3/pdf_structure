@@ -1,6 +1,7 @@
 
 namespace latexSE = "https://www.latex-project.org/ns/dflt"
 namespace latexSEbook = "https://www.latex-project.org/ns/book"
+namespace html = "http://www.w3.org/1999/xhtml"
 
 ## PDF/UA-2
 
@@ -85,6 +86,57 @@ Span |= heading-fragment|heading-parbox
 
 document.1 &= figures?
            & tables?
+	   & title-block?
+
+
+title-block = element latexSE:title-block {
+  attribute rolemaps-to {"Div"},
+   pdf2-attributes,
+   ((title-text|h1)|title-author|title-date)*
+ }
+
+title-text = element latexSE:title-text {
+  attribute rolemaps-to {"Title"},
+   pdf2-attributes,
+   (text|Span)*
+ }
+
+h1 = element html:h1 {
+  attribute rolemaps-to {"Title"},
+   pdf2-attributes,
+   (text|Span)*
+ }
+
+
+h2 = element html:h2 {
+  attribute rolemaps-to {"H1"},
+   pdf2-attributes,
+   sechead.content
+ }
+
+H1 |= h2
+heading1 |= h2
+
+h3 = element html:h3 {
+  attribute rolemaps-to {"H2"},
+   pdf2-attributes,
+   sechead.content
+ }
+
+H2 |= h3
+heading2 |= h3
+
+title-author = element latexSE:title-author {
+  attribute rolemaps-to {"P"},
+   pdf2-attributes,
+   (text)
+ }
+title-date = element latexSE:title-date {
+  attribute rolemaps-to {"P"},
+   pdf2-attributes,
+   (text)
+ }
+
 
 figures = element latexSE:figures {
   attribute rolemaps-to {"Sect"},

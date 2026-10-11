@@ -2,6 +2,7 @@
 namespace latexSE = "https://www.latex-project.org/ns/dflt"
 namespace latexSEbook = "https://www.latex-project.org/ns/book"
 namespace html = "http://www.w3.org/1999/xhtml"
+namespace latexH1 = "https://www.latex-project.org/ns/title-H1"
 
 ## PDF/UA-2
 
@@ -92,11 +93,17 @@ document.1 &= figures?
 title-block = element latexSE:title-block {
   attribute rolemaps-to {"Div"},
    pdf2-attributes,
-   ((title-text|h1)|title-author|title-date)*
+   ((title-text|h1|h1title-text)|title-author|title-date)*
  }
 
 title-text = element latexSE:title-text {
   attribute rolemaps-to {"Title"},
+   pdf2-attributes,
+   (text|Span)*
+ }
+
+h1title-text = element latexH1:title-text {
+  attribute rolemaps-to {"H1"},
    pdf2-attributes,
    (text|Span)*
  }
@@ -114,8 +121,15 @@ h2 = element html:h2 {
    sechead.content
  }
 
+h1section-heading = element latexH1:section-heading {
+  attribute rolemaps-to {"H2"},
+   pdf2-attributes,
+   sechead.content
+ }
+
 H1 |= h2
 heading1 |= h2
+heading1 |= h1section-heading
 
 h3 = element html:h3 {
   attribute rolemaps-to {"H2"},
@@ -123,8 +137,15 @@ h3 = element html:h3 {
    sechead.content
  }
 
+h1subsection-heading = element latexH1:subsection-heading {
+  attribute rolemaps-to {"H3"},
+   pdf2-attributes,
+   sechead.content
+ }
+
 H2 |= h3
 heading2 |= h3
+heading2 |= h1subsection-heading
 
 title-author = element latexSE:title-author {
   attribute rolemaps-to {"P"},

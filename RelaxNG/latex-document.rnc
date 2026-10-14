@@ -53,7 +53,7 @@ bookheading6 = element latexSEbook:subparagraph-heading  {pdf2-attributes, attri
 bookchapter = element latexSEbook:chapter            {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading1,(booksection|Sect.content)*}
 booksection = element latexSE:section            {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading2,(booksubsection|Sect.content)*}
 booksubsection = element latexSE:subsection      {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading3,(booksubsubsection|Sect.content)*}
-booksubsubsection = element latexSE:subsubection {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading4,(bookparagraph|Sect.content)*}
+booksubsubsection = element latexSE:subsubsection {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading4,(bookparagraph|Sect.content)*}
 bookparagraph = element latexSE:paragraph        {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading5,(booksubparagraph|Sect.content)*}
 booksubparagraph = element latexSE:subparagraph  {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading6,(Sect.content)*}
 
@@ -150,7 +150,7 @@ heading2 |= h1subsection-heading
 title-author = element latexSE:title-author {
   attribute rolemaps-to {"P"},
    pdf2-attributes,
-   (text)
+   (text|text-fragment)*
  }
 title-date = element latexSE:title-date {
   attribute rolemaps-to {"P"},

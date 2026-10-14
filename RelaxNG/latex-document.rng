@@ -317,7 +317,7 @@
     </element>
   </define>
   <define name="booksubsubsection">
-    <element name="latexSE:subsubection">
+    <element name="latexSE:subsubsection">
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
         <value>Sect</value>
@@ -626,7 +626,12 @@
         <value>P</value>
       </attribute>
       <ref name="pdf2-attributes"/>
-      <text/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+        </choice>
+      </zeroOrMore>
     </element>
   </define>
   <define name="title-date">

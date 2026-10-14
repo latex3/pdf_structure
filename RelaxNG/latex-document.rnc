@@ -150,7 +150,7 @@ heading2 |= h1subsection-heading
 title-author = element latexSE:title-author {
   attribute rolemaps-to {"P"},
    pdf2-attributes,
-   (text|text-fragment)*
+   (text|text-fragment|footnotemark)*
  }
 title-date = element latexSE:title-date {
   attribute rolemaps-to {"P"},
@@ -305,11 +305,12 @@ pdf2-attributes,
 
 Span |= text-fragment
 
-Lbl |= element latexSE:footnotemark {
+footnotemark = element latexSE:footnotemark {
  attribute rolemaps-to {"Lbl"},
  pdf2-attributes,
 (text|Link|Span)*
 }
+Lbl |= footnotemark
 
 FENote |= element latexSE:footnote {
   attribute rolemaps-to {"FENote"|"Note"},

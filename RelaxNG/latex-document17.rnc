@@ -232,11 +232,12 @@ pdf2-attributes,
 
 Span |= text-fragment
 
-Lbl |= element latexSE:footnotemark {
+footnotemark = element latexSE:footnotemark {
  attribute rolemaps-to {"Lbl"},
  pdf2-attributes,
 (text|Link|Span)*
 }
+Lbl |= footnotemark
 
 FENote |= element latexSE:footnote {
   attribute rolemaps-to {"FENote"|"Note"},

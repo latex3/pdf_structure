@@ -89,7 +89,6 @@ document.1 &= figures?
            & tables?
 	   & title-block?
 
-
 title-block = element latexSE:title-block {
   attribute rolemaps-to {"Div"},
    pdf2-attributes,

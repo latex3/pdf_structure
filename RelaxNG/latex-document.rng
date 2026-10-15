@@ -631,6 +631,7 @@
           <text/>
           <ref name="text-fragment"/>
           <ref name="footnotemark"/>
+          <ref name="Link"/>
         </choice>
       </zeroOrMore>
     </element>

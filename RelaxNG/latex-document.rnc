@@ -150,7 +150,7 @@ heading2 |= h1subsection-heading
 title-author = element latexSE:title-author {
   attribute rolemaps-to {"P"},
    pdf2-attributes,
-   (text|text-fragment|footnotemark)*
+   (text|text-fragment|footnotemark|Link)*
  }
 title-date = element latexSE:title-date {
   attribute rolemaps-to {"P"},

@@ -1,13 +1,9 @@
-show-pdf-tags v1.7
+show-pdf-tags v1.7b
 
-The XML output from show-pdf-tags has been extended to show the
-PDF version as <PDF version="2.0">
+The show-pdf-tags script is unchanged in this release.
 
-The Schema have been updated to optionally allow this attribute
-and if present enforce that it has value 2.0 for the PDF/UA-2 schema
-or 1.4, .. 1.7 or 2.0 for the UA-1 schema.
+The Schema have been updated to match the LaTeX Structure Elements
+introduced in the latex-dev release of LaTeX2e 2026-11-01
 
-In addition several new structure elements that are introduced in the
-current latex-dev release are now supported by the schema.
 
 

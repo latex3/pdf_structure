@@ -129,6 +129,9 @@
           <zeroOrMore>
             <ref name="Lbl"/>
           </zeroOrMore>
+          <zeroOrMore>
+            <ref name="P"/>
+          </zeroOrMore>
           <ref name="mathse"/>
         </group>
         <ref name="AssociatedFilemath"/>

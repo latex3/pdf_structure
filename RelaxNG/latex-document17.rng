@@ -3,9 +3,18 @@
   <include href="document-pdf-ua1.rng">
     <a:documentation>PDF/UA-1</a:documentation>
   </include>
-  <define name="H1" combine="choice">
+  <define name="Title" combine="choice">
     <a:documentation>Default Article Namespace</a:documentation>
     <a:documentation>old form</a:documentation>
+    <element>
+      <name ns="">part</name>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="H1" combine="choice">
     <element>
       <name ns="">section</name>
       <attribute name="rolemaps-to">
@@ -50,8 +59,18 @@
       <ref name="sechead.content"/>
     </element>
   </define>
-  <define name="heading1">
+  <define name="heading0">
     <a:documentation>new form</a:documentation>
+    <element>
+      <name ns="">part-heading</name>
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="heading1">
     <element>
       <name ns="">section-heading</name>
       <ref name="pdf2-attributes"/>
@@ -99,6 +118,23 @@
         <value>H5</value>
       </attribute>
       <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="part">
+    <element>
+      <name ns="">part</name>
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Part</value>
+      </attribute>
+      <ref name="heading0"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="bookchapter"/>
+          <ref name="section"/>
+          <ref name="Sect.content"/>
+        </choice>
+      </zeroOrMore>
     </element>
   </define>
   <define name="section">
@@ -177,6 +213,9 @@
         <ref name="Sect.content"/>
       </zeroOrMore>
     </element>
+  </define>
+  <define name="Part" combine="choice">
+    <ref name="part"/>
   </define>
   <define name="Sect" combine="choice">
     <ref name="section"/>
@@ -393,15 +432,6 @@
   </define>
   <define name="Sect" combine="choice">
     <ref name="bookchapter"/>
-  </define>
-  <define name="Title" combine="choice">
-    <element>
-      <name ns="">part</name>
-      <attribute name="rolemaps-to">
-        <value>Title</value>
-      </attribute>
-      <ref name="sechead.content"/>
-    </element>
   </define>
   <define name="heading-number">
     <element>
@@ -738,14 +768,19 @@
       <ref name="showtags-attributes"/>
       <zeroOrMore>
         <choice>
+          <text/>
           <ref name="Caption"/>
           <ref name="Part"/>
           <ref name="Div"/>
           <ref name="Figure"/>
           <ref name="text"/>
+          <ref name="Formula"/>
         </choice>
       </zeroOrMore>
     </element>
+  </define>
+  <define name="Aside" combine="choice">
+    <ref name="float"/>
   </define>
   <define name="theorem-like">
     <element>
@@ -758,13 +793,19 @@
       </optional>
       <ref name="showtags-attributes"/>
       <optional>
+        <ref name="P"/>
+      </optional>
+      <optional>
         <ref name="Caption"/>
       </optional>
       <optional>
         <ref name="Lbl"/>
       </optional>
       <zeroOrMore>
-        <ref name="Part"/>
+        <choice>
+          <ref name="Part"/>
+          <ref name="P"/>
+        </choice>
       </zeroOrMore>
     </element>
   </define>
@@ -798,6 +839,7 @@
           <ref name="Sect"/>
           <ref name="P"/>
           <ref name="Aside"/>
+          <ref name="float"/>
           <ref name="Figure"/>
           <ref name="Table"/>
           <ref name="Formula"/>
@@ -912,7 +954,10 @@
       </attribute>
       <ref name="pdf2-attributes"/>
       <zeroOrMore>
-        <ref name="Part"/>
+        <choice>
+          <ref name="Part"/>
+          <ref name="P"/>
+        </choice>
       </zeroOrMore>
     </element>
   </define>

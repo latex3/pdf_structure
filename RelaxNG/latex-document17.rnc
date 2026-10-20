@@ -11,6 +11,7 @@ include "document-pdf-ua1.rnc"
 ## Default Article Namespace
 
 ### old form
+Title |= element latexSE:part       {attribute rolemaps-to {"Div"}, sechead.content}
 H1 |= element latexSE:section       {attribute rolemaps-to {"H1"}, sechead.content}
 H2 |= element latexSE:subsection    {attribute rolemaps-to {"H2"}, sechead.content}
 H3 |= element latexSE:subsubsection {attribute rolemaps-to {"H3"}, sechead.content}
@@ -19,17 +20,19 @@ H5 |= element latexSE:subparagraph  {attribute rolemaps-to {"H5"}, sechead.conte
 
 ### new form
 
+heading0 = element latexSE:part-heading          {pdf2-attributes, attribute rolemaps-to {"Div"}, sechead.content}
 heading1 = element latexSE:section-heading       {pdf2-attributes, attribute rolemaps-to {"H1"}, sechead.content}
 heading2 = element latexSE:subsection-heading    {pdf2-attributes, attribute rolemaps-to {"H2"}, sechead.content}
 heading3 = element latexSE:subsubsection-heading {pdf2-attributes, attribute rolemaps-to {"H3"}, sechead.content}
 heading4 = element latexSE:paragraph-heading     {pdf2-attributes, attribute rolemaps-to {"H4"}, sechead.content}
 heading5 = element latexSE:subparagraph-heading  {pdf2-attributes, attribute rolemaps-to {"H5"}, sechead.content}
+part = element latexSE:part                  {pdf2-attributes,attribute rolemaps-to {"Part"}, heading0,(bookchapter|section|Sect.content)*}
 section = element latexSE:section            {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading1,(subsection|Sect.content)*}
 subsection = element latexSE:subsection      {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading2,(subsubsection|Sect.content)*}
 subsubsection = element latexSE:subsubection {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading3,(paragraph|Sect.content)*}
 paragraph = element latexSE:paragraph        {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading4,(subparagraph|Sect.content)*}
 subparagraph = element latexSE:subparagraph  {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading5,(Sect.content)*}
-
+Part |= part
 Sect |= section
 
 ## LaTeX Book structure Namespace
@@ -59,7 +62,6 @@ booksubparagraph = element latexSE:subparagraph  {pdf2-attributes,attribute role
 
 Sect |= bookchapter
 
-Title |= element latexSE:part {attribute rolemaps-to {"Title"}, sechead.content}
 
 heading-number = element (latexSE:heading-number | latexSE:section-number) {
   attribute rolemaps-to {"Lbl"|"Span"},			
@@ -176,18 +178,18 @@ float = element latexSE:float {
   attribute rolemaps-to {"Aside"|"Note"},
   attribute id {text}?,
   showtags-attributes,
-  (Caption|Part|Div|Figure|\text)*
+  (text|Caption|Part|Div|Figure|\text|Formula)*
  }
-
+Aside |= float
 
 
 theorem-like = element latexSE:theorem-like {
   attribute rolemaps-to {"Sect"},
   attribute id {text}?,
   showtags-attributes,
-  Caption?,
+  P?,Caption?,
   Lbl?,
-  (Part)*
+  (Part|P)*
 }
 Sect |= theorem-like
 
@@ -195,7 +197,7 @@ Sect |= theorem-like
 text-unit = element (latexSE:text-unit | latexSE:semantic-para) {
   attribute rolemaps-to {"Part"},
   pdf2-attributes,
-   (title|Title)?,Caption?,(H4|H5|Div|Sect|P|Aside|Figure|Table|Formula|quote|quotation|\text|itemize|description|enumerate|verbatim|\list|Part|FENote)*}
+   (title|Title)?,Caption?,(H4|H5|Div|Sect|P|Aside|float|Figure|Table|Formula|quote|quotation|\text|itemize|description|enumerate|verbatim|\list|Part|FENote)*}
 Part |= text-unit
 
 verbatim = element latexSE:verbatim {
@@ -241,7 +243,7 @@ L |= enumerate
 quote = element latexSE:quote {
  attribute rolemaps-to {"BlockQuote"},
  pdf2-attributes,
- (Part)*
+ (Part|P)*
 }
 
 quotation = element latexSE:quotation {

@@ -75,7 +75,7 @@ attribute media-type {text}?,
 formula-requirements = (
   attribute alt {text}? & (
     attribute actualtext {text}|
-    (Lbl*,mathse) |
+    (Lbl*,P*,mathse) |
     AssociatedFilemath
 ))
 

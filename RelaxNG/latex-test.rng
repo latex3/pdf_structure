@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <!-- LaTeX tagging test suite schema v1.7b -->
   <define name="ua2">
     <externalRef href="latex-bible.rng"/>
   </define>

@@ -1,6 +1,7 @@
 # Print structure element hierarchy for Tagged PDF
 
-show-pdf-tags version 1.7
+show-pdf-tags Lua version 1.7
+show-pdf-tags Schema version 1.7b
 
 Print a plain text or XML tree representing the structure of Tagged PDF files.
 

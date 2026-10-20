@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- LaTeX PDF 2.0 Namespace Schema extensions v1.7b -->
 <grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:latexSEamse="https://www.latex-project.org/ns/local/asmeconf" xmlns:latexSEamsej="https://www.latex-project.org/ns/local/asmejour" xmlns:luatexko="https://www.latex-project.org/ns/local/luatexko" xmlns:mitthesis="https://www.latex-project.org/ns/local/mitthesis" xmlns:latexSEplay="https://www.latex-project.org/ns/local/plays" xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="latex-document.rng"/>
   <!-- LaTeX play -->

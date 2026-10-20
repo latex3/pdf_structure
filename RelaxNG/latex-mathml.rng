@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- LaTeX PDF 2.0 MathML-Core Schema v1.7b -->
 <grammar ns="http://www.w3.org/1998/Math/MathML" xmlns:h="http://www.w3.org/1999/xhtml" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <include href="mathml4-core.rng"/>
   <start combine="choice">

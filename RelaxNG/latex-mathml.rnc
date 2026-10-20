@@ -1,3 +1,5 @@
+# LaTeX PDF 2.0 MathML-Core Schema v1.7b
+
 namespace h = "http://www.w3.org/1999/xhtml"
 default namespace m = "http://www.w3.org/1998/Math/MathML"
 

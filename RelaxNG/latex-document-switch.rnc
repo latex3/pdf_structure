@@ -1,3 +1,5 @@
+# LaTeX PDF 2.0 Namespace switch schema v1.7b
+
 ua2 = external "latex-bible.rnc"
 ua1 = external "latex-bible17.rnc"
 ua2play = external "latex-play.rnc"

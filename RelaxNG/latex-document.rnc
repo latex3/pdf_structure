@@ -1,6 +1,8 @@
 
 namespace latexSE = "https://www.latex-project.org/ns/dflt"
 namespace latexSEbook = "https://www.latex-project.org/ns/book"
+namespace html = "http://www.w3.org/1999/xhtml"
+namespace latexH1 = "https://www.latex-project.org/ns/title-H1"
 
 ## PDF/UA-2
 
@@ -51,7 +53,7 @@ bookheading6 = element latexSEbook:subparagraph-heading  {pdf2-attributes, attri
 bookchapter = element latexSEbook:chapter            {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading1,(booksection|Sect.content)*}
 booksection = element latexSE:section            {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading2,(booksubsection|Sect.content)*}
 booksubsection = element latexSE:subsection      {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading3,(booksubsubsection|Sect.content)*}
-booksubsubsection = element latexSE:subsubection {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading4,(bookparagraph|Sect.content)*}
+booksubsubsection = element latexSE:subsubsection {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading4,(bookparagraph|Sect.content)*}
 bookparagraph = element latexSE:paragraph        {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading5,(booksubparagraph|Sect.content)*}
 booksubparagraph = element latexSE:subparagraph  {pdf2-attributes,attribute rolemaps-to {"Sect"}, bookheading6,(Sect.content)*}
 
@@ -85,6 +87,76 @@ Span |= heading-fragment|heading-parbox
 
 document.1 &= figures?
            & tables?
+	   & title-block?
+
+title-block = element latexSE:title-block {
+  attribute rolemaps-to {"Div"},
+   pdf2-attributes,
+   ((title-text|h1|h1title-text)|title-author|title-date)*
+ }
+
+title-text = element latexSE:title-text {
+  attribute rolemaps-to {"Title"},
+   pdf2-attributes,
+   (text|Span)*
+ }
+
+h1title-text = element latexH1:title-text {
+  attribute rolemaps-to {"H1"},
+   pdf2-attributes,
+   (text|Span)*
+ }
+
+h1 = element html:h1 {
+  attribute rolemaps-to {"Title"},
+   pdf2-attributes,
+   (text|Span)*
+ }
+
+
+h2 = element html:h2 {
+  attribute rolemaps-to {"H1"},
+   pdf2-attributes,
+   sechead.content
+ }
+
+h1section-heading = element latexH1:section-heading {
+  attribute rolemaps-to {"H2"},
+   pdf2-attributes,
+   sechead.content
+ }
+
+H1 |= h2
+heading1 |= h2
+heading1 |= h1section-heading
+
+h3 = element html:h3 {
+  attribute rolemaps-to {"H2"},
+   pdf2-attributes,
+   sechead.content
+ }
+
+h1subsection-heading = element latexH1:subsection-heading {
+  attribute rolemaps-to {"H3"},
+   pdf2-attributes,
+   sechead.content
+ }
+
+H2 |= h3
+heading2 |= h3
+heading2 |= h1subsection-heading
+
+title-author = element latexSE:title-author {
+  attribute rolemaps-to {"P"},
+   pdf2-attributes,
+   (text|text-fragment|footnotemark|Link)*
+ }
+title-date = element latexSE:title-date {
+  attribute rolemaps-to {"P"},
+   pdf2-attributes,
+   (text)
+ }
+
 
 figures = element latexSE:figures {
   attribute rolemaps-to {"Sect"},
@@ -232,11 +304,12 @@ pdf2-attributes,
 
 Span |= text-fragment
 
-Lbl |= element latexSE:footnotemark {
+footnotemark = element latexSE:footnotemark {
  attribute rolemaps-to {"Lbl"},
  pdf2-attributes,
 (text|Link|Span)*
 }
+Lbl |= footnotemark
 
 FENote |= element latexSE:footnote {
   attribute rolemaps-to {"FENote"|"Note"},

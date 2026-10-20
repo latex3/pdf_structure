@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:latexSE="https://www.latex-project.org/ns/dflt" xmlns:latexSEbook="https://www.latex-project.org/ns/book" xmlns="http://relaxng.org/ns/structure/1.0">
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:latexH1="https://www.latex-project.org/ns/title-H1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:latexSE="https://www.latex-project.org/ns/dflt" xmlns:latexSEbook="https://www.latex-project.org/ns/book" xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="document-pdf-ua2.rng">
     <a:documentation>PDF/UA-2</a:documentation>
   </include>
@@ -317,7 +317,7 @@
     </element>
   </define>
   <define name="booksubsubsection">
-    <element name="latexSE:subsubection">
+    <element name="latexSE:subsubsection">
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
         <value>Sect</value>
@@ -500,7 +500,150 @@
       <optional>
         <ref name="tables"/>
       </optional>
+      <optional>
+        <ref name="title-block"/>
+      </optional>
     </interleave>
+  </define>
+  <define name="title-block">
+    <element name="latexSE:title-block">
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <choice>
+            <ref name="title-text"/>
+            <ref name="h1"/>
+            <ref name="h1title-text"/>
+          </choice>
+          <ref name="title-author"/>
+          <ref name="title-date"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="title-text">
+    <element name="latexSE:title-text">
+      <attribute name="rolemaps-to">
+        <value>Title</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="Span"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="h1title-text">
+    <element name="latexH1:title-text">
+      <attribute name="rolemaps-to">
+        <value>H1</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="Span"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="h1">
+    <element name="html:h1">
+      <attribute name="rolemaps-to">
+        <value>Title</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="Span"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="h2">
+    <element name="html:h2">
+      <attribute name="rolemaps-to">
+        <value>H1</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="h1section-heading">
+    <element name="latexH1:section-heading">
+      <attribute name="rolemaps-to">
+        <value>H2</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="H1" combine="choice">
+    <ref name="h2"/>
+  </define>
+  <define name="heading1" combine="choice">
+    <ref name="h2"/>
+  </define>
+  <define name="heading1" combine="choice">
+    <ref name="h1section-heading"/>
+  </define>
+  <define name="h3">
+    <element name="html:h3">
+      <attribute name="rolemaps-to">
+        <value>H2</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="h1subsection-heading">
+    <element name="latexH1:subsection-heading">
+      <attribute name="rolemaps-to">
+        <value>H3</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="H2" combine="choice">
+    <ref name="h3"/>
+  </define>
+  <define name="heading2" combine="choice">
+    <ref name="h3"/>
+  </define>
+  <define name="heading2" combine="choice">
+    <ref name="h1subsection-heading"/>
+  </define>
+  <define name="title-author">
+    <element name="latexSE:title-author">
+      <attribute name="rolemaps-to">
+        <value>P</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="footnotemark"/>
+          <ref name="Link"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="title-date">
+    <element name="latexSE:title-date">
+      <attribute name="rolemaps-to">
+        <value>P</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <text/>
+    </element>
   </define>
   <define name="figures">
     <element name="latexSE:figures">
@@ -942,7 +1085,7 @@
   <define name="Span" combine="choice">
     <ref name="text-fragment"/>
   </define>
-  <define name="Lbl" combine="choice">
+  <define name="footnotemark">
     <element name="latexSE:footnotemark">
       <attribute name="rolemaps-to">
         <value>Lbl</value>
@@ -956,6 +1099,9 @@
         </choice>
       </zeroOrMore>
     </element>
+  </define>
+  <define name="Lbl" combine="choice">
+    <ref name="footnotemark"/>
   </define>
   <define name="FENote" combine="choice">
     <element name="latexSE:footnote">

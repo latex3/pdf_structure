@@ -348,7 +348,7 @@
   </define>
   <define name="booksubsubsection">
     <element>
-      <name ns="">subsubection</name>
+      <name ns="">subsubsection</name>
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
         <value>Sect</value>
@@ -535,7 +535,163 @@
       <optional>
         <ref name="tables"/>
       </optional>
+      <optional>
+        <ref name="title-block"/>
+      </optional>
     </interleave>
+  </define>
+  <define name="title-block">
+    <element>
+      <name ns="">title-block</name>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <choice>
+            <ref name="title-text"/>
+            <ref name="h1"/>
+            <ref name="h1title-text"/>
+          </choice>
+          <ref name="title-author"/>
+          <ref name="title-date"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="title-text">
+    <element>
+      <name ns="">title-text</name>
+      <attribute name="rolemaps-to">
+        <choice>
+          <value>Title</value>
+          <value>P</value>
+        </choice>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="Span"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="h1title-text">
+    <element>
+      <name ns="">title-text</name>
+      <attribute name="rolemaps-to">
+        <value>H1</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="Span"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="h1">
+    <element>
+      <name ns="">h1</name>
+      <attribute name="rolemaps-to">
+        <value>Title</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="Span"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="h2">
+    <element>
+      <name ns="">h2</name>
+      <attribute name="rolemaps-to">
+        <value>H1</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="h1section-heading">
+    <element>
+      <name ns="">section-heading</name>
+      <attribute name="rolemaps-to">
+        <value>H2</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="H1" combine="choice">
+    <ref name="h2"/>
+  </define>
+  <define name="heading1" combine="choice">
+    <ref name="h2"/>
+  </define>
+  <define name="heading1" combine="choice">
+    <ref name="h1section-heading"/>
+  </define>
+  <define name="h3">
+    <element>
+      <name ns="">h3</name>
+      <attribute name="rolemaps-to">
+        <value>H2</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="h1subsection-heading">
+    <element>
+      <name ns="">subsection-heading</name>
+      <attribute name="rolemaps-to">
+        <value>H3</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="H2" combine="choice">
+    <ref name="h3"/>
+  </define>
+  <define name="heading2" combine="choice">
+    <ref name="h3"/>
+  </define>
+  <define name="heading2" combine="choice">
+    <ref name="h1subsection-heading"/>
+  </define>
+  <define name="title-author">
+    <element>
+      <name ns="">title-author</name>
+      <attribute name="rolemaps-to">
+        <value>P</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="footnotemark"/>
+          <ref name="Link"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="title-date">
+    <element>
+      <name ns="">title-date</name>
+      <attribute name="rolemaps-to">
+        <value>P</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <text/>
+    </element>
   </define>
   <define name="figures">
     <element>
@@ -994,7 +1150,7 @@
   <define name="Span" combine="choice">
     <ref name="text-fragment"/>
   </define>
-  <define name="Lbl" combine="choice">
+  <define name="footnotemark">
     <element>
       <name ns="">footnotemark</name>
       <attribute name="rolemaps-to">
@@ -1009,6 +1165,9 @@
         </choice>
       </zeroOrMore>
     </element>
+  </define>
+  <define name="Lbl" combine="choice">
+    <ref name="footnotemark"/>
   </define>
   <define name="FENote" combine="choice">
     <element>

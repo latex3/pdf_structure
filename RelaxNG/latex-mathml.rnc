@@ -6,13 +6,13 @@ include "mathml4-core.rnc" {
 
 
 
-start |= html
+start |= xhtml
 
-html = element h:html {\div*}
+xhtml = element h:html {\div*}
 
-h2 = element h:h2 {text}
+xh2 = element h:h2 {text}
 
-\div = element h:div {h2,p,p,math}
+\div = element h:div {xh2,p,p,math}
 
 p = element h:p {text}
 

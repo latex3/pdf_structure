@@ -1,3 +1,4 @@
+# LaTeX PDF 2.0 Bible Namespace Schema v1.7b
 
 namespace latexSE = "https://www.latex-project.org/ns/dflt"
 namespace latexSEbible = "https://www.latex-project.org/ns/local/bible"

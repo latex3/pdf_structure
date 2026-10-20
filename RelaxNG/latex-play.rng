@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- LaTeX PDF 2.0 Shakespeare Play Schema v1.7b -->
 <grammar xmlns:latexSEplay="https://www.latex-project.org/ns/local/plays" xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="latex-document.rng"/>
   <define name="Span" combine="choice">

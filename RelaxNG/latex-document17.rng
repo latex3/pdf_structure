@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- LaTeX PDF 1.7 Namespace Schema v1.7b -->
 <grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="document-pdf-ua1.rng">
     <a:documentation>PDF/UA-1</a:documentation>

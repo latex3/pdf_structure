@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <!-- LaTeX PDF 1.7 Namespace Schema extensions v1.7b -->
   <include href="latex-document17.rng"/>
   <!-- LaTeX play -->
   <define name="Span" combine="choice">

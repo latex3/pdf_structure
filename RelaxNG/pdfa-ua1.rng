@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- PDF/UA-1 Schema v1.7b -->
 <grammar xmlns:Layout="http://iso.org/pdf/ssn/Layout" xmlns:PrintField="http://iso.org/pdf/ssn/PrintField" xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="document-pdf-ua1.rng">
     <define name="StructTreeRoot">

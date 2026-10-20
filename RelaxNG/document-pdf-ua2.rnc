@@ -1,3 +1,4 @@
+# PDF 2.0 Namespace Schema v1.7b
 
 namespace NoNS = ""
 namespace pdf1 = "http://iso.org/pdf/ssn"

@@ -1,3 +1,4 @@
+# LaTeX PDF 1.7 Namespace Schema extensions v1.7b
 
 include "latex-document17.rnc"
 

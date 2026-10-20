@@ -1,3 +1,4 @@
+# LaTeX PDF 2.0 Namespace Schema v1.7b
 
 namespace latexSE = "https://www.latex-project.org/ns/dflt"
 namespace latexSEbook = "https://www.latex-project.org/ns/book"

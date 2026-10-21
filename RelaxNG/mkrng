@@ -1,3 +1,19 @@
+#!/bin/bash
+
+if [ $# == 0 ] ; then
+  echo "Using existing version"
+  grep  '^#.*v[0-9]' latex-document.rnc
+fi
+
+if [ $# == 1 ] ; then
+  echo "Updating to version $1"
+  for i in *.rnc
+  do
+  sed -i "s/^\(#.* \)\(v[0-9][0-9.]*[a-z]*\)/\1v$1/" $i
+  done
+  grep  '^#.* v' latex-document.rnc
+fi
+
 for i in  *.rnc
 do
 java -Dline.separator=$'\n' -jar trang.jar ${i} ${i/.rnc/.rng}

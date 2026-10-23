@@ -492,7 +492,7 @@ local function print_tree(tree, ctx)
           local total_count = #af_output
           for i, file in ipairs(obj.associated_files) do
             if file.EF.F then
-              af_output = af_output .. '\n└─Content: ' .. pdfe.readwholestream(file.EF.F, true):gsub('\n', '\n  ')
+              af_output = '\n└─Content: ' .. pdfe.readwholestream(file.EF.F, true):gsub('\n', '\n  ')
               -- recurse(obj.kids, prefix .. '├─', prefix .. '└─', prefix .. '│ ', prefix .. '  ')
             end
           end

@@ -716,8 +716,8 @@ local function print_tree_xml(tree, ctx)
   print ("<PDF version=\"" .. ctx.version .."\">\n <StructTreeRoot>")
   recurse(tree, '  ', '', '', ' ')
   print (" </StructTreeRoot>")
-  if show_xmp then
-    print(" <XMP>\n" ..pdfe.readwholestream(ctx.xmp,true):gsub("\n[ \n]*\n","\n") .. "\n </XMP>")
+  if show_xmp and ctx.xmp then
+    print(" <XMP>" ..pdfe.readwholestream(ctx.xmp,true):gsub("\n[ \n]*\n","\n"):gsub("\n","\n  ") .. "\n </XMP>")
   end
   print ("</PDF>")
   return

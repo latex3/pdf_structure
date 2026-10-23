@@ -492,7 +492,7 @@ local function print_tree(tree, ctx)
           local total_count = #af_output
           for i, file in ipairs(obj.associated_files) do
             if file.EF.F then
-              af_output = '\n└─Content: ' .. pdfe.readwholestream(file.EF.F, true):gsub('\n', '\n  ')
+              af_output = af_output .. '\n└─Content: ' .. pdfe.readwholestream(file.EF.F, true):gsub('\n', '\n  ')
               -- recurse(obj.kids, prefix .. '├─', prefix .. '└─', prefix .. '│ ', prefix .. '  ')
             end
           end
@@ -716,8 +716,8 @@ local function print_tree_xml(tree, ctx)
   print ("<PDF version=\"" .. ctx.version .."\">\n <StructTreeRoot>")
   recurse(tree, '  ', '', '', ' ')
   print (" </StructTreeRoot>")
-  if show_xmp then
-    print(" <XMP>\n" ..pdfe.readwholestream(ctx.xmp,true):gsub("\n[ \n]*\n","\n") .. "\n </XMP>")
+  if show_xmp and ctx.xmp then
+    print(" <XMP>" ..pdfe.readwholestream(ctx.xmp,true):gsub("\n[ \n]*\n","\n"):gsub("\n","\n  ") .. "\n </XMP>")
   end
   print ("</PDF>")
   return

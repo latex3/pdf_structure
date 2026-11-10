@@ -13,6 +13,7 @@ local out_format = "tree"
 local follow_rolemap = false
 local hide_w3c = false
 local show_xmp = false
+local show_id = true
 
 local pdfe = pdfe or require'pdfe'
 local process_stream = require'show-pdf-tags_process_stream'
@@ -583,7 +584,7 @@ local function print_tree_xml(tree, ctx)
           print(string.format('%s%s', indent, format_subtype_xml(subtype)))
         end
         local lines = {}
-        if obj.id then
+        if obj.id and show_id then
           lines[#lines + 1] = ' id="' .. obj.id:gsub('&','&amp;'):gsub('<','&lt;'):gsub('"','&quot;'):gsub('\0','[NULL]') .. '"'
         end
         if obj.title then
@@ -735,6 +736,7 @@ Options
   --table          show Lua table structure
   --map            Follow role mapping (xml printer)
   --xmp            include XMP XML (xml printer)
+  --hideid         do not show id in XML output
   --w3c-           Add - to w3c namespaces to force browser tree display
 
 ]]
@@ -753,6 +755,8 @@ while argi <= #arg and arg[argi]:match("^%-") do
     hide_w3c=true
   elseif arg[argi] == "--xmp" then
     show_xmp=true
+  elseif arg[argi] == "--hideid" then
+    show_id=false
   elseif arg[argi] == "--help" or arg[argi] == "-h" then
     io.stderr:write(string.format(helpstr, arg[0]))
     return

@@ -169,7 +169,7 @@ text-block = element latexSE:text-block {
  attribute rolemaps-to {"P"},
  pdf2-attributes,
  (text|
- text-fragment|span|footnotemark|footnote|link|formula|reference|code|Figure|Em|Form)*
+ text-fragment|ltxspan|footnotemark|footnote|link|formula|reference|code|Figure|Em|Form)*
 }
 
 text-fragment = element latexSE:text-fragment {
@@ -273,7 +273,7 @@ item = element latexSE:item {
 itemlabel = element latexSE:itemlabel {
   pdf2-attributes,
   attribute rolemaps-to {"Lbl"},
-  (text|semantic-para|span|formula)*
+  (text|semantic-para|ltxspan|formula)*
 }
 
 itembody = element latexSE:itembody {
@@ -347,7 +347,7 @@ pdf2-attributes,
 (text)*
 }
 # should be text-fragment?
-span = element pdf2:Span {pdf2-attributes,
+ltxspan = element pdf2:Span {pdf2-attributes,
 (text)*
 }
 

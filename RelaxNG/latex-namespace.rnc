@@ -11,9 +11,9 @@ include "document-pdf-ua2.rnc" {
 Document = element pdf2:Document {
 pdf2-attributes,
 (
-(title-block? & ((section1|semantic-para|theorem-like|footnote)*,chapter1*,part*,(figures? & tables?)))
+(title-block? & ((section1|semantic-para|theorem-like|table|footnote)*,chapter1*,part*,(figures? & tables?)))
 |
-(title1-block? & ((section2|semantic-para|theorem-like|footnote)*,chapter2*,part*,(figures? & tables?)))
+(title1-block? & ((section2|semantic-para|theorem-like|table|footnote)*,chapter2*,part*,(figures? & tables?)))
 )
 }
 
@@ -169,14 +169,14 @@ text-block = element latexSE:text-block {
  attribute rolemaps-to {"P"},
  pdf2-attributes,
  (text|
- text-fragment|ltxspan|footnotemark|footnote|link|formula|reference|code|Figure|Em|Form)*
+ text-fragment|ltxem|ltxstrong|ltxspan|footnotemark|footnote|link|formula|reference|code|Figure|Form)*
 }
 
 text-fragment = element latexSE:text-fragment {
 attribute rolemaps-to {"Span"},
 pdf2-attributes,
 (text|
-code|Sub|Lbl|Em|Strong|Span|link|reference|Annot|Form|Ruby|Warichu|FENote|BibEntry|Figure|formula|Artifact)*
+code|Sub|Lbl|ltxem|ltxstrong|ltxspan|link|reference|Annot|Form|Ruby|Warichu|FENote|BibEntry|Figure|formula|Artifact)*
 }
 
 ## Floats
@@ -215,7 +215,7 @@ verbatim = element latexSE:verbatim {
 codeline = element latexSE:codeline {
   attribute rolemaps-to {"Sub"|"Span"},
   pdf2-attributes,
-  (text|Em|formula|Lbl)*
+  (text|ltxem|ltxstrong|ltxspan|formula|Lbl)*
 }
 
 
@@ -273,7 +273,7 @@ item = element latexSE:item {
 itemlabel = element latexSE:itemlabel {
   pdf2-attributes,
   attribute rolemaps-to {"Lbl"},
-  (text|semantic-para|ltxspan|formula|Em)*
+  (text|semantic-para|ltxem|ltxstrong|ltxspan|formula)*
 }
 
 itembody = element latexSE:itembody {
@@ -348,7 +348,16 @@ pdf2-attributes,
 }
 # should be text-fragment?
 ltxspan = element pdf2:Span {pdf2-attributes,
-(text)*
+(text|text-fragment)*
+}
+ltxdiv = element pdf2:Div {pdf2-attributes,
+(text-block)*
+}
+ltxem = element pdf2:Em {pdf2-attributes,
+(text|text-fragment)*
+}
+ltxstrong = element pdf2:Strong {pdf2-attributes,
+(text|text-fragment)*
 }
 
 
@@ -404,7 +413,7 @@ th = element pdf2:TH {
   table-attributes,
   attribute Table:Scope {"Column" | "Row" | "Both"}?,
   attribute Table:Short {text}?,
- (text|text-fragment|verbatim|formula)*
+ (text|text-fragment|verbatim|formula|table|ltxdiv)*
  }
 
 td = element pdf2:TD {
@@ -417,5 +426,5 @@ td = element pdf2:TD {
   attribute Layout:TPadding {text}?,
 #
   table-attributes,
- (text|text-fragment|verbatim|formula)*
+ (text|text-fragment|verbatim|formula|table|ltxdiv)*
  }

@@ -11,9 +11,9 @@ include "document-pdf-ua2.rnc" {
 Document = element pdf2:Document {
 pdf2-attributes,
 (
-(title-block? & ((section1|semantic-para|footnote)*,chapter1*,part*,(figures? & tables?)))
+(title-block? & ((section1|semantic-para|theorem-like|footnote)*,chapter1*,part*,(figures? & tables?)))
 |
-(title1-block? & ((section2|semantic-para|footnote)*,chapter2*,part*,(figures? & tables?)))
+(title1-block? & ((section2|semantic-para|theorem-like|footnote)*,chapter2*,part*,(figures? & tables?)))
 )
 }
 
@@ -75,7 +75,7 @@ title-date = element latexSE:title-date {
 
 part = element latexSE:part                  {pdf2-attributes,attribute rolemaps-to {"Part"}, part-heading,(chapter1|chapter2|section|Sect.content)*}
 
-part-heading = element latexSE:part-heading          {pdf2-attributes, attribute rolemaps-to {"Title"}, heading-number?,sechead.content}
+part-heading = element latexSE:part-heading          {pdf2-attributes, attribute rolemaps-to {"Title"}, (heading-number? & sechead.content)}
 
 chapter1 = element latexSE:chapter   {
   pdf2-attributes,
@@ -83,7 +83,7 @@ chapter1 = element latexSE:chapter   {
   chapter-heading1,Sect.content*,section*
   }
 
-chapter-heading1 = element latexSE:chapter-heading       {pdf2-attributes, attribute rolemaps-to {"H1"}, heading-number?,sechead.content}
+chapter-heading1 = element latexSE:chapter-heading       {pdf2-attributes, attribute rolemaps-to {"H1"}, (heading-number?  & sechead.content)}
 
 chapter2= element latexSE:chapter   {
   pdf2-attributes,
@@ -91,7 +91,7 @@ chapter2= element latexSE:chapter   {
   chapter-heading2,Sect.content*,section*
   }
 
-chapter-heading2 = element latexSE:chapter-heading       {pdf2-attributes, attribute rolemaps-to {"H2"}, heading-number?,sechead.content}
+chapter-heading2 = element latexSE:chapter-heading       {pdf2-attributes, attribute rolemaps-to {"H2"}, (heading-number? & sechead.content)}
 
 section1 = element latexSE:section   {
   pdf2-attributes,
@@ -99,7 +99,7 @@ section1 = element latexSE:section   {
   section-heading1,Sect.content*,subsection*
   }
 
-section-heading1 = element latexSE:section-heading       {pdf2-attributes, attribute rolemaps-to {"H1"}, heading-number?,sechead.content}
+section-heading1 = element latexSE:section-heading       {pdf2-attributes, attribute rolemaps-to {"H1"}, (heading-number? & sechead.content)}
 
 section2 = element latexSE:section   {
   pdf2-attributes,
@@ -107,7 +107,7 @@ section2 = element latexSE:section   {
   section-heading2,Sect.content*,subsection*
   }
 
-section-heading2 = element latexSE:section-heading       {pdf2-attributes, attribute rolemaps-to {"H2"}, heading-number?,sechead.content}
+section-heading2 = element latexSE:section-heading       {pdf2-attributes, attribute rolemaps-to {"H2"}, (heading-number? & sechead.content)}
 
 section = element latexSE:section   {
   pdf2-attributes,
@@ -115,7 +115,7 @@ section = element latexSE:section   {
   section-heading,Sect.content*,subsection*
   }
 
-section-heading = element latexSE:section-heading       {pdf2-attributes, attribute rolemaps-to {"H1"|"H2"|"H3"}, heading-number?,sechead.content}
+section-heading = element latexSE:section-heading       {pdf2-attributes, attribute rolemaps-to {"H1"|"H2"|"H3"}, (heading-number? & sechead.content)}
 
 subsection = element latexSE:subsection   {
   pdf2-attributes,
@@ -123,7 +123,7 @@ subsection = element latexSE:subsection   {
   subsection-heading,Sect.content*,subsubsection*
   }
 
-subsection-heading = element latexSE:subsection-heading       {pdf2-attributes, attribute rolemaps-to {"H2"|"H3"|"H4"}, heading-number?,sechead.content}
+subsection-heading = element latexSE:subsection-heading       {pdf2-attributes, attribute rolemaps-to {"H2"|"H3"|"H4"}, (heading-number? & sechead.content)}
 
 
 subsubsection = element latexSE:subsubsection   {
@@ -132,7 +132,7 @@ subsubsection = element latexSE:subsubsection   {
   subsubsection-heading,Sect.content*,paragraph*
   }
 
-subsubsection-heading = element latexSE:subsubsection-heading       {pdf2-attributes, attribute rolemaps-to {"H3"|"H4"|"H5"}, heading-number?,sechead.content}
+subsubsection-heading = element latexSE:subsubsection-heading       {pdf2-attributes, attribute rolemaps-to {"H3"|"H4"|"H5"}, (heading-number? & sechead.content)}
 
 paragraph = element latexSE:paragraph   {
   pdf2-attributes,
@@ -140,7 +140,7 @@ paragraph = element latexSE:paragraph   {
   paragraph-heading,Sect.content*,subparagraph*
   }
 
-paragraph-heading = element latexSE:paragraph-heading       {pdf2-attributes, attribute rolemaps-to {"H4"|"H5"|"H6"}, heading-number?,sechead.content}
+paragraph-heading = element latexSE:paragraph-heading       {pdf2-attributes, attribute rolemaps-to {"H4"|"H5"|"H6"}, (heading-number? & sechead.content)}
 
 subparagraph = element latexSE:subparagraph   {
   pdf2-attributes,
@@ -148,7 +148,7 @@ subparagraph = element latexSE:subparagraph   {
   subparagraph-heading,Sect.content*
   }
 
-subparagraph-heading = element latexSE:subparagraph-heading       {pdf2-attributes, attribute rolemaps-to {"H5"|"H6"|"H7"}, heading-number?,sechead.content}
+subparagraph-heading = element latexSE:subparagraph-heading       {pdf2-attributes, attribute rolemaps-to {"H5"|"H6"|"H7"}, (heading-number? & sechead.content) }
 
 heading-number = element latexSE:heading-number {
   attribute rolemaps-to {"Lbl"|"Span"},			
@@ -273,7 +273,7 @@ item = element latexSE:item {
 itemlabel = element latexSE:itemlabel {
   pdf2-attributes,
   attribute rolemaps-to {"Lbl"},
-  (text|semantic-para|ltxspan|formula)*
+  (text|semantic-para|ltxspan|formula|Em)*
 }
 
 itembody = element latexSE:itembody {

@@ -10,28 +10,22 @@ include "document-pdf-ua2.rnc" {
 
 Document = element pdf2:Document {
 pdf2-attributes,
-(Artifact*
+(ltxartifact*
 &
 (
-(title-block? & ((section1|semantic-para|ltxsect|theorem-like|table|footnote|link|float|aside|Figure)*,chapter1*,part*,(figures? & tables?)))
+(title-block? & ((section1|semantic-para|ltxsect|theorem-like|ttxtable|footnote|ltxlink|float|ltxaside|Figure)*,chapter1*,part*,(figures? & tables?)))
 |
-(title1-block? & ((section2|semantic-para|ltxsect|theorem-like|table|footnote|link|float|aside|Figure)*,chapter2*,part*,(figures? & tables?)))
+(title1-block? & ((section2|semantic-para|ltxsect|theorem-like|ttxtable|footnote|ltxlink|float|ltxaside|Figure)*,chapter2*,part*,(figures? & tables?)))
 )
 )
 }
 
-Sect.content = (semantic-para|theorem-like|footnote|toc|table)
+Sect.content = (semantic-para|theorem-like|footnote|toc|ttxtable)
 
-Caption = element pdf2:Caption {
- pdf2-attributes,
- (
- Lbl? & (text|text-fragment|text-block|reference|link)*
- )
-}
 
 sechead.content =
   pdf2-attributes,
-  (heading-fragment|heading-parbox|text|text-fragment|ltxspan|footnotemark|formula|link)*
+  (heading-fragment|heading-parbox|text|text-fragment|ltxspan|footnotemark|ltxformula|ltxlink)*
   
 
 ## end of over-ride of ua2 schema
@@ -68,7 +62,7 @@ title1-text = element latexSE:title-text {
 title-author = element latexSE:title-author {
   attribute rolemaps-to {"P"},
    pdf2-attributes,
-   (text|text-fragment|link|footnotemark)*
+   (text|text-fragment|ltxlink|footnotemark)*
  }
 title-date = element latexSE:title-date {
   attribute rolemaps-to {"P"},
@@ -178,7 +172,7 @@ pdf2-attributes,
 semantic-para = element latexSE:semantic-para {
   attribute rolemaps-to {"Part"},
   pdf2-attributes,
-   title-text?,Caption?,(text-block|text-minipage|quotation|enumerate|itemize|description|\list|verbatim|quote|formula|table|aside)*}
+   title-text?,ltxcaption?,(text-block|text-minipage|quotation|enumerate|itemize|description|\list|verbatim|quote|ltxformula|ttxtable|ltxaside)*}
 
 text-block = element latexSE:text-block {
  attribute rolemaps-to {"P"},
@@ -186,7 +180,7 @@ text-block = element latexSE:text-block {
  (Lbl*
  &
  (text|
- text-fragment|ltxem|ltxstrong|ltxspan|footnotemark|footnote|ruby|warichu|link|formula|reference|code|
+ text-fragment|ltxem|ltxstrong|ltxspan|footnotemark|footnote|ltxruby|ltxwarichu|ltxlink|ltxformula|ltxreference|code|
  Figure|Form|Annot)*
  )
 }
@@ -195,7 +189,7 @@ text-fragment = element latexSE:text-fragment {
 attribute rolemaps-to {"Span"},
 pdf2-attributes,
 (text|
-code|Sub|Lbl|ltxem|ltxstrong|ltxspan|link|reference|Annot|Form|ruby|warichu|FENote|BibEntry|Figure|formula|Artifact)*
+code|Sub|Lbl|ltxem|ltxstrong|ltxspan|ltxlink|ltxreference|Annot|Form|ltxruby|ltxwarichu|FENote|BibEntry|Figure|ltxformula|ltxartifact)*
 }
 
 ## Floats
@@ -218,7 +212,7 @@ float = element latexSE:float {
   attribute rolemaps-to {"Aside"|"Note"},
   attribute id {text}?,
   showtags-attributes,
-  (text|Caption|semantic-para|Figure|text-fragment|formula)*
+  (text|ltxcaption|semantic-para|Figure|text-fragment|ltxformula)*
  }
 
 
@@ -227,14 +221,14 @@ float = element latexSE:float {
 verbatim = element latexSE:verbatim {
   attribute rolemaps-to {"P"|"Code"},
   pdf2-attributes,
-  (Caption? & (codeline)*)
+  (ltxcaption? & (codeline)*)
 }
 
 
 codeline = element latexSE:codeline {
   attribute rolemaps-to {"Sub"|"Span"},
   pdf2-attributes,
-  (text|ltxem|ltxstrong|ltxspan|formula|Lbl)*
+  (text|ltxem|ltxstrong|ltxspan|ltxformula|Lbl)*
 }
 
 
@@ -297,7 +291,7 @@ ltxli = element pdf2:LI {
 itemlabel = element latexSE:itemlabel {
   pdf2-attributes,
   attribute rolemaps-to {"Lbl"},
-  (text|text-fragment|semantic-para|ltxem|ltxstrong|ltxspan|formula|link)*
+  (text|text-fragment|semantic-para|ltxem|ltxstrong|ltxspan|ltxformula|ltxlink)*
 }
 
 itembody = element latexSE:itembody {
@@ -315,7 +309,7 @@ theorem-like = element latexSE:theorem-like {
   attribute rolemaps-to {"Sect"},
   attribute id {text}?,
   showtags-attributes,
-  Caption?,
+  ltxcaption?,
   Lbl?,
   (semantic-para)*
 }
@@ -323,14 +317,14 @@ theorem-like = element latexSE:theorem-like {
 text-minipage =  element (latexSE:text-minipage|latexSE:text-parbox) {
   attribute rolemaps-to {"Div"},
   pdf2-attributes,
-(text|semantic-para|formula)*
+(text|semantic-para|ltxformula)*
 }
 
 
 footnotemark = element latexSE:footnotemark {
  attribute rolemaps-to {"Lbl"},
  pdf2-attributes,
-(text|text-fragment|link)*
+(text|text-fragment|ltxlink)*
 }
 
 footnote = element latexSE:footnote {
@@ -347,18 +341,18 @@ footnotelabel = element latexSE:footnotelabel {
 
 ## still using pdf elements, redeclared here to constrain children back to latex-namespace
 
-link = element pdf2:Link {
+ltxlink = element pdf2:Link {
  pdf2-attributes,
  (
- (text|Lbl|text-fragment|formula)*
+ (text|Lbl|text-fragment|ltxformula)*
  |
- (Lbl|text-fragment|semantic-para|formula)*
+ (Lbl|text-fragment|semantic-para|ltxformula)*
  )
  }
 
-reference = element pdf1:Reference {
+ltxreference = element pdf1:Reference {
 pdf2-attributes,
-(text|Lbl|text-fragment|link)*
+(text|Lbl|text-fragment|ltxlink)*
    }
 
 toc = element pdf1:TOC {
@@ -368,31 +362,33 @@ toc = element pdf1:TOC {
 
 toci = element pdf1:TOCI {
  pdf2-attributes,
- (Lbl|reference)*
+ (Lbl|ltxreference)*
  }
 
 code = element pdf1:Code {
 pdf2-attributes,
 (text)*
 }
-# should be text-fragment?
-ltxspan = element pdf2:Span {pdf2-attributes,
-(text|text-fragment)*
-}
+
 ltxdiv = element pdf2:Div {pdf2-attributes,
 (text-block)*
 }
+
+# should be text-fragment?
+ltxspan = element pdf2:Span {pdf2-attributes,
+(text|text-fragment|ltxlink|ltxformula)*
+}
 ltxem = element pdf2:Em {pdf2-attributes,
-(text|text-fragment)*
+(text|text-fragment|ltxlink|ltxformula)*
 }
 ltxstrong = element pdf2:Strong {pdf2-attributes,
-(text|text-fragment)*
+(text|text-fragment|ltxlink|ltxformula)*
 }
 
 
 ### formula
 # expanded pdf2-attributes to avoid so much backtracking
-formula = element pdf2:Formula {
+ltxformula = element pdf2:Formula {
     AssociatedFiletext*,
     formula-requirements ,
     AssociatedFiletext*,
@@ -411,26 +407,26 @@ formula = element pdf2:Formula {
   attribute referenced-as {text}?,
   attribute Layout:Width {text}?,
   attribute Layout:Height {text}?,
-(Lbl|semantic-para|link|mathse|text|Figure)*
+(Lbl|semantic-para|ltxlink|mathse|text|Figure)*
 )
 }
 
 
-table = element pdf2:Table {
+ttxtable = element pdf2:Table {
   pdf2-attributes,
   attribute Layout:Width {text}?,
   attribute Layout:Height {text}?,
   table-attributes,
-((tr)* & (THead?,TBody*,TFoot?) & Caption? & Artifact*)
+((ltxtr)* & (THead?,TBody*,TFoot?) & ltxcaption? & ltxartifact*)
  }
 
-tr = element pdf2:TR {
+ltxtr = element pdf2:TR {
   pdf2-attributes,
   table-attributes,
- (th|td)*
+ (ltxth|ltxdt)*
  }
 
-th = element pdf2:TH {
+ltxth = element pdf2:TH {
   pdf2-attributes,
   attribute Layout:Width {text}?,
   attribute Layout:Height {text}?,
@@ -442,10 +438,10 @@ th = element pdf2:TH {
   table-attributes,
   attribute Table:Scope {"Column" | "Row" | "Both"}?,
   attribute Table:Short {text}?,
- (text|text-fragment|footnotemark|text-block|verbatim|formula|table|ltxdiv)*
+ (text|text-fragment|footnotemark|text-block|verbatim|ltxformula|ttxtable|ltxdiv)*
  }
 
-td = element pdf2:TD {
+ltxdt = element pdf2:TD {
   pdf2-attributes,
   attribute Layout:Width {text}?,
   attribute Layout:Height {text}?,
@@ -455,56 +451,56 @@ td = element pdf2:TD {
   attribute Layout:TPadding {text}?,
 #
   table-attributes,
- (text|text-fragment|footnotemark|verbatim|text-block|formula|table|ltxdiv)*
+ (text|text-fragment|footnotemark|verbatim|text-block|ltxformula|ttxtable|ltxdiv)*
  }
 
 
-aside = element pdf2:Aside {
+ltxaside = element pdf2:Aside {
   pdf1rolemap-Any,
   pdf2-attributes,
   (semantic-para)*
   }
 
 
-ruby = element pdf2:Ruby {
+ltxruby = element pdf2:Ruby {
   pdf2-attributes,
   attribute Layout:RubyAlign {"Start" | "Center" | "End" | "Justify" | "Distribute"}?,
   attribute Layout:RubyPosition {"Before" | "After" | "Warichu" | "Inline"}?,
-( (text)* & 	(rb,(rt|(rb,rt,rp))) )
+( (text)* & 	(ltxrb,(ltxrt|(ltxrb,ltxrt,ltxrp))) )
 }
 
-rb = element pdf2:RB {
+ltxrb = element pdf2:RB {
   pdf2-attributes,
   attribute Layout:RubyAlign {"Start" | "Center" | "End" | "Justify" | "Distribute"}?,
   attribute Layout:RubyPosition {"Before" | "After" | "Warichu" | "Inline"}?,
 (text|text-fragment)*
 }
 
-rt = element pdf2:RT {
+ltxrt = element pdf2:RT {
   pdf2-attributes,
   attribute Layout:RubyAlign {"Start" | "Center" | "End" | "Justify" | "Distribute"}?,
   attribute Layout:RubyPosition {text}?,
 (text|text-fragment)*
 }
 
-rp = element pdf2:RP {
+ltxrp = element pdf2:RP {
   pdf2-attributes,
   attribute Layout:RubyAlign {text}?,
   attribute Layout:RubyPosition {text}?,
 (text|text-fragment)*
 }
 
-warichu = element pdf2:Warichu {
+ltxwarichu = element pdf2:Warichu {
 pdf2-attributes,
-((text)*  & (wp,wt,wp) )
+((text)*  & (ltxwp,ltxwt,ltxwp) )
 }
 
-wt = element pdf2:WT {
+ltxwt = element pdf2:WT {
 pdf2-attributes,
 (text|text-fragment)*
 }
 
-wp = element pdf2:WP {
+ltxwp = element pdf2:WP {
 pdf2-attributes,
 (text|text-fragment)*
 }
@@ -512,5 +508,19 @@ pdf2-attributes,
 
 ltxsect = element pdf2:Sect {
 pdf2-attributes,
-(Caption? & (text|text-fragment|text-block|semantic-para)*)
+(ltxcaption? & (text|text-fragment|text-block|semantic-para)*)
+}
+
+ltxartifact = element pdf2:Artifact {
+  pdf1rolemap-Any,
+  pdf2-attributes,
+  artifact-attributes,
+(text|text-fragment|semantic-para|ltxdiv)*
+}
+
+ltxcaption = element pdf2:Caption {
+ pdf2-attributes,
+ (
+ Lbl? & (text|text-fragment|text-block|ltxreference|ltxlink)*
+ )
 }

@@ -11,9 +11,9 @@ include "document-pdf-ua2.rnc" {
 Document = element pdf2:Document {
 pdf2-attributes,
 (
-(title-block? & ((section1|semantic-para|theorem-like|table|footnote)*,chapter1*,part*,(figures? & tables?)))
+(title-block? & ((section1|semantic-para|theorem-like|table|footnote|float)*,chapter1*,part*,(figures? & tables?)))
 |
-(title1-block? & ((section2|semantic-para|theorem-like|table|footnote)*,chapter2*,part*,(figures? & tables?)))
+(title1-block? & ((section2|semantic-para|theorem-like|table|footnote|float)*,chapter2*,part*,(figures? & tables?)))
 )
 }
 
@@ -28,7 +28,7 @@ Caption = element pdf2:Caption {
 
 sechead.content =
   pdf2-attributes,
-  (text|text-fragment|footnotemark|formula|link)*
+  (heading-fragment|heading-parbox|text|text-fragment|footnotemark|formula|link)*
   
 
 ## end of over-ride of ua2 schema
@@ -154,6 +154,18 @@ heading-number = element latexSE:heading-number {
   attribute rolemaps-to {"Lbl"|"Span"},			
   pdf2-attributes,
   (text|mathse)*
+}
+
+heading-fragment = element latexSE:heading-fragment {
+  attribute rolemaps-to {"Span"},
+pdf2-attributes,
+(heading-number? & (text|text-fragment)*)
+}
+
+heading-parbox = element (latexSE:heading-parbox|latexSE:heading-minipage) {
+  attribute rolemaps-to {"Span"},
+pdf2-attributes,
+(text|text-fragment|heading-fragment)*
 }
 
 ## end of headings

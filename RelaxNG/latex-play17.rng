@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- LaTeX PDF 1.7 Shakespeare Play Schema v1.7c -->
 <grammar xmlns="http://relaxng.org/ns/structure/1.0">
-  <!-- LaTeX PDF 1.7 Shakespeare Play Schema v1.7b -->
-  <include href="latex-document17.rng"/>
-  <define name="Span" combine="choice">
-    <element name="SceneDescription">
+  <include href="latex-namespace17.rng"/>
+  <define name="ltxspan" combine="choice">
+    <element>
+      <name ns="">SceneDescription</name>
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
         <value>Span</value>
@@ -11,8 +12,9 @@
       <text/>
     </element>
   </define>
-  <define name="Span" combine="choice">
-    <element name="Speaker">
+  <define name="ltxstrong" combine="choice">
+    <element>
+      <name ns="">Speaker</name>
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
         <value>Span</value>

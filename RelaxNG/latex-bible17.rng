@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- LaTeX PDF 1.7 Bible Namespace Schema v1.7b -->
+<!-- LaTeX PDF 1.7 Bible Namespace Schema v1.7c -->
 <grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0">
-  <include href="latex-document17.rng">
+  <include href="latex-namespace17.rng">
     <a:documentation>PDF/UA-1</a:documentation>
+    <define name="Document">
+      <element>
+        <name ns="">Document</name>
+        <optional>
+          <attribute name="id"/>
+        </optional>
+        <zeroOrMore>
+          <ref name="semantic-para"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Frontmatter"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="Testament"/>
+        </zeroOrMore>
+      </element>
+    </define>
   </include>
   <!-- LaTeX Bible Markup Namespace -->
-  <define name="Sect" combine="choice">
+  <define name="Frontmatter">
     <element>
       <name ns="">Frontmatter</name>
       <ref name="showtags-attributes"/>
@@ -17,32 +34,10 @@
       </optional>
       <ref name="Frontmatter-Title"/>
       <optional>
-        <ref name="TOC"/>
+        <ref name="ltxtoc"/>
       </optional>
       <zeroOrMore>
-        <ref name="text-unit"/>
-      </zeroOrMore>
-    </element>
-  </define>
-  <define name="Sect" combine="choice">
-    <element>
-      <name ns="">Testament</name>
-      <ref name="showtags-attributes"/>
-      <attribute name="rolemaps-to">
-        <value>Sect</value>
-      </attribute>
-      <optional>
-        <attribute name="id"/>
-      </optional>
-      <ref name="Testament-Title"/>
-      <optional>
-        <ref name="TOC"/>
-      </optional>
-      <zeroOrMore>
-        <ref name="text-unit"/>
-      </zeroOrMore>
-      <zeroOrMore>
-        <ref name="Book"/>
+        <ref name="semantic-para"/>
       </zeroOrMore>
     </element>
   </define>
@@ -58,12 +53,12 @@
       </optional>
       <ref name="Testament-Title"/>
       <optional>
-        <ref name="TOC"/>
+        <ref name="ltxtoc"/>
       </optional>
       <zeroOrMore>
         <choice>
-          <ref name="text-unit"/>
-          <ref name="Span"/>
+          <ref name="semantic-para"/>
+          <ref name="ltxspan"/>
         </choice>
       </zeroOrMore>
       <zeroOrMore>
@@ -85,7 +80,7 @@
       <zeroOrMore>
         <choice>
           <text/>
-          <ref name="Span"/>
+          <ref name="ltxspan"/>
         </choice>
       </zeroOrMore>
     </element>
@@ -108,7 +103,7 @@
         <zeroOrMore>
           <choice>
             <text/>
-            <ref name="Span"/>
+            <ref name="ltxspan"/>
           </choice>
         </zeroOrMore>
       </interleave>
@@ -126,12 +121,12 @@
       </optional>
       <ref name="Book-Title"/>
       <optional>
-        <ref name="TOC"/>
+        <ref name="ltxtoc"/>
       </optional>
       <zeroOrMore>
         <choice>
-          <ref name="text-unit"/>
-          <ref name="Span"/>
+          <ref name="semantic-para"/>
+          <ref name="ltxspan"/>
         </choice>
       </zeroOrMore>
       <zeroOrMore>
@@ -153,7 +148,7 @@
       <zeroOrMore>
         <choice>
           <text/>
-          <ref name="Span"/>
+          <ref name="ltxspan"/>
         </choice>
       </zeroOrMore>
     </element>
@@ -172,12 +167,12 @@
         <ref name="Chapter-Title"/>
       </optional>
       <optional>
-        <ref name="TOC"/>
+        <ref name="ltxtoc"/>
       </optional>
       <zeroOrMore>
         <choice>
-          <ref name="text-unit"/>
-          <ref name="Span"/>
+          <ref name="semantic-para"/>
+          <ref name="ltxspan"/>
         </choice>
       </zeroOrMore>
       <zeroOrMore>
@@ -202,7 +197,7 @@
       <zeroOrMore>
         <choice>
           <text/>
-          <ref name="Span"/>
+          <ref name="ltxspan"/>
         </choice>
       </zeroOrMore>
     </element>
@@ -218,8 +213,8 @@
       <zeroOrMore>
         <choice>
           <text/>
-          <ref name="text-unit"/>
-          <ref name="Span"/>
+          <ref name="semantic-para"/>
+          <ref name="ltxspan"/>
         </choice>
       </zeroOrMore>
     </element>

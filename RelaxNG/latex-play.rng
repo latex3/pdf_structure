@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- LaTeX PDF 2.0 Shakespeare Play Schema v1.7b -->
+<!-- LaTeX PDF 2.0 Shakespeare Play Schema v1.7c -->
 <grammar xmlns:latexSEplay="https://www.latex-project.org/ns/local/plays" xmlns="http://relaxng.org/ns/structure/1.0">
-  <include href="latex-document.rng"/>
-  <define name="Span" combine="choice">
+  <include href="latex-namespace.rng"/>
+  <define name="ltxspan" combine="choice">
     <element name="latexSEplay:SceneDescription">
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
@@ -11,7 +11,7 @@
       <text/>
     </element>
   </define>
-  <define name="Strong" combine="choice">
+  <define name="ltxstrong" combine="choice">
     <element name="latexSEplay:Speaker">
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">

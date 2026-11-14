@@ -1,0 +1,1790 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:Table="http://iso.org/pdf/ssn/Table" xmlns:Layout="http://iso.org/pdf/ssn/Layout" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns="http://relaxng.org/ns/structure/1.0">
+  <include href="document-pdf-ua1.rng">
+    <define name="Document">
+      <element>
+        <name ns="">Document</name>
+        <ref name="pdf2-attributes"/>
+        <interleave>
+          <zeroOrMore>
+            <ref name="ltxartifact"/>
+          </zeroOrMore>
+          <choice>
+            <interleave>
+              <optional>
+                <ref name="title-block"/>
+              </optional>
+              <group>
+                <zeroOrMore>
+                  <choice>
+                    <ref name="section1"/>
+                    <ref name="semantic-para"/>
+                    <ref name="ltxsect"/>
+                    <ref name="theorem-like"/>
+                    <ref name="ltxtable"/>
+                    <ref name="footnote"/>
+                    <ref name="ltxlink"/>
+                    <ref name="float"/>
+                    <ref name="ltxaside"/>
+                    <ref name="ltxfigure"/>
+                    <ref name="ltxdiv"/>
+                  </choice>
+                </zeroOrMore>
+                <zeroOrMore>
+                  <ref name="chapter1"/>
+                </zeroOrMore>
+                <zeroOrMore>
+                  <ref name="part"/>
+                </zeroOrMore>
+                <interleave>
+                  <optional>
+                    <ref name="figures"/>
+                  </optional>
+                  <optional>
+                    <ref name="tables"/>
+                  </optional>
+                </interleave>
+              </group>
+            </interleave>
+            <interleave>
+              <optional>
+                <ref name="title1-block"/>
+              </optional>
+              <group>
+                <zeroOrMore>
+                  <choice>
+                    <ref name="section2"/>
+                    <ref name="semantic-para"/>
+                    <ref name="ltxsect"/>
+                    <ref name="theorem-like"/>
+                    <ref name="ltxtable"/>
+                    <ref name="footnote"/>
+                    <ref name="ltxlink"/>
+                    <ref name="float"/>
+                    <ref name="ltxaside"/>
+                    <ref name="ltxfigure"/>
+                    <ref name="ltxdiv"/>
+                  </choice>
+                </zeroOrMore>
+                <zeroOrMore>
+                  <ref name="chapter2"/>
+                </zeroOrMore>
+                <zeroOrMore>
+                  <ref name="part"/>
+                </zeroOrMore>
+                <interleave>
+                  <optional>
+                    <ref name="figures"/>
+                  </optional>
+                  <optional>
+                    <ref name="tables"/>
+                  </optional>
+                </interleave>
+              </group>
+            </interleave>
+          </choice>
+        </interleave>
+      </element>
+    </define>
+    <define name="Sect.content">
+      <choice>
+        <ref name="semantic-para"/>
+        <ref name="theorem-like"/>
+        <ref name="footnote"/>
+        <ref name="ltxtoc"/>
+        <ref name="ltxtable"/>
+      </choice>
+    </define>
+    <define name="sechead.content">
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="heading-fragment"/>
+          <ref name="heading-parbox"/>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="ltxspan"/>
+          <ref name="footnotemark"/>
+          <ref name="ltxformula"/>
+          <ref name="ltxlink"/>
+        </choice>
+      </zeroOrMore>
+    </define>
+  </include>
+  <define name="pdf2rolemap-Title">
+    <a:documentation>end of over-ride of ua1 schema</a:documentation>
+    <attribute name="rolemaps-to">
+      <value>P</value>
+    </attribute>
+  </define>
+  <define name="title-block">
+    <a:documentation>section heirarchy</a:documentation>
+    <element>
+      <name ns="">title-block</name>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <ref name="title-text"/>
+        <zeroOrMore>
+          <choice>
+            <ref name="title-author"/>
+            <ref name="title-date"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="title1-block">
+    <element>
+      <name ns="">title-block</name>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <ref name="title1-text"/>
+        <zeroOrMore>
+          <choice>
+            <ref name="title-author"/>
+            <ref name="title-date"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="title-text">
+    <element>
+      <name ns="">title-text</name>
+      <ref name="pdf2rolemap-Title"/>
+      <ref name="pdf2-attributes"/>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <define name="title1-text">
+    <element>
+      <name ns="">title-text</name>
+      <ref name="pdf2rolemap-Title"/>
+      <ref name="pdf2-attributes"/>
+      <ref name="sechead.content"/>
+    </element>
+  </define>
+  <!-- title = element latexSE:title      {pdf2rolemap-Title, sechead.content} -->
+  <define name="title-author">
+    <element>
+      <name ns="">title-author</name>
+      <attribute name="rolemaps-to">
+        <value>P</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="ltxlink"/>
+          <ref name="footnotemark"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="title-date">
+    <element>
+      <name ns="">title-date</name>
+      <attribute name="rolemaps-to">
+        <value>P</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <choice>
+        <text/>
+        <ref name="text-fragment"/>
+        <ref name="footnotemark"/>
+      </choice>
+    </element>
+  </define>
+  <define name="part">
+    <element>
+      <name ns="">part</name>
+      <attribute name="rolemaps-to">
+        <value>Part</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="part-heading"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="chapter1"/>
+          <ref name="chapter2"/>
+          <ref name="section"/>
+          <ref name="Sect.content"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="part-heading">
+    <element>
+      <name ns="">part-heading</name>
+      <ref name="pdf2rolemap-Title"/>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <optional>
+          <ref name="heading-number"/>
+        </optional>
+        <ref name="sechead.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="chapter1">
+    <element>
+      <name ns="">chapter</name>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="chapter-heading1"/>
+      <zeroOrMore>
+        <ref name="Sect.content"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="section"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="chapter-heading1">
+    <element>
+      <name ns="">chapter-heading</name>
+      <attribute name="rolemaps-to">
+        <value>H1</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <optional>
+          <ref name="heading-number"/>
+        </optional>
+        <ref name="sechead.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="chapter2">
+    <element>
+      <name ns="">chapter</name>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="chapter-heading2"/>
+      <zeroOrMore>
+        <ref name="Sect.content"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="section"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="chapter-heading2">
+    <element>
+      <name ns="">chapter-heading</name>
+      <attribute name="rolemaps-to">
+        <value>H2</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <optional>
+          <ref name="heading-number"/>
+        </optional>
+        <ref name="sechead.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="section1">
+    <element>
+      <name ns="">section</name>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="section-heading1"/>
+      <zeroOrMore>
+        <ref name="Sect.content"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="subsection"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="section-heading1">
+    <element>
+      <name ns="">section-heading</name>
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>H1</value>
+      </attribute>
+      <interleave>
+        <optional>
+          <ref name="heading-number"/>
+        </optional>
+        <ref name="sechead.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="section2">
+    <element>
+      <name ns="">section</name>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="section-heading2"/>
+      <zeroOrMore>
+        <ref name="Sect.content"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="subsection"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="section-heading2">
+    <element>
+      <name ns="">section-heading</name>
+      <attribute name="rolemaps-to">
+        <value>H2</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <optional>
+          <ref name="heading-number"/>
+        </optional>
+        <ref name="sechead.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="section">
+    <element>
+      <name ns="">section</name>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="section-heading"/>
+      <zeroOrMore>
+        <ref name="Sect.content"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="subsection"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="section-heading">
+    <element>
+      <name ns="">section-heading</name>
+      <attribute name="rolemaps-to">
+        <choice>
+          <value>H1</value>
+          <value>H2</value>
+          <value>H3</value>
+        </choice>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <optional>
+          <ref name="heading-number"/>
+        </optional>
+        <ref name="sechead.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="subsection">
+    <element>
+      <name ns="">subsection</name>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="subsection-heading"/>
+      <zeroOrMore>
+        <ref name="Sect.content"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="subsubsection"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="subsection-heading">
+    <element>
+      <name ns="">subsection-heading</name>
+      <attribute name="rolemaps-to">
+        <choice>
+          <value>H2</value>
+          <value>H3</value>
+          <value>H4</value>
+        </choice>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <optional>
+          <ref name="heading-number"/>
+        </optional>
+        <ref name="sechead.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="subsubsection">
+    <element>
+      <name ns="">subsubsection</name>
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="subsubsection-heading"/>
+      <zeroOrMore>
+        <ref name="Sect.content"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="paragraph"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="subsubsection-heading">
+    <element>
+      <name ns="">subsubsection-heading</name>
+      <attribute name="rolemaps-to">
+        <choice>
+          <value>H3</value>
+          <value>H4</value>
+          <value>H5</value>
+        </choice>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <optional>
+          <ref name="heading-number"/>
+        </optional>
+        <ref name="sechead.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="paragraph">
+    <element>
+      <name ns="">paragraph</name>
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="paragraph-heading"/>
+      <zeroOrMore>
+        <ref name="Sect.content"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="subparagraph"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="paragraph-heading">
+    <element>
+      <name ns="">paragraph-heading</name>
+      <attribute name="rolemaps-to">
+        <choice>
+          <value>H4</value>
+          <value>H5</value>
+          <value>H6</value>
+        </choice>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <optional>
+          <ref name="heading-number"/>
+        </optional>
+        <ref name="sechead.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="subparagraph">
+    <element>
+      <name ns="">subparagraph</name>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="subparagraph-heading"/>
+      <zeroOrMore>
+        <ref name="Sect.content"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="subparagraph-heading">
+    <element>
+      <name ns="">subparagraph-heading</name>
+      <attribute name="rolemaps-to">
+        <choice>
+          <value>H5</value>
+          <value>H6</value>
+          <value>H7</value>
+        </choice>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <optional>
+          <ref name="heading-number"/>
+        </optional>
+        <ref name="sechead.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="heading-number">
+    <element>
+      <name ns="">heading-number</name>
+      <attribute name="rolemaps-to">
+        <choice>
+          <value>Lbl</value>
+          <value>Span</value>
+        </choice>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="mathse"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="heading-fragment">
+    <element>
+      <name ns="">heading-fragment</name>
+      <attribute name="rolemaps-to">
+        <value>Span</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <optional>
+          <ref name="heading-number"/>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="text-fragment"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="heading-parbox">
+    <element>
+      <choice>
+        <name ns="">heading-parbox</name>
+        <name ns="">heading-minipage</name>
+      </choice>
+      <attribute name="rolemaps-to">
+        <value>Span</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="heading-fragment"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="semantic-para">
+    <a:documentation>end of headings</a:documentation>
+    <a:documentation>paragraphs</a:documentation>
+    <element>
+      <name ns="">semantic-para</name>
+      <attribute name="rolemaps-to">
+        <value>Part</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <optional>
+        <ref name="title-text"/>
+      </optional>
+      <optional>
+        <ref name="ltxcaption"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <ref name="text-block"/>
+          <ref name="text-minipage"/>
+          <ref name="quotation"/>
+          <ref name="enumerate"/>
+          <ref name="itemize"/>
+          <ref name="description"/>
+          <ref name="list"/>
+          <ref name="verbatim"/>
+          <ref name="quote"/>
+          <ref name="ltxformula"/>
+          <ref name="ltxtable"/>
+          <ref name="ltxaside"/>
+          <ref name="ltxdiv"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="text-block">
+    <element>
+      <name ns="">text-block</name>
+      <attribute name="rolemaps-to">
+        <value>P</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <zeroOrMore>
+          <ref name="ltxlbl"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="text-fragment"/>
+            <ref name="ltxem"/>
+            <ref name="ltxstrong"/>
+            <ref name="ltxspan"/>
+            <ref name="footnotemark"/>
+            <ref name="footnote"/>
+            <ref name="ltxruby"/>
+            <ref name="ltxwarichu"/>
+            <ref name="ltxlink"/>
+            <ref name="ltxformula"/>
+            <ref name="ltxreference"/>
+            <ref name="ltxcode"/>
+            <ref name="ltxfigure"/>
+            <ref name="ltxform"/>
+            <ref name="ltxannot"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="text-fragment">
+    <element>
+      <name ns="">text-fragment</name>
+      <attribute name="rolemaps-to">
+        <value>Span</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="ltxcode"/>
+          <ref name="ltxsub"/>
+          <ref name="ltxlbl"/>
+          <ref name="ltxem"/>
+          <ref name="ltxstrong"/>
+          <ref name="ltxspan"/>
+          <ref name="ltxlink"/>
+          <ref name="ltxreference"/>
+          <ref name="ltxannot"/>
+          <ref name="ltxform"/>
+          <ref name="ltxruby"/>
+          <ref name="ltxwarichu"/>
+          <ref name="ltxfenote"/>
+          <ref name="ltxbibentry"/>
+          <ref name="ltxfigure"/>
+          <ref name="ltxformula"/>
+          <ref name="ltxartifact"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="figures">
+    <a:documentation>Floats</a:documentation>
+    <element>
+      <name ns="">figures</name>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <ref name="showtags-attributes"/>
+      <zeroOrMore>
+        <ref name="float"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="tables">
+    <element>
+      <name ns="">tables</name>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <ref name="showtags-attributes"/>
+      <zeroOrMore>
+        <ref name="float"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="float">
+    <element>
+      <name ns="">float</name>
+      <attribute name="rolemaps-to">
+        <choice>
+          <value>Aside</value>
+          <value>Note</value>
+        </choice>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <ref name="showtags-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="ltxcaption"/>
+          <ref name="semantic-para"/>
+          <ref name="ltxfigure"/>
+          <ref name="text-fragment"/>
+          <ref name="ltxformula"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="verbatim">
+    <a:documentation>blocks</a:documentation>
+    <element>
+      <name ns="">verbatim</name>
+      <attribute name="rolemaps-to">
+        <choice>
+          <value>P</value>
+          <value>Code</value>
+        </choice>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <optional>
+          <ref name="ltxcaption"/>
+        </optional>
+        <zeroOrMore>
+          <ref name="codeline"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="codeline">
+    <element>
+      <name ns="">codeline</name>
+      <attribute name="rolemaps-to">
+        <choice>
+          <value>Sub</value>
+          <value>Span</value>
+        </choice>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="ltxem"/>
+          <ref name="ltxstrong"/>
+          <ref name="ltxspan"/>
+          <ref name="ltxformula"/>
+          <ref name="ltxlbl"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="list">
+    <element>
+      <name ns="">list</name>
+      <attribute name="rolemaps-to">
+        <value>L</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="list-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="item"/>
+          <ref name="ltxli"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="itemize">
+    <element>
+      <name ns="">itemize</name>
+      <attribute name="rolemaps-to">
+        <value>L</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="list-attributes"/>
+      <zeroOrMore>
+        <ref name="item"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="enumerate">
+    <element>
+      <name ns="">enumerate</name>
+      <attribute name="rolemaps-to">
+        <value>L</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="list-attributes"/>
+      <zeroOrMore>
+        <ref name="item"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="quote">
+    <element>
+      <name ns="">quote</name>
+      <attribute name="rolemaps-to">
+        <value>BlockQuote</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <ref name="semantic-para"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="quotation">
+    <element>
+      <name ns="">quotation</name>
+      <attribute name="rolemaps-to">
+        <value>BlockQuote</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="semantic-para"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="description">
+    <element>
+      <name ns="">description</name>
+      <attribute name="rolemaps-to">
+        <value>L</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="list-attributes"/>
+      <zeroOrMore>
+        <ref name="item"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="item">
+    <element>
+      <name ns="">item</name>
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>LI</value>
+      </attribute>
+      <group>
+        <optional>
+          <ref name="itemlabel"/>
+        </optional>
+        <optional>
+          <ref name="itembody"/>
+        </optional>
+      </group>
+    </element>
+  </define>
+  <define name="ltxli">
+    <element>
+      <name ns="">LI</name>
+      <ref name="pdf2-attributes"/>
+      <group>
+        <optional>
+          <ref name="ltxlbl"/>
+        </optional>
+        <optional>
+          <ref name="ltxlbody"/>
+        </optional>
+      </group>
+    </element>
+  </define>
+  <define name="itemlabel">
+    <element>
+      <name ns="">itemlabel</name>
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Lbl</value>
+      </attribute>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="semantic-para"/>
+          <ref name="ltxem"/>
+          <ref name="ltxstrong"/>
+          <ref name="ltxspan"/>
+          <ref name="ltxformula"/>
+          <ref name="ltxlink"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="itembody">
+    <element>
+      <name ns="">itembody</name>
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>LBody</value>
+      </attribute>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-block"/>
+          <ref name="semantic-para"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxlbody">
+    <element>
+      <name ns="">LBody</name>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-block"/>
+          <ref name="semantic-para"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="theorem-like">
+    <element>
+      <name ns="">theorem-like</name>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <ref name="showtags-attributes"/>
+      <optional>
+        <ref name="ltxcaption"/>
+      </optional>
+      <optional>
+        <ref name="ltxlbl"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="semantic-para"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="text-minipage">
+    <element>
+      <choice>
+        <name ns="">text-minipage</name>
+        <name ns="">text-parbox</name>
+      </choice>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="semantic-para"/>
+          <ref name="ltxformula"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="footnotemark">
+    <element>
+      <name ns="">footnotemark</name>
+      <attribute name="rolemaps-to">
+        <value>Lbl</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="ltxlink"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="footnote">
+    <element>
+      <name ns="">footnote</name>
+      <attribute name="rolemaps-to">
+        <choice>
+          <value>FENote</value>
+          <value>Note</value>
+        </choice>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <ref name="footnotelabel"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="semantic-para"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="footnotelabel">
+    <element>
+      <name ns="">footnotelabel</name>
+      <attribute name="rolemaps-to">
+        <value>Lbl</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxlink">
+    <a:documentation>still using pdf elements, redeclared here to constrain children back to latex-namespace</a:documentation>
+    <element>
+      <name ns="">Link</name>
+      <ref name="pdf2-attributes"/>
+      <choice>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="ltxlbl"/>
+            <ref name="text-fragment"/>
+            <ref name="ltxformula"/>
+          </choice>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="ltxlbl"/>
+            <ref name="text-fragment"/>
+            <ref name="semantic-para"/>
+            <ref name="ltxformula"/>
+          </choice>
+        </zeroOrMore>
+      </choice>
+    </element>
+  </define>
+  <define name="ltxreference">
+    <element>
+      <name ns="">Reference</name>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="ltxlbl"/>
+          <ref name="text-fragment"/>
+          <ref name="ltxlink"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxtoc">
+    <element>
+      <name ns="">TOC</name>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="ltxtoc"/>
+          <ref name="ltxtoci"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxtoci">
+    <element>
+      <name ns="">TOCI</name>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="ltxlbl"/>
+          <ref name="ltxreference"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxdiv">
+    <element>
+      <name ns="">Div</name>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <ref name="text-block"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!-- should be text-fragment? -->
+  <define name="ltxspan">
+    <element>
+      <name ns="">Span</name>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="ltxlink"/>
+          <ref name="ltxformula"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxem">
+    <element>
+      <name ns="">Em</name>
+      <ref name="pdf1rolemap-Span"/>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="ltxlink"/>
+          <ref name="ltxformula"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxstrong">
+    <element>
+      <name ns="">Strong</name>
+      <ref name="pdf1rolemap-Span"/>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="ltxlink"/>
+          <ref name="ltxformula"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxlbl">
+    <element>
+      <name ns="">Lbl</name>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="ltxlink"/>
+          <ref name="ltxformula"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxsub">
+    <element>
+      <name ns="">Sub</name>
+      <ref name="pdf1rolemap-Any"/>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="ltxlink"/>
+          <ref name="ltxformula"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxcode">
+    <element>
+      <name ns="">Code</name>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <text/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!-- expanded pdf2-attributes to avoid so much backtracking -->
+  <define name="ltxformula">
+    <a:documentation>formula</a:documentation>
+    <element>
+      <name ns="">Formula</name>
+      <zeroOrMore>
+        <ref name="AssociatedFiletext"/>
+      </zeroOrMore>
+      <ref name="formula-requirements"/>
+      <zeroOrMore>
+        <ref name="AssociatedFiletext"/>
+      </zeroOrMore>
+      <group>
+        <optional>
+          <attribute name="lang"/>
+        </optional>
+        <optional>
+          <!-- Lang -->
+          <attribute name="expansion"/>
+        </optional>
+        <optional>
+          <!-- E -->
+          <attribute name="title"/>
+        </optional>
+        <optional>
+          <!-- T -->
+          <attribute name="id"/>
+        </optional>
+        <optional>
+          <!-- ID -->
+          <attribute name="phoneme"/>
+        </optional>
+        <optional>
+          <!-- Phoneme -->
+          <attribute name="phonetic-alphabet"/>
+        </optional>
+        <optional>
+          <!-- PhoneticAlphabet -->
+          <attribute name="revision"/>
+        </optional>
+        <!-- R -->
+        <ref name="layout-attributes"/>
+        <ref name="otherns-attributes"/>
+        <optional>
+          <attribute name="af"/>
+        </optional>
+        <optional>
+          <attribute name="rolemapped-from"/>
+        </optional>
+        <optional>
+          <attribute name="referenced-as"/>
+        </optional>
+        <optional>
+          <attribute name="Layout:Width"/>
+        </optional>
+        <optional>
+          <attribute name="Layout:Height"/>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="ltxlbl"/>
+            <ref name="semantic-para"/>
+            <ref name="ltxlink"/>
+            <ref name="mathse"/>
+            <text/>
+            <ref name="ltxfigure"/>
+          </choice>
+        </zeroOrMore>
+      </group>
+    </element>
+  </define>
+  <define name="ltxtable">
+    <element>
+      <name ns="">Table</name>
+      <ref name="pdf2-attributes"/>
+      <optional>
+        <attribute name="Layout:Width"/>
+      </optional>
+      <optional>
+        <attribute name="Layout:Height"/>
+      </optional>
+      <ref name="table-attributes"/>
+      <interleave>
+        <zeroOrMore>
+          <ref name="ltxtr"/>
+        </zeroOrMore>
+        <group>
+          <optional>
+            <ref name="THead"/>
+          </optional>
+          <zeroOrMore>
+            <ref name="TBody"/>
+          </zeroOrMore>
+          <optional>
+            <ref name="TFoot"/>
+          </optional>
+        </group>
+        <optional>
+          <ref name="ltxcaption"/>
+        </optional>
+        <zeroOrMore>
+          <ref name="ltxartifact"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="ltxtr">
+    <element>
+      <name ns="">TR</name>
+      <ref name="pdf2-attributes"/>
+      <ref name="table-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="ltxth"/>
+          <ref name="ltxdt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxth">
+    <element>
+      <name ns="">TH</name>
+      <ref name="pdf2-attributes"/>
+      <optional>
+        <attribute name="Layout:Width"/>
+      </optional>
+      <optional>
+        <attribute name="Layout:Height"/>
+      </optional>
+      <optional>
+        <attribute name="Layout:BlockAlign">
+          <choice>
+            <value>Before</value>
+            <value>Middle</value>
+            <value>After</value>
+            <value>Justify</value>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="Layout:InlineAlign">
+          <choice>
+            <value>Start</value>
+            <value>Center</value>
+            <value>End</value>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="Layout:TBorderStyle"/>
+      </optional>
+      <optional>
+        <attribute name="Layout:TPadding"/>
+      </optional>
+      <!---->
+      <ref name="table-attributes"/>
+      <optional>
+        <attribute name="Table:Scope">
+          <choice>
+            <value>Column</value>
+            <value>Row</value>
+            <value>Both</value>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="Table:Short"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="footnotemark"/>
+          <ref name="text-block"/>
+          <ref name="verbatim"/>
+          <ref name="ltxformula"/>
+          <ref name="ltxtable"/>
+          <ref name="ltxdiv"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxdt">
+    <element>
+      <name ns="">TD</name>
+      <ref name="pdf2-attributes"/>
+      <optional>
+        <attribute name="Layout:Width"/>
+      </optional>
+      <optional>
+        <attribute name="Layout:Height"/>
+      </optional>
+      <optional>
+        <attribute name="Layout:BlockAlign">
+          <choice>
+            <value>Before</value>
+            <value>Middle</value>
+            <value>After</value>
+            <value>Justify</value>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="Layout:InlineAlign">
+          <choice>
+            <value>Start</value>
+            <value>Center</value>
+            <value>End</value>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="Layout:TBorderStyle"/>
+      </optional>
+      <optional>
+        <attribute name="Layout:TPadding"/>
+      </optional>
+      <!---->
+      <ref name="table-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="footnotemark"/>
+          <ref name="verbatim"/>
+          <ref name="text-block"/>
+          <ref name="ltxformula"/>
+          <ref name="ltxtable"/>
+          <ref name="ltxdiv"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxaside">
+    <element>
+      <name ns="">Aside</name>
+      <ref name="pdf1rolemap-Any"/>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <ref name="semantic-para"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxruby">
+    <element>
+      <name ns="">Ruby</name>
+      <ref name="pdf2-attributes"/>
+      <optional>
+        <attribute name="Layout:RubyAlign">
+          <choice>
+            <value>Start</value>
+            <value>Center</value>
+            <value>End</value>
+            <value>Justify</value>
+            <value>Distribute</value>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="Layout:RubyPosition">
+          <choice>
+            <value>Before</value>
+            <value>After</value>
+            <value>Warichu</value>
+            <value>Inline</value>
+          </choice>
+        </attribute>
+      </optional>
+      <interleave>
+        <zeroOrMore>
+          <text/>
+        </zeroOrMore>
+        <group>
+          <ref name="ltxrb"/>
+          <choice>
+            <ref name="ltxrt"/>
+            <group>
+              <ref name="ltxrb"/>
+              <ref name="ltxrt"/>
+              <ref name="ltxrp"/>
+            </group>
+          </choice>
+        </group>
+      </interleave>
+    </element>
+  </define>
+  <define name="ltxrb">
+    <element>
+      <name ns="">RB</name>
+      <ref name="pdf2-attributes"/>
+      <optional>
+        <attribute name="Layout:RubyAlign">
+          <choice>
+            <value>Start</value>
+            <value>Center</value>
+            <value>End</value>
+            <value>Justify</value>
+            <value>Distribute</value>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="Layout:RubyPosition">
+          <choice>
+            <value>Before</value>
+            <value>After</value>
+            <value>Warichu</value>
+            <value>Inline</value>
+          </choice>
+        </attribute>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxrt">
+    <element>
+      <name ns="">RT</name>
+      <ref name="pdf2-attributes"/>
+      <optional>
+        <attribute name="Layout:RubyAlign">
+          <choice>
+            <value>Start</value>
+            <value>Center</value>
+            <value>End</value>
+            <value>Justify</value>
+            <value>Distribute</value>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="Layout:RubyPosition"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxrp">
+    <element>
+      <name ns="">RP</name>
+      <ref name="pdf2-attributes"/>
+      <optional>
+        <attribute name="Layout:RubyAlign"/>
+      </optional>
+      <optional>
+        <attribute name="Layout:RubyPosition"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxwarichu">
+    <element>
+      <name ns="">Warichu</name>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <zeroOrMore>
+          <text/>
+        </zeroOrMore>
+        <group>
+          <ref name="ltxwp"/>
+          <ref name="ltxwt"/>
+          <ref name="ltxwp"/>
+        </group>
+      </interleave>
+    </element>
+  </define>
+  <define name="ltxwt">
+    <element>
+      <name ns="">WT</name>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxwp">
+    <element>
+      <name ns="">WP</name>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxsect">
+    <element>
+      <name ns="">Sect</name>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <optional>
+          <ref name="ltxcaption"/>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="text-fragment"/>
+            <ref name="text-block"/>
+            <ref name="semantic-para"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="ltxartifact">
+    <element>
+      <name ns="">Artifact</name>
+      <ref name="pdf1rolemap-Any"/>
+      <ref name="pdf2-attributes"/>
+      <ref name="artifact-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="semantic-para"/>
+          <ref name="ltxdiv"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxcaption">
+    <element>
+      <name ns="">Caption</name>
+      <ref name="pdf2-attributes"/>
+      <interleave>
+        <optional>
+          <ref name="ltxlbl"/>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="text-fragment"/>
+            <ref name="text-block"/>
+            <ref name="ltxreference"/>
+            <ref name="ltxlink"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="ltxfigure">
+    <element>
+      <name ns="">Figure</name>
+      <optional>
+        <attribute name="lang"/>
+      </optional>
+      <optional>
+        <!-- Lang -->
+        <attribute name="expansion"/>
+      </optional>
+      <optional>
+        <!-- E -->
+        <attribute name="title"/>
+      </optional>
+      <optional>
+        <!-- T -->
+        <attribute name="id"/>
+      </optional>
+      <!-- ID -->
+      <ref name="layout-attributes"/>
+      <ref name="otherns-attributes"/>
+      <ref name="showtags-attributes"/>
+      <optional>
+        <attribute name="Layout:Width"/>
+      </optional>
+      <optional>
+        <attribute name="Layout:Height"/>
+      </optional>
+      <ref name="figure-attributes"/>
+      <text/>
+    </element>
+  </define>
+  <define name="ltxannot">
+    <element>
+      <name ns="">Annot</name>
+      <ref name="pdf2-attributes"/>
+      <choice>
+        <zeroOrMore>
+          <choice>
+            <ref name="semantic-para"/>
+            <ref name="ltxtable"/>
+            <ref name="ltxfigure"/>
+          </choice>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="text-fragment"/>
+            <ref name="ltxlink"/>
+            <ref name="ltxformula"/>
+          </choice>
+        </zeroOrMore>
+      </choice>
+    </element>
+  </define>
+  <define name="ltxform">
+    <element>
+      <name ns="">Form</name>
+      <ref name="pdf2-attributes"/>
+      <optional>
+        <attribute name="Layout:Width"/>
+      </optional>
+      <optional>
+        <attribute name="Layout:Height"/>
+      </optional>
+      <ref name="printfield-attributes"/>
+      <interleave>
+        <optional>
+          <ref name="ltxcaption"/>
+        </optional>
+        <choice>
+          <zeroOrMore>
+            <choice>
+              <ref name="semantic-para"/>
+              <ref name="ltxtable"/>
+              <ref name="ltxfigure"/>
+            </choice>
+          </zeroOrMore>
+          <zeroOrMore>
+            <choice>
+              <text/>
+              <ref name="text-fragment"/>
+              <ref name="ltxlink"/>
+              <ref name="ltxformula"/>
+            </choice>
+          </zeroOrMore>
+        </choice>
+      </interleave>
+    </element>
+  </define>
+  <define name="ltxfenote">
+    <element>
+      <name ns="">FENote</name>
+      <ref name="pdf1rolemap-Note"/>
+      <ref name="pdf2-attributes"/>
+      <ref name="fenote-attributes"/>
+      <choice>
+        <zeroOrMore>
+          <choice>
+            <ref name="semantic-para"/>
+            <ref name="ltxtable"/>
+            <ref name="ltxfigure"/>
+          </choice>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <text/>
+            <ref name="text-fragment"/>
+            <ref name="ltxlink"/>
+            <ref name="ltxformula"/>
+          </choice>
+        </zeroOrMore>
+      </choice>
+    </element>
+  </define>
+  <define name="ltxbibentry">
+    <element>
+      <name ns="">BibEntry</name>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="text-fragment"/>
+          <ref name="ltxem"/>
+          <ref name="ltxstrong"/>
+          <ref name="ltxspan"/>
+          <ref name="footnotemark"/>
+          <ref name="footnote"/>
+          <ref name="ltxruby"/>
+          <ref name="ltxwarichu"/>
+          <ref name="ltxlink"/>
+          <ref name="ltxreference"/>
+          <ref name="ltxformula"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+</grammar>

@@ -1,0 +1,644 @@
+namespace NoNS = ""
+namespace latexSE = ""
+namespace pdf1 = ""
+namespace pdf2 = ""
+namespace mml = "http://www.w3.org/1998/Math/MathML"
+namespace Layout = "http://iso.org/pdf/ssn/Layout"
+namespace Table = "http://iso.org/pdf/ssn/Table"
+
+include "document-pdf-ua1.rnc" {
+
+Document = element pdf1:Document {
+pdf2-attributes,
+(ltxartifact*
+&
+(
+(title-block? & ((section1|semantic-para|ltxsect|theorem-like|ltxtable|footnote|ltxlink|float|ltxaside|ltxfigure|ltxdiv)*,chapter1*,part*,(figures? & tables?)))
+|
+(title1-block? & ((section2|semantic-para|ltxsect|theorem-like|ltxtable|footnote|ltxlink|float|ltxaside|ltxfigure|ltxdiv)*,chapter2*,part*,(figures? & tables?)))
+)
+)
+}
+
+Sect.content = (semantic-para|theorem-like|footnote|ltxtoc|ltxtable)
+
+
+sechead.content =
+  pdf2-attributes,
+  (heading-fragment|heading-parbox|text|text-fragment|ltxspan|footnotemark|ltxformula|ltxlink)*
+  
+
+## end of over-ride of ua1 schema
+}
+
+pdf2rolemap-Title = attribute rolemaps-to {"P"}
+
+
+## section heirarchy
+
+title-block = element latexSE:title-block {
+  attribute rolemaps-to {"Div"},
+  pdf2-attributes,
+  (title-text & (title-author|title-date)*)
+}
+
+title1-block = element latexSE:title-block {
+  attribute rolemaps-to {"Div"},
+  pdf2-attributes,
+  (title1-text & (title-author|title-date)*)
+}
+
+title-text = element latexSE:title-text {
+  pdf2rolemap-Title,
+  pdf2-attributes,
+  (sechead.content)
+}
+
+title1-text = element latexSE:title-text {
+  pdf2rolemap-Title,
+  pdf2-attributes,
+  (sechead.content)
+}
+
+# title = element latexSE:title      {pdf2rolemap-Title, sechead.content}
+
+title-author = element latexSE:title-author {
+  attribute rolemaps-to {"P"},
+  pdf2-attributes,
+  (text|text-fragment|ltxlink|footnotemark)*
+}
+
+title-date = element latexSE:title-date {
+  attribute rolemaps-to {"P"},
+  pdf2-attributes,
+  (text|text-fragment|footnotemark)
+}
+
+part = element latexSE:part {
+  attribute rolemaps-to {"Part"},
+  pdf2-attributes,
+  part-heading,(chapter1|chapter2|section|Sect.content)*
+}
+
+part-heading = element latexSE:part-heading {
+  pdf2rolemap-Title,
+  pdf2-attributes,
+  (heading-number? & sechead.content)
+}
+
+chapter1 = element latexSE:chapter {
+  attribute rolemaps-to {"Sect"},
+  pdf2-attributes,
+  chapter-heading1,Sect.content*,section*
+  }
+
+chapter-heading1 = element latexSE:chapter-heading {
+  attribute rolemaps-to {"H1"},
+  pdf2-attributes,
+  (heading-number?  & sechead.content)
+}
+
+chapter2 = element latexSE:chapter {
+  attribute rolemaps-to {"Sect"},
+  pdf2-attributes,
+  chapter-heading2,Sect.content*,section*
+}
+
+chapter-heading2 = element latexSE:chapter-heading {
+  attribute rolemaps-to {"H2"},
+  pdf2-attributes,
+  (heading-number? & sechead.content)
+}
+
+section1 = element latexSE:section {
+  attribute rolemaps-to {"Sect"},
+  pdf2-attributes,
+  section-heading1,Sect.content*,subsection*
+  }
+
+section-heading1 = element latexSE:section-heading {
+  pdf2-attributes,
+  attribute rolemaps-to {"H1"},
+  (heading-number? & sechead.content)
+}
+
+section2 = element latexSE:section   {
+  attribute rolemaps-to {"Sect"},
+  pdf2-attributes,
+  section-heading2,Sect.content*,subsection*
+}
+
+section-heading2 = element latexSE:section-heading {
+  attribute rolemaps-to {"H2"},
+  pdf2-attributes,
+  (heading-number? & sechead.content)
+}
+
+section = element latexSE:section {
+  attribute rolemaps-to {"Sect"},
+  pdf2-attributes,
+  section-heading,Sect.content*,subsection*
+}
+
+section-heading = element latexSE:section-heading {
+  attribute rolemaps-to {"H1"|"H2"|"H3"},
+  pdf2-attributes,
+  (heading-number? & sechead.content)
+}
+
+subsection = element latexSE:subsection {
+  attribute rolemaps-to {"Sect"},
+  pdf2-attributes,
+  subsection-heading,Sect.content*,subsubsection*
+}
+
+subsection-heading = element latexSE:subsection-heading {
+  attribute rolemaps-to {"H2"|"H3"|"H4"},
+  pdf2-attributes,
+  (heading-number? & sechead.content)
+}
+
+subsubsection = element latexSE:subsubsection {
+  pdf2-attributes,
+  attribute rolemaps-to {"Sect"},
+  subsubsection-heading,Sect.content*,paragraph*
+  }
+
+subsubsection-heading = element latexSE:subsubsection-heading {
+  attribute rolemaps-to {"H3"|"H4"|"H5"},
+  pdf2-attributes,
+  (heading-number? & sechead.content)
+}
+
+paragraph = element latexSE:paragraph {
+  pdf2-attributes,
+  attribute rolemaps-to {"Sect"},
+  paragraph-heading,Sect.content*,subparagraph*
+  }
+
+paragraph-heading = element latexSE:paragraph-heading  {
+  attribute rolemaps-to {"H4"|"H5"|"H6"},
+  pdf2-attributes,
+  (heading-number? & sechead.content)
+}
+
+subparagraph = element latexSE:subparagraph {
+  attribute rolemaps-to {"Sect"},
+  pdf2-attributes,
+  subparagraph-heading,Sect.content*
+  }
+
+subparagraph-heading = element latexSE:subparagraph-heading {
+  attribute rolemaps-to {"H5"|"H6"|"H7"},
+  pdf2-attributes,
+  (heading-number? & sechead.content)
+}
+
+heading-number = element latexSE:heading-number {
+  attribute rolemaps-to {"Lbl"|"Span"},			
+  pdf2-attributes,
+  (text|mathse)*
+}
+
+heading-fragment = element latexSE:heading-fragment {
+  attribute rolemaps-to {"Span"},
+pdf2-attributes,
+(heading-number? & (text|text-fragment)*)
+}
+
+heading-parbox = element (latexSE:heading-parbox|latexSE:heading-minipage) {
+  attribute rolemaps-to {"Span"},
+pdf2-attributes,
+(text|text-fragment|heading-fragment)*
+}
+
+## end of headings
+
+## paragraphs
+
+semantic-para = element latexSE:semantic-para {
+  attribute rolemaps-to {"Part"},
+  pdf2-attributes,
+   title-text?,ltxcaption?,(text-block|text-minipage|quotation|enumerate|itemize|description|\list|verbatim|quote|ltxformula|ltxtable|ltxaside)*}
+
+text-block = element latexSE:text-block {
+ attribute rolemaps-to {"P"},
+ pdf2-attributes,
+ (ltxlbl*
+ &
+ (text|
+ text-fragment|ltxem|ltxstrong|ltxspan|footnotemark|footnote|ltxruby|ltxwarichu|ltxlink|ltxformula|ltxreference|ltxcode|
+ ltxfigure|ltxform|ltxannot)*
+ )
+}
+
+text-fragment = element latexSE:text-fragment {
+attribute rolemaps-to {"Span"},
+pdf2-attributes,
+(text|
+ltxcode|ltxsub|ltxlbl|ltxem|ltxstrong|ltxspan|ltxlink|ltxreference|ltxannot|ltxform|ltxruby|ltxwarichu|ltxfenote|ltxbibentry|ltxfigure|ltxformula|ltxartifact)*
+}
+
+## Floats
+
+figures = element latexSE:figures {
+  attribute rolemaps-to {"Sect"},
+  attribute id {text}?,
+  showtags-attributes,
+  float*
+ }
+
+tables = element latexSE:tables {
+  attribute rolemaps-to {"Sect"},
+  attribute id {text}?,
+  showtags-attributes,
+  float*
+ }
+
+float = element latexSE:float {
+  attribute rolemaps-to {"Aside"|"Note"},
+  attribute id {text}?,
+  showtags-attributes,
+  (text|ltxcaption|semantic-para|ltxfigure|text-fragment|ltxformula)*
+ }
+
+
+## blocks
+
+verbatim = element latexSE:verbatim {
+  attribute rolemaps-to {"P"|"Code"},
+  pdf2-attributes,
+  (ltxcaption? & (codeline)*)
+}
+
+
+codeline = element latexSE:codeline {
+  attribute rolemaps-to {"Sub"|"Span"},
+  pdf2-attributes,
+  (text|ltxem|ltxstrong|ltxspan|ltxformula|ltxlbl)*
+}
+
+
+
+
+\list = element latexSE:list {
+ attribute rolemaps-to {"L"},
+  pdf2-attributes,
+  list-attributes,
+  (item|ltxli)*
+}
+
+itemize = element latexSE:itemize {
+  attribute rolemaps-to {"L"},
+  pdf2-attributes,
+  list-attributes,
+  item*
+}
+
+
+enumerate = element latexSE:enumerate {
+  attribute rolemaps-to {"L"},
+  pdf2-attributes,
+  list-attributes,
+  item*
+}
+
+
+quote = element latexSE:quote {
+ attribute rolemaps-to {"BlockQuote"},
+ pdf2-attributes,
+ (semantic-para)*
+}
+
+quotation = element latexSE:quotation {
+ attribute rolemaps-to {"BlockQuote"},
+ pdf2-attributes,
+ (text|semantic-para)*
+}
+
+description= element latexSE:description {
+ attribute rolemaps-to {"L"},
+ pdf2-attributes,
+ list-attributes,
+ item*
+}
+
+
+item = element latexSE:item {
+  pdf2-attributes,
+  attribute rolemaps-to {"LI"},
+  (itemlabel?,itembody?)
+}
+
+ltxli = element pdf2:LI {
+  pdf2-attributes,
+  (ltxlbl?,ltxlbody?)
+}
+
+itemlabel = element latexSE:itemlabel {
+  pdf2-attributes,
+  attribute rolemaps-to {"Lbl"},
+  (text|text-fragment|semantic-para|ltxem|ltxstrong|ltxspan|ltxformula|ltxlink)*
+}
+
+itembody = element latexSE:itembody {
+  pdf2-attributes,
+  attribute rolemaps-to {"LBody"},
+  ((text|text-block|semantic-para)*)
+  }
+
+ltxlbody = element pdf2:LBody {
+  pdf2-attributes,
+  ((text|text-block|semantic-para)*)
+  }
+
+theorem-like = element latexSE:theorem-like {
+  attribute rolemaps-to {"Sect"},
+  attribute id {text}?,
+  showtags-attributes,
+  ltxcaption?,
+  ltxlbl?,
+  (semantic-para)*
+}
+
+text-minipage =  element (latexSE:text-minipage|latexSE:text-parbox) {
+  attribute rolemaps-to {"Div"},
+  pdf2-attributes,
+(text|semantic-para|ltxformula)*
+}
+
+
+footnotemark = element latexSE:footnotemark {
+ attribute rolemaps-to {"Lbl"},
+ pdf2-attributes,
+(text|text-fragment|ltxlink)*
+}
+
+footnote = element latexSE:footnote {
+  attribute rolemaps-to {"FENote"|"Note"},
+  pdf2-attributes,
+  footnotelabel,(text|semantic-para)*
+}
+
+footnotelabel = element latexSE:footnotelabel {
+ attribute rolemaps-to {"Lbl"},
+ pdf2-attributes,
+ (text|text-fragment)*
+}
+
+## still using pdf elements, redeclared here to constrain children back to latex-namespace
+
+ltxlink = element pdf2:Link {
+ pdf2-attributes,
+ (
+ (text|ltxlbl|text-fragment|ltxformula)*
+ |
+ (ltxlbl|text-fragment|semantic-para|ltxformula)*
+ )
+ }
+
+ltxreference = element pdf1:Reference {
+pdf2-attributes,
+(text|ltxlbl|text-fragment|ltxlink)*
+   }
+
+ltxtoc = element pdf1:TOC {
+ pdf2-attributes,
+ (ltxtoc|ltxtoci)*
+ }
+
+ltxtoci = element pdf1:TOCI {
+ pdf2-attributes,
+ (ltxlbl|ltxreference)*
+ }
+
+
+ltxdiv = element pdf2:Div {pdf2-attributes,
+(text-block)*
+}
+
+# should be text-fragment?
+ltxspan = element pdf2:Span {
+pdf2-attributes,
+(text|text-fragment|ltxlink|ltxformula)*
+}
+ltxem = element pdf2:Em {
+  pdf1rolemap-Span,
+  pdf2-attributes,
+  (text|text-fragment|ltxlink|ltxformula)*
+}
+ltxstrong = element pdf2:Strong {
+  pdf1rolemap-Span,
+  pdf2-attributes,
+  (text|text-fragment|ltxlink|ltxformula)*
+}
+ltxlbl = element pdf2:Lbl {
+pdf2-attributes,
+(text|text-fragment|ltxlink|ltxformula)*
+}
+ltxsub = element pdf2:Sub {
+  pdf1rolemap-Any,
+  pdf2-attributes,
+ (text|text-fragment|ltxlink|ltxformula)*
+}
+ltxcode = element pdf1:Code {
+pdf2-attributes,
+(text)*
+}
+
+
+### formula
+# expanded pdf2-attributes to avoid so much backtracking
+ltxformula = element pdf2:Formula {
+    AssociatedFiletext*,
+    formula-requirements ,
+    AssociatedFiletext*,
+  (
+  attribute lang {text}?,              # Lang
+  attribute expansion {text}?,         # E
+  attribute title {text}?,             # T
+  attribute id {text}?,                # ID
+  attribute phoneme {text}?,           # Phoneme
+  attribute phonetic-alphabet {text}?, # PhoneticAlphabet
+  attribute revision {text}?,          # R
+  layout-attributes,
+  otherns-attributes,
+  attribute af {text}?,
+  attribute rolemapped-from {text}?,
+  attribute referenced-as {text}?,
+  attribute Layout:Width {text}?,
+  attribute Layout:Height {text}?,
+(ltxlbl|semantic-para|ltxlink|mathse|text|ltxfigure)*
+)
+}
+
+
+ltxtable = element pdf2:Table {
+  pdf2-attributes,
+  attribute Layout:Width {text}?,
+  attribute Layout:Height {text}?,
+  table-attributes,
+((ltxtr)* & (THead?,TBody*,TFoot?) & ltxcaption? & ltxartifact*)
+ }
+
+ltxtr = element pdf2:TR {
+  pdf2-attributes,
+  table-attributes,
+ (ltxth|ltxdt)*
+ }
+
+ltxth = element pdf2:TH {
+  pdf2-attributes,
+  attribute Layout:Width {text}?,
+  attribute Layout:Height {text}?,
+  attribute Layout:BlockAlign {"Before" | "Middle" | "After" | "Justify"}?,
+  attribute Layout:InlineAlign {"Start" | "Center" | "End"}?,
+  attribute Layout:TBorderStyle {text}?,
+  attribute Layout:TPadding {text}?,
+#
+  table-attributes,
+  attribute Table:Scope {"Column" | "Row" | "Both"}?,
+  attribute Table:Short {text}?,
+ (text|text-fragment|footnotemark|text-block|verbatim|ltxformula|ltxtable|ltxdiv)*
+ }
+
+ltxdt = element pdf2:TD {
+  pdf2-attributes,
+  attribute Layout:Width {text}?,
+  attribute Layout:Height {text}?,
+  attribute Layout:BlockAlign {"Before" | "Middle" | "After" | "Justify"}?,
+  attribute Layout:InlineAlign {"Start" | "Center" | "End"}?,
+  attribute Layout:TBorderStyle {text}?,
+  attribute Layout:TPadding {text}?,
+#
+  table-attributes,
+ (text|text-fragment|footnotemark|verbatim|text-block|ltxformula|ltxtable|ltxdiv)*
+ }
+
+
+ltxaside = element pdf2:Aside {
+  pdf1rolemap-Any,
+  pdf2-attributes,
+  (semantic-para)*
+  }
+
+
+ltxruby = element pdf2:Ruby {
+  pdf2-attributes,
+  attribute Layout:RubyAlign {"Start" | "Center" | "End" | "Justify" | "Distribute"}?,
+  attribute Layout:RubyPosition {"Before" | "After" | "Warichu" | "Inline"}?,
+( (text)* & 	(ltxrb,(ltxrt|(ltxrb,ltxrt,ltxrp))) )
+}
+
+ltxrb = element pdf2:RB {
+  pdf2-attributes,
+  attribute Layout:RubyAlign {"Start" | "Center" | "End" | "Justify" | "Distribute"}?,
+  attribute Layout:RubyPosition {"Before" | "After" | "Warichu" | "Inline"}?,
+(text|text-fragment)*
+}
+
+ltxrt = element pdf2:RT {
+  pdf2-attributes,
+  attribute Layout:RubyAlign {"Start" | "Center" | "End" | "Justify" | "Distribute"}?,
+  attribute Layout:RubyPosition {text}?,
+(text|text-fragment)*
+}
+
+ltxrp = element pdf2:RP {
+  pdf2-attributes,
+  attribute Layout:RubyAlign {text}?,
+  attribute Layout:RubyPosition {text}?,
+(text|text-fragment)*
+}
+
+ltxwarichu = element pdf2:Warichu {
+pdf2-attributes,
+((text)*  & (ltxwp,ltxwt,ltxwp) )
+}
+
+ltxwt = element pdf2:WT {
+pdf2-attributes,
+(text|text-fragment)*
+}
+
+ltxwp = element pdf2:WP {
+pdf2-attributes,
+(text|text-fragment)*
+}
+
+
+ltxsect = element pdf2:Sect {
+pdf2-attributes,
+(ltxcaption? & (text|text-fragment|text-block|semantic-para)*)
+}
+
+ltxartifact = element pdf2:Artifact {
+  pdf1rolemap-Any,
+  pdf2-attributes,
+  artifact-attributes,
+(text|text-fragment|semantic-para|ltxdiv)*
+}
+
+ltxcaption = element pdf2:Caption {
+ pdf2-attributes,
+ (
+ ltxlbl? & (text|text-fragment|text-block|ltxreference|ltxlink)*
+ )
+}
+
+ltxfigure = element pdf2:Figure {
+  attribute lang {text}?,         # Lang
+  attribute expansion {text}?,    # E
+  attribute title {text}?,        # T
+  attribute id {text}?,           # ID
+  layout-attributes,
+  otherns-attributes,
+  showtags-attributes,
+  attribute Layout:Width {text}?,
+  attribute Layout:Height {text}?,
+  figure-attributes,
+(text)
+}
+
+ltxannot = element pdf2:Annot {
+pdf2-attributes,
+(
+(semantic-para|ltxtable|ltxfigure)*
+|
+(text|text-fragment|ltxlink|ltxformula)*
+)
+}
+
+
+ltxform = element pdf2:Form {
+  pdf2-attributes,
+  attribute Layout:Width {text}?,
+  attribute Layout:Height {text}?,
+  printfield-attributes,
+(
+ltxcaption? &
+(
+(semantic-para|ltxtable|ltxfigure)*
+|
+(text|text-fragment|ltxlink|ltxformula)*
+)
+)
+}
+
+
+ltxfenote = element pdf2:FENote {
+ pdf1rolemap-Note,
+ pdf2-attributes,
+ fenote-attributes,
+(
+(semantic-para|ltxtable|ltxfigure)*
+|
+(text|text-fragment|ltxlink|ltxformula)*
+)
+}
+
+ltxbibentry = element pdf2:BibEntry {
+ pdf2-attributes,
+ (text|text-fragment|ltxem|ltxstrong|ltxspan|footnotemark|footnote|ltxruby|ltxwarichu
+ |ltxlink|ltxreference|ltxformula)*
+ }

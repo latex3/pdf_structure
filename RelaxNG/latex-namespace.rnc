@@ -13,9 +13,9 @@ pdf2-attributes,
 (ltxartifact*
 &
 (
-(title-block? & ((section1|semantic-para|ltxsect|theorem-like|ltxtable|footnote|ltxlink|float|ltxaside|ltxfigure)*,chapter1*,part*,(figures? & tables?)))
+(title-block? & ((section1|semantic-para|ltxsect|theorem-like|ltxtable|footnote|ltxlink|float|ltxaside|ltxfigure|ltxdiv)*,chapter1*,part*,(figures? & tables?)))
 |
-(title1-block? & ((section2|semantic-para|ltxsect|theorem-like|ltxtable|footnote|ltxlink|float|ltxaside|ltxfigure)*,chapter2*,part*,(figures? & tables?)))
+(title1-block? & ((section2|semantic-para|ltxsect|theorem-like|ltxtable|footnote|ltxlink|float|ltxaside|ltxfigure|ltxdiv)*,chapter2*,part*,(figures? & tables?)))
 )
 )
 }
@@ -31,121 +31,167 @@ sechead.content =
 ## end of over-ride of ua2 schema
 }
 
+pdf2rolemap-Title = attribute rolemaps-to {"Title"}
+
 ## section heirarchy
 
 title-block = element latexSE:title-block {
   attribute rolemaps-to {"Div"},
-   pdf2-attributes,
-   (title-text & (title-author|title-date)*)
- }
+  pdf2-attributes,
+  (title-text & (title-author|title-date)*)
+}
+
 title1-block = element latexSE:title-block {
   attribute rolemaps-to {"Div"},
-   pdf2-attributes,
-   (title1-text & (title-author|title-date)*)
- }
+  pdf2-attributes,
+  (title1-text & (title-author|title-date)*)
+}
 
 title-text = element latexSE:title-text {
-  attribute rolemaps-to {"Title"},
-   pdf2-attributes,
-   (sechead.content)
- }
+  pdf2rolemap-Title,
+  pdf2-attributes,
+  (sechead.content)
+}
 
 title1-text = element latexSE:title-text {
-  attribute rolemaps-to {"Title"},
-   pdf2-attributes,
-   (sechead.content)
- }
+  pdf2rolemap-Title,
+  pdf2-attributes,
+  (sechead.content)
+}
 
-
-# title = element latexSE:title      {attribute rolemaps-to {"Title"}, sechead.content}
+# title = element latexSE:title      {pdf2rolemap-Title, sechead.content}
 
 title-author = element latexSE:title-author {
   attribute rolemaps-to {"P"},
-   pdf2-attributes,
-   (text|text-fragment|ltxlink|footnotemark)*
- }
+  pdf2-attributes,
+  (text|text-fragment|ltxlink|footnotemark)*
+}
+
 title-date = element latexSE:title-date {
   attribute rolemaps-to {"P"},
-   pdf2-attributes,
-   (text|text-fragment|footnotemark)
- }
-
-part = element latexSE:part                  {pdf2-attributes,attribute rolemaps-to {"Part"}, part-heading,(chapter1|chapter2|section|Sect.content)*}
-
-part-heading = element latexSE:part-heading          {pdf2-attributes, attribute rolemaps-to {"Title"}, (heading-number? & sechead.content)}
-
-chapter1 = element latexSE:chapter   {
   pdf2-attributes,
+  (text|text-fragment|footnotemark)
+}
+
+part = element latexSE:part {
+  attribute rolemaps-to {"Part"},
+  pdf2-attributes,
+  part-heading,(chapter1|chapter2|section|Sect.content)*
+}
+
+part-heading = element latexSE:part-heading {
+  pdf2rolemap-Title,
+  pdf2-attributes,
+  (heading-number? & sechead.content)
+}
+
+chapter1 = element latexSE:chapter {
   attribute rolemaps-to {"Sect"},
+  pdf2-attributes,
   chapter-heading1,Sect.content*,section*
   }
 
-chapter-heading1 = element latexSE:chapter-heading       {pdf2-attributes, attribute rolemaps-to {"H1"}, (heading-number?  & sechead.content)}
-
-chapter2= element latexSE:chapter   {
+chapter-heading1 = element latexSE:chapter-heading {
+  attribute rolemaps-to {"H1"},
   pdf2-attributes,
+  (heading-number?  & sechead.content)
+}
+
+chapter2 = element latexSE:chapter {
   attribute rolemaps-to {"Sect"},
+  pdf2-attributes,
   chapter-heading2,Sect.content*,section*
-  }
+}
 
-chapter-heading2 = element latexSE:chapter-heading       {pdf2-attributes, attribute rolemaps-to {"H2"}, (heading-number? & sechead.content)}
-
-section1 = element latexSE:section   {
+chapter-heading2 = element latexSE:chapter-heading {
+  attribute rolemaps-to {"H2"},
   pdf2-attributes,
+  (heading-number? & sechead.content)
+}
+
+section1 = element latexSE:section {
   attribute rolemaps-to {"Sect"},
+  pdf2-attributes,
   section-heading1,Sect.content*,subsection*
   }
 
-section-heading1 = element latexSE:section-heading       {pdf2-attributes, attribute rolemaps-to {"H1"}, (heading-number? & sechead.content)}
+section-heading1 = element latexSE:section-heading {
+  pdf2-attributes,
+  attribute rolemaps-to {"H1"},
+  (heading-number? & sechead.content)
+}
 
 section2 = element latexSE:section   {
-  pdf2-attributes,
   attribute rolemaps-to {"Sect"},
+  pdf2-attributes,
   section-heading2,Sect.content*,subsection*
-  }
+}
 
-section-heading2 = element latexSE:section-heading       {pdf2-attributes, attribute rolemaps-to {"H2"}, (heading-number? & sechead.content)}
-
-section = element latexSE:section   {
+section-heading2 = element latexSE:section-heading {
+  attribute rolemaps-to {"H2"},
   pdf2-attributes,
+  (heading-number? & sechead.content)
+}
+
+section = element latexSE:section {
   attribute rolemaps-to {"Sect"},
+  pdf2-attributes,
   section-heading,Sect.content*,subsection*
-  }
+}
 
-section-heading = element latexSE:section-heading       {pdf2-attributes, attribute rolemaps-to {"H1"|"H2"|"H3"}, (heading-number? & sechead.content)}
-
-subsection = element latexSE:subsection   {
+section-heading = element latexSE:section-heading {
+  attribute rolemaps-to {"H1"|"H2"|"H3"},
   pdf2-attributes,
+  (heading-number? & sechead.content)
+}
+
+subsection = element latexSE:subsection {
   attribute rolemaps-to {"Sect"},
+  pdf2-attributes,
   subsection-heading,Sect.content*,subsubsection*
-  }
+}
 
-subsection-heading = element latexSE:subsection-heading       {pdf2-attributes, attribute rolemaps-to {"H2"|"H3"|"H4"}, (heading-number? & sechead.content)}
+subsection-heading = element latexSE:subsection-heading {
+  attribute rolemaps-to {"H2"|"H3"|"H4"},
+  pdf2-attributes,
+  (heading-number? & sechead.content)
+}
 
-
-subsubsection = element latexSE:subsubsection   {
+subsubsection = element latexSE:subsubsection {
   pdf2-attributes,
   attribute rolemaps-to {"Sect"},
   subsubsection-heading,Sect.content*,paragraph*
   }
 
-subsubsection-heading = element latexSE:subsubsection-heading       {pdf2-attributes, attribute rolemaps-to {"H3"|"H4"|"H5"}, (heading-number? & sechead.content)}
+subsubsection-heading = element latexSE:subsubsection-heading {
+  attribute rolemaps-to {"H3"|"H4"|"H5"},
+  pdf2-attributes,
+  (heading-number? & sechead.content)
+}
 
-paragraph = element latexSE:paragraph   {
+paragraph = element latexSE:paragraph {
   pdf2-attributes,
   attribute rolemaps-to {"Sect"},
   paragraph-heading,Sect.content*,subparagraph*
   }
 
-paragraph-heading = element latexSE:paragraph-heading       {pdf2-attributes, attribute rolemaps-to {"H4"|"H5"|"H6"}, (heading-number? & sechead.content)}
-
-subparagraph = element latexSE:subparagraph   {
+paragraph-heading = element latexSE:paragraph-heading  {
+  attribute rolemaps-to {"H4"|"H5"|"H6"},
   pdf2-attributes,
+  (heading-number? & sechead.content)
+}
+
+subparagraph = element latexSE:subparagraph {
   attribute rolemaps-to {"Sect"},
+  pdf2-attributes,
   subparagraph-heading,Sect.content*
   }
 
-subparagraph-heading = element latexSE:subparagraph-heading       {pdf2-attributes, attribute rolemaps-to {"H5"|"H6"|"H7"}, (heading-number? & sechead.content) }
+subparagraph-heading = element latexSE:subparagraph-heading {
+  attribute rolemaps-to {"H5"|"H6"|"H7"},
+  pdf2-attributes,
+  (heading-number? & sechead.content)
+}
 
 heading-number = element latexSE:heading-number {
   attribute rolemaps-to {"Lbl"|"Span"},			
@@ -376,12 +422,14 @@ pdf2-attributes,
 (text|text-fragment|ltxlink|ltxformula)*
 }
 ltxem = element pdf2:Em {
-pdf2-attributes,
-(text|text-fragment|ltxlink|ltxformula)*
+  pdf1rolemap-Span,
+  pdf2-attributes,
+  (text|text-fragment|ltxlink|ltxformula)*
 }
 ltxstrong = element pdf2:Strong {
-pdf2-attributes,
-(text|text-fragment|ltxlink|ltxformula)*
+  pdf1rolemap-Span,
+  pdf2-attributes,
+  (text|text-fragment|ltxlink|ltxformula)*
 }
 ltxlbl = element pdf2:Lbl {
 pdf2-attributes,

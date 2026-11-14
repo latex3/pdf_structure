@@ -38,13 +38,13 @@ pdf2rolemap-Title = attribute rolemaps-to {"Title"}
 title-block = element latexSE:title-block {
   attribute rolemaps-to {"Div"},
   pdf2-attributes,
-  (title-text & (title-author|title-date)*)
+  (title-text+ & (title-author|title-date)*)
 }
 
 title1-block = element latexSE:title-block {
   attribute rolemaps-to {"Div"},
   pdf2-attributes,
-  (title1-text & (title-author|title-date)*)
+  (title1-text+ & (title-author|title-date)*)
 }
 
 title-text = element latexSE:title-text {
@@ -218,7 +218,7 @@ pdf2-attributes,
 semantic-para = element latexSE:semantic-para {
   attribute rolemaps-to {"Part"},
   pdf2-attributes,
-   title-text?,ltxcaption?,(text-block|text-minipage|quotation|enumerate|itemize|description|\list|verbatim|quote|ltxformula|ltxtable|ltxaside)*}
+   title-text?,ltxcaption?,(text-block|text-minipage|quotation|enumerate|itemize|description|\list|verbatim|quote|ltxformula|ltxtable|ltxaside|ltxdiv)*}
 
 text-block = element latexSE:text-block {
  attribute rolemaps-to {"P"},

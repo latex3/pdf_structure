@@ -1,33 +1,37 @@
-# LaTeX PDF 2.0 Bible Namespace Schema v1.7b
+# LaTeX PDF 2.0 Bible Namespace Schema v1.7c
 
+namespace pdf2 = "http://iso.org/pdf2/ssn"
 namespace latexSE = "https://www.latex-project.org/ns/dflt"
 namespace latexSEbible = "https://www.latex-project.org/ns/local/bible"
 
 ## PDF/UA-2
 
-include "latex-document.rnc"
+include "latex-namespace.rnc" {
+
+Document = element pdf2:Document {
+ attribute id {text}?,
+ title-block*,
+ Frontmatter*,
+ Testament*
+}
+
+}
 
 # LaTeX Bible Markup Namespace
 
-Sect |= element latexSEbible:Frontmatter {
+Frontmatter = element latexSEbible:Frontmatter {
   showtags-attributes,
   attribute rolemaps-to {"Sect"},
   attribute id {text}?,
-  Frontmatter-Title,TOC?,text-unit*}
+  Frontmatter-Title,ltxtoc?,semantic-para*}
   
-Sect |= element latexSEbible:Testament {
-  showtags-attributes,
-  attribute rolemaps-to {"Sect"},
-  attribute id {text}?,
-  Testament-Title,TOC?,text-unit*,Book*}
-
 Testament = element latexSEbible:Testament {
   showtags-attributes,
   attribute rolemaps-to {"Sect"},
   attribute id {text}?,
   Testament-Title,
-  TOC?,
-  (text-unit|Span)*,
+  ltxtoc?,
+  (semantic-para|ltxspan)*,
   Book*
  }
 
@@ -36,7 +40,7 @@ Frontmatter-Title = element latexSEbible:Frontmatter-Title {
   attribute rolemaps-to {"H1"},
   attribute id {text}?,
   attribute title {text},
-  (text|Span)*
+  (text|ltxspan)*
 }
 
 Testament-Title = element latexSEbible:Testament-Title {
@@ -44,7 +48,7 @@ Testament-Title = element latexSEbible:Testament-Title {
   attribute rolemaps-to {"H1"},
   attribute id {text}?,
   attribute title {text},
-  (heading-number?&(text|Span)*)
+  (heading-number?&(text|ltxspan)*)
 }
 
 Book = element latexSEbible:Book {
@@ -52,8 +56,8 @@ Book = element latexSEbible:Book {
   attribute rolemaps-to {"Sect"},
   attribute id {text}?,
   Book-Title,
-  TOC?,
-  (text-unit|Span)*,
+  ltxtoc?,
+  (semantic-para|ltxspan)*,
   BChapter*
  }
 
@@ -62,7 +66,7 @@ Book-Title = element latexSEbible:Book-Title {
   attribute rolemaps-to {"H2"},
   attribute id {text}?,
   attribute title {text},
-  (text|Span)*
+  (text|ltxspan)*
 }
 
 BChapter= element latexSEbible:Chapter {
@@ -70,8 +74,8 @@ BChapter= element latexSEbible:Chapter {
   attribute rolemaps-to {"Sect"},
   attribute id {text}?,
   Chapter-Title?,
-  TOC?,
-  (text-unit|Span)*,
+  ltxtoc?,
+  (semantic-para|ltxspan)*,
   Bverse*
  }
 
@@ -81,14 +85,14 @@ Chapter-Title = element latexSEbible:Chapter-Title {
   attribute rolemaps-to {"H3"},
   attribute id {text}?,
   attribute title {text}?,
-  (text|Span)*
+  (text|ltxspan)*
 }
 
 Bverse= element latexSEbible:verse {
   showtags-attributes,
   attribute rolemaps-to {"P"},
   pdf2-attributes,
-  (text|text-unit|Span)*
+  (text|semantic-para|ltxspan)*
  }
 
 

@@ -1,5 +1,6 @@
-# LaTeX PDF 1.7 Shakespeare Play Schema v1.7b
+# LaTeX PDF 1.7 Shakespeare Play Schema v1.7c
 
-include "latex-document17.rnc"
-Span |= element SceneDescription {pdf2-attributes,attribute rolemaps-to {"Span"}, text}
-Span |= element Speaker {pdf2-attributes,attribute rolemaps-to {"Span"},text}
+namespace latexSEplay = ""
+include "latex-namespace17.rnc"
+ltxspan |= element latexSEplay:SceneDescription {pdf2-attributes,attribute rolemaps-to {"Span"}, text}
+ltxstrong |= element latexSEplay:Speaker {pdf2-attributes,attribute rolemaps-to {"Span"},text}

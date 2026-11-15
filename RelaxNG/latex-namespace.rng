@@ -21,12 +21,7 @@
         <choice>
           <ref name="heading-fragment"/>
           <ref name="heading-parbox"/>
-          <text/>
-          <ref name="text-fragment"/>
-          <ref name="ltxspan"/>
-          <ref name="footnotemark"/>
-          <ref name="ltxformula"/>
-          <ref name="ltxlink"/>
+          <ref name="latex.inline.content"/>
         </choice>
       </zeroOrMore>
     </define>
@@ -119,6 +114,7 @@
     </attribute>
   </define>
   <define name="title-block">
+    <a:documentation>share UA-2 and UA-1 from here</a:documentation>
     <a:documentation>section heirarchy</a:documentation>
     <element name="latexSE:title-block">
       <attribute name="rolemaps-to">
@@ -564,9 +560,36 @@
       </zeroOrMore>
     </element>
   </define>
-  <define name="semantic-para">
+  <define name="latex.inline.content">
     <a:documentation>end of headings</a:documentation>
     <a:documentation>paragraphs</a:documentation>
+    <choice>
+      <text/>
+      <ref name="text-fragment"/>
+      <ref name="footnotemark"/>
+      <ref name="footnote"/>
+      <ref name="ltxcode"/>
+      <ref name="ltxsub"/>
+      <ref name="ltxlbl"/>
+      <ref name="ltxem"/>
+      <ref name="ltxstrong"/>
+      <ref name="ltxspan"/>
+      <ref name="ltxlink"/>
+      <ref name="ltxreference"/>
+      <ref name="ltxannot"/>
+      <ref name="ltxform"/>
+      <ref name="ltxruby"/>
+      <ref name="ltxwarichu"/>
+      <ref name="ltxfenote"/>
+      <ref name="ltxbibentry"/>
+      <ref name="ltxfigure"/>
+      <ref name="ltxformula"/>
+      <ref name="ltxform"/>
+      <ref name="ltxannot"/>
+      <ref name="ltxartifact"/>
+    </choice>
+  </define>
+  <define name="semantic-para">
     <element name="latexSE:semantic-para">
       <attribute name="rolemaps-to">
         <value>Part</value>
@@ -608,24 +631,7 @@
           <ref name="ltxlbl"/>
         </zeroOrMore>
         <zeroOrMore>
-          <choice>
-            <text/>
-            <ref name="text-fragment"/>
-            <ref name="ltxem"/>
-            <ref name="ltxstrong"/>
-            <ref name="ltxspan"/>
-            <ref name="footnotemark"/>
-            <ref name="footnote"/>
-            <ref name="ltxruby"/>
-            <ref name="ltxwarichu"/>
-            <ref name="ltxlink"/>
-            <ref name="ltxformula"/>
-            <ref name="ltxreference"/>
-            <ref name="ltxcode"/>
-            <ref name="ltxfigure"/>
-            <ref name="ltxform"/>
-            <ref name="ltxannot"/>
-          </choice>
+          <ref name="latex.inline.content"/>
         </zeroOrMore>
       </interleave>
     </element>
@@ -637,26 +643,7 @@
       </attribute>
       <ref name="pdf2-attributes"/>
       <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="ltxcode"/>
-          <ref name="ltxsub"/>
-          <ref name="ltxlbl"/>
-          <ref name="ltxem"/>
-          <ref name="ltxstrong"/>
-          <ref name="ltxspan"/>
-          <ref name="ltxlink"/>
-          <ref name="ltxreference"/>
-          <ref name="ltxannot"/>
-          <ref name="ltxform"/>
-          <ref name="ltxruby"/>
-          <ref name="ltxwarichu"/>
-          <ref name="ltxfenote"/>
-          <ref name="ltxbibentry"/>
-          <ref name="ltxfigure"/>
-          <ref name="ltxformula"/>
-          <ref name="ltxartifact"/>
-        </choice>
+        <ref name="latex.inline.content"/>
       </zeroOrMore>
     </element>
   </define>
@@ -866,16 +853,7 @@
         <value>Lbl</value>
       </attribute>
       <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="text-fragment"/>
-          <ref name="semantic-para"/>
-          <ref name="ltxem"/>
-          <ref name="ltxstrong"/>
-          <ref name="ltxspan"/>
-          <ref name="ltxformula"/>
-          <ref name="ltxlink"/>
-        </choice>
+        <ref name="latex.inline.content"/>
       </zeroOrMore>
     </element>
   </define>
@@ -952,11 +930,7 @@
       </attribute>
       <ref name="pdf2-attributes"/>
       <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="text-fragment"/>
-          <ref name="ltxlink"/>
-        </choice>
+        <ref name="latex.inline.content"/>
       </zeroOrMore>
     </element>
   </define>
@@ -1064,12 +1038,7 @@
     <element name="pdf2:Span">
       <ref name="pdf2-attributes"/>
       <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="text-fragment"/>
-          <ref name="ltxlink"/>
-          <ref name="ltxformula"/>
-        </choice>
+        <ref name="latex.inline.content"/>
       </zeroOrMore>
     </element>
   </define>
@@ -1078,12 +1047,7 @@
       <ref name="pdf1rolemap-Span"/>
       <ref name="pdf2-attributes"/>
       <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="text-fragment"/>
-          <ref name="ltxlink"/>
-          <ref name="ltxformula"/>
-        </choice>
+        <ref name="latex.inline.content"/>
       </zeroOrMore>
     </element>
   </define>
@@ -1092,12 +1056,7 @@
       <ref name="pdf1rolemap-Span"/>
       <ref name="pdf2-attributes"/>
       <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="text-fragment"/>
-          <ref name="ltxlink"/>
-          <ref name="ltxformula"/>
-        </choice>
+        <ref name="latex.inline.content"/>
       </zeroOrMore>
     </element>
   </define>
@@ -1105,12 +1064,7 @@
     <element name="pdf2:Lbl">
       <ref name="pdf2-attributes"/>
       <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="text-fragment"/>
-          <ref name="ltxlink"/>
-          <ref name="ltxformula"/>
-        </choice>
+        <ref name="latex.inline.content"/>
       </zeroOrMore>
     </element>
   </define>
@@ -1119,12 +1073,7 @@
       <ref name="pdf1rolemap-Any"/>
       <ref name="pdf2-attributes"/>
       <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="text-fragment"/>
-          <ref name="ltxlink"/>
-          <ref name="ltxformula"/>
-        </choice>
+        <ref name="latex.inline.content"/>
       </zeroOrMore>
     </element>
   </define>
@@ -1301,15 +1250,12 @@
         <attribute name="Table:Short"/>
       </optional>
       <zeroOrMore>
+        <ref name="latex.inline.content"/>
+      </zeroOrMore>
+      <zeroOrMore>
         <choice>
-          <text/>
-          <ref name="text-fragment"/>
-          <ref name="footnotemark"/>
-          <ref name="text-block"/>
+          <ref name="semantic-para"/>
           <ref name="verbatim"/>
-          <ref name="ltxformula"/>
-          <ref name="ltxtable"/>
-          <ref name="ltxdiv"/>
         </choice>
       </zeroOrMore>
     </element>
@@ -1351,15 +1297,12 @@
       <!---->
       <ref name="table-attributes"/>
       <zeroOrMore>
+        <ref name="latex.inline.content"/>
+      </zeroOrMore>
+      <zeroOrMore>
         <choice>
-          <text/>
-          <ref name="text-fragment"/>
-          <ref name="footnotemark"/>
+          <ref name="semantic-para"/>
           <ref name="verbatim"/>
-          <ref name="text-block"/>
-          <ref name="ltxformula"/>
-          <ref name="ltxtable"/>
-          <ref name="ltxdiv"/>
         </choice>
       </zeroOrMore>
     </element>
@@ -1566,15 +1509,17 @@
         <optional>
           <ref name="ltxlbl"/>
         </optional>
-        <zeroOrMore>
-          <choice>
-            <text/>
-            <ref name="text-fragment"/>
-            <ref name="text-block"/>
-            <ref name="ltxreference"/>
-            <ref name="ltxlink"/>
-          </choice>
-        </zeroOrMore>
+        <choice>
+          <zeroOrMore>
+            <choice>
+              <ref name="semantic-para"/>
+              <ref name="text-block"/>
+            </choice>
+          </zeroOrMore>
+          <zeroOrMore>
+            <ref name="latex.inline.content"/>
+          </zeroOrMore>
+        </choice>
       </interleave>
     </element>
   </define>
@@ -1621,12 +1566,7 @@
           </choice>
         </zeroOrMore>
         <zeroOrMore>
-          <choice>
-            <text/>
-            <ref name="text-fragment"/>
-            <ref name="ltxlink"/>
-            <ref name="ltxformula"/>
-          </choice>
+          <ref name="latex.inline.content"/>
         </zeroOrMore>
       </choice>
     </element>
@@ -1654,12 +1594,7 @@
             </choice>
           </zeroOrMore>
           <zeroOrMore>
-            <choice>
-              <text/>
-              <ref name="text-fragment"/>
-              <ref name="ltxlink"/>
-              <ref name="ltxformula"/>
-            </choice>
+            <ref name="latex.inline.content"/>
           </zeroOrMore>
         </choice>
       </interleave>
@@ -1693,20 +1628,7 @@
     <element name="pdf2:BibEntry">
       <ref name="pdf2-attributes"/>
       <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="text-fragment"/>
-          <ref name="ltxem"/>
-          <ref name="ltxstrong"/>
-          <ref name="ltxspan"/>
-          <ref name="footnotemark"/>
-          <ref name="footnote"/>
-          <ref name="ltxruby"/>
-          <ref name="ltxwarichu"/>
-          <ref name="ltxlink"/>
-          <ref name="ltxreference"/>
-          <ref name="ltxformula"/>
-        </choice>
+        <ref name="latex.inline.content"/>
       </zeroOrMore>
     </element>
   </define>

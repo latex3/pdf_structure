@@ -380,7 +380,7 @@ footnotemark = element latexSE:footnotemark {
 footnote = element latexSE:footnote {
   attribute rolemaps-to {"FENote"|"Note"},
   pdf2-attributes,
-  footnotelabel,(text|semantic-para)*
+  footnotelabel,(text|text-fragment|semantic-para)*
 }
 
 footnotelabel = element latexSE:footnotelabel {
@@ -394,7 +394,7 @@ footnotelabel = element latexSE:footnotelabel {
 ltxlink = element pdf2:Link {
  pdf2-attributes,
  (
- (text|ltxlbl|text-fragment|ltxformula)*
+ (latex.inline.content)*
  |
  (ltxlbl|text-fragment|semantic-para|ltxformula)*
  )
@@ -502,7 +502,7 @@ ltxth = element pdf2:TH {
   table-attributes,
   attribute Table:Scope {"Column" | "Row" | "Both"}?,
   attribute Table:Short {text}?,
- (latex.inline.content)*,(semantic-para|verbatim)*
+ (latex.inline.content)*,(semantic-para|ltxdiv|verbatim)*
  }
 
 ltxdt = element pdf2:TD {
@@ -515,7 +515,7 @@ ltxdt = element pdf2:TD {
   attribute Layout:TPadding {text}?,
 #
   table-attributes,
- (latex.inline.content)*,(semantic-para|verbatim)*
+ (latex.inline.content)*,(semantic-para|ltxdiv|verbatim)*
  }
 
 

@@ -1,30 +1,100 @@
-# LaTeX PDF 1.7 Namespace Schema extensions v1.7b
+# LaTeX PDF 1.7 Namespace Schema extensions v1.7c
+
+namespace pdf2 = ""
+namespace latexSEamse = ""
+namespace luatexko = ""
+namespace latexSEamsej = ""
+namespace mitthesis = ""
+
 
 include "latex-document17.rnc"
 
-# LaTeX play
-Span |= element SceneDescription {pdf2-attributes,attribute rolemaps-to {"Span"}, text}
-Strong |= element Speaker {pdf2-attributes,attribute rolemaps-to {"Span"},text}
 
 
 # asmeconf
-Div |= element Conference_information {
+# asmeconf
+
+#    \tagpdfsetup { role/new-tag = { Conference_information/Div       } }
+#    \tagpdfsetup { role/new-tag = { Paper_number/Div                 } }
+#    \tagpdfsetup { role/new-tag = { Author_affiliation/Div           } }
+#    \tagpdfsetup { role/new-tag = { Authors/Div                      } }
+#    \tagpdfsetup { role/new-tag = { Affiliations-group/Div           } }
+#    \tagpdfsetup { role/new-tag = { Affiliation/Part                 } }
+#
+#    \tagpdfsetup { role/new-tag = { Nomenclature_list/Div            } }
+#    \tagpdfsetup { role/new-tag = { Nomenclature_entry_heading/Span  } }
+#    
+#    \tagpdfsetup { role/new-tag = { Wrapper/P } } % for coffin tagging
+
+
+latex.document.content |=
+(Conference_information,semantic-para*,ltxtitle*,Authors*,Affiliations-group*,
+footnote*,section*,(figures|tables)*)
+
+ltxtitle = element pdf2:Title {
+ pdf1rolemap-P,
+ pdf2-attributes,
+ (text|text-fragment|semantic-para)*
+ }
+
+Conference_information =element latexSEamse:Conference_information {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
-  text-unit*
+  semantic-para*
+}
+
+
+
+Div |= element latexSEamse:Author_affiliation {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  semantic-para*
   }
 
-Div |= element Author_Affiliation {
+Affiliations-group = element latexSEamse:Affiliations-group {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
-  text-unit*
+  semantic-para*
   }
 
-Div|= element Affiliation {
+Div|= element latexSEamse:Affiliation {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
-  text-unit*
+  semantic-para*
+  }
+
+Authors = element latexSEamse:Authors {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  semantic-para*
+  }
+
+
+semantic-para |= element latexSEamse:Paper_number {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  semantic-para*
+  }
+
+
+Sect.content |= element latexSEamse:Nomenclature_list {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  semantic-para*
+  }
+
+text-fragment |= element latexSEamse:Nomenclature_entry_heading {
+  showtags-attributes,
+  attribute rolemaps-to {"Span"},
+  attribute id {text}?,
+  (latex.inline.content)*
   }

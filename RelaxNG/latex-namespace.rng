@@ -947,6 +947,7 @@
       <zeroOrMore>
         <choice>
           <text/>
+          <ref name="text-fragment"/>
           <ref name="semantic-para"/>
         </choice>
       </zeroOrMore>
@@ -972,12 +973,7 @@
       <ref name="pdf2-attributes"/>
       <choice>
         <zeroOrMore>
-          <choice>
-            <text/>
-            <ref name="ltxlbl"/>
-            <ref name="text-fragment"/>
-            <ref name="ltxformula"/>
-          </choice>
+          <ref name="latex.inline.content"/>
         </zeroOrMore>
         <zeroOrMore>
           <choice>
@@ -1255,6 +1251,7 @@
       <zeroOrMore>
         <choice>
           <ref name="semantic-para"/>
+          <ref name="ltxdiv"/>
           <ref name="verbatim"/>
         </choice>
       </zeroOrMore>
@@ -1302,6 +1299,7 @@
       <zeroOrMore>
         <choice>
           <ref name="semantic-para"/>
+          <ref name="ltxdiv"/>
           <ref name="verbatim"/>
         </choice>
       </zeroOrMore>

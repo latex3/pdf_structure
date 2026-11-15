@@ -8,8 +8,19 @@ namespace Table = "http://iso.org/pdf/ssn/Table"
 
 include "document-pdf-ua1.rnc" {
 
-Document = element pdf1:Document {
-pdf2-attributes,
+Document = element pdf2:Document { pdf2-attributes, latex.document.content }
+
+Sect.content = (semantic-para|theorem-like|footnote|ltxtoc|ltxtable)
+
+
+sechead.content =
+  (heading-fragment|heading-parbox|text|text-fragment|ltxspan|footnotemark|ltxformula|ltxlink)*
+  
+}
+
+## end of over-ride of ua1 schema
+
+latex.document.content =
 (ltxartifact*
 &
 (
@@ -18,18 +29,6 @@ pdf2-attributes,
 (title1-block? & ((section2|semantic-para|ltxsect|theorem-like|ltxtable|footnote|ltxlink|float|ltxaside|ltxfigure|ltxdiv)*,chapter2*,part*,(figures? & tables?)))
 )
 )
-}
-
-Sect.content = (semantic-para|theorem-like|footnote|ltxtoc|ltxtable)
-
-
-sechead.content =
-  pdf2-attributes,
-  (heading-fragment|heading-parbox|text|text-fragment|ltxspan|footnotemark|ltxformula|ltxlink)*
-  
-}
-
-## end of over-ride of ua1 schema
 
 
 pdf2rolemap-Title = attribute rolemaps-to {"P"}
@@ -56,12 +55,10 @@ title-text = element latexSE:title-text {
 }
 
 title1-text = element latexSE:title-text {
-  pdf2rolemap-Title,
+  attribute rolemaps-to {"H1"},
   pdf2-attributes,
   (sechead.content)
 }
-
-# title = element latexSE:title      {pdf2rolemap-Title, sechead.content}
 
 title-author = element latexSE:title-author {
   attribute rolemaps-to {"P"},

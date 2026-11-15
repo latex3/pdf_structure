@@ -854,7 +854,6 @@
     </element>
   </define>
   <define name="sechead.content">
-    <ref name="pdf2-attributes"/>
     <interleave>
       <optional>
         <ref name="Art"/>
@@ -892,42 +891,50 @@
   </define>
   <define name="H1">
     <element name="pdf2:H1">
+      <ref name="pdf2-attributes"/>
       <ref name="sechead.content"/>
     </element>
   </define>
   <define name="H2">
     <element name="pdf2:H2">
+      <ref name="pdf2-attributes"/>
       <ref name="sechead.content"/>
     </element>
   </define>
   <define name="H3">
     <element name="pdf2:H3">
+      <ref name="pdf2-attributes"/>
       <ref name="sechead.content"/>
     </element>
   </define>
   <define name="H4">
     <element name="pdf2:H4">
+      <ref name="pdf2-attributes"/>
       <ref name="sechead.content"/>
     </element>
   </define>
   <define name="H5">
     <element name="pdf2:H5">
+      <ref name="pdf2-attributes"/>
       <ref name="sechead.content"/>
     </element>
   </define>
   <define name="H6">
     <element name="pdf2:H6">
+      <ref name="pdf2-attributes"/>
       <ref name="sechead.content"/>
     </element>
   </define>
   <define name="H7">
     <element name="pdf2:H7">
       <ref name="pdf1rolemap-Any"/>
+      <ref name="pdf2-attributes"/>
       <ref name="sechead.content"/>
     </element>
   </define>
   <define name="H">
     <element name="pdf2:H">
+      <ref name="pdf2-attributes"/>
       <ref name="sechead.content"/>
     </element>
   </define>

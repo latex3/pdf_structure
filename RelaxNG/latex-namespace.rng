@@ -4,85 +4,7 @@
     <define name="Document">
       <element name="pdf2:Document">
         <ref name="pdf2-attributes"/>
-        <interleave>
-          <zeroOrMore>
-            <ref name="ltxartifact"/>
-          </zeroOrMore>
-          <choice>
-            <interleave>
-              <optional>
-                <ref name="title-block"/>
-              </optional>
-              <group>
-                <zeroOrMore>
-                  <choice>
-                    <ref name="section1"/>
-                    <ref name="semantic-para"/>
-                    <ref name="ltxsect"/>
-                    <ref name="theorem-like"/>
-                    <ref name="ltxtable"/>
-                    <ref name="footnote"/>
-                    <ref name="ltxlink"/>
-                    <ref name="float"/>
-                    <ref name="ltxaside"/>
-                    <ref name="ltxfigure"/>
-                    <ref name="ltxdiv"/>
-                  </choice>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <ref name="chapter1"/>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <ref name="part"/>
-                </zeroOrMore>
-                <interleave>
-                  <optional>
-                    <ref name="figures"/>
-                  </optional>
-                  <optional>
-                    <ref name="tables"/>
-                  </optional>
-                </interleave>
-              </group>
-            </interleave>
-            <interleave>
-              <optional>
-                <ref name="title1-block"/>
-              </optional>
-              <group>
-                <zeroOrMore>
-                  <choice>
-                    <ref name="section2"/>
-                    <ref name="semantic-para"/>
-                    <ref name="ltxsect"/>
-                    <ref name="theorem-like"/>
-                    <ref name="ltxtable"/>
-                    <ref name="footnote"/>
-                    <ref name="ltxlink"/>
-                    <ref name="float"/>
-                    <ref name="ltxaside"/>
-                    <ref name="ltxfigure"/>
-                    <ref name="ltxdiv"/>
-                  </choice>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <ref name="chapter2"/>
-                </zeroOrMore>
-                <zeroOrMore>
-                  <ref name="part"/>
-                </zeroOrMore>
-                <interleave>
-                  <optional>
-                    <ref name="figures"/>
-                  </optional>
-                  <optional>
-                    <ref name="tables"/>
-                  </optional>
-                </interleave>
-              </group>
-            </interleave>
-          </choice>
-        </interleave>
+        <ref name="latex.document.content"/>
       </element>
     </define>
     <define name="Sect.content">
@@ -95,7 +17,6 @@
       </choice>
     </define>
     <define name="sechead.content">
-      <ref name="pdf2-attributes"/>
       <zeroOrMore>
         <choice>
           <ref name="heading-fragment"/>
@@ -110,8 +31,89 @@
       </zeroOrMore>
     </define>
   </include>
-  <define name="pdf2rolemap-Title">
+  <define name="latex.document.content">
     <a:documentation>end of over-ride of ua2 schema</a:documentation>
+    <interleave>
+      <zeroOrMore>
+        <ref name="ltxartifact"/>
+      </zeroOrMore>
+      <choice>
+        <interleave>
+          <optional>
+            <ref name="title-block"/>
+          </optional>
+          <group>
+            <zeroOrMore>
+              <choice>
+                <ref name="section1"/>
+                <ref name="semantic-para"/>
+                <ref name="ltxsect"/>
+                <ref name="theorem-like"/>
+                <ref name="ltxtable"/>
+                <ref name="footnote"/>
+                <ref name="ltxlink"/>
+                <ref name="float"/>
+                <ref name="ltxaside"/>
+                <ref name="ltxfigure"/>
+                <ref name="ltxdiv"/>
+              </choice>
+            </zeroOrMore>
+            <zeroOrMore>
+              <ref name="chapter1"/>
+            </zeroOrMore>
+            <zeroOrMore>
+              <ref name="part"/>
+            </zeroOrMore>
+            <interleave>
+              <optional>
+                <ref name="figures"/>
+              </optional>
+              <optional>
+                <ref name="tables"/>
+              </optional>
+            </interleave>
+          </group>
+        </interleave>
+        <interleave>
+          <optional>
+            <ref name="title1-block"/>
+          </optional>
+          <group>
+            <zeroOrMore>
+              <choice>
+                <ref name="section2"/>
+                <ref name="semantic-para"/>
+                <ref name="ltxsect"/>
+                <ref name="theorem-like"/>
+                <ref name="ltxtable"/>
+                <ref name="footnote"/>
+                <ref name="ltxlink"/>
+                <ref name="float"/>
+                <ref name="ltxaside"/>
+                <ref name="ltxfigure"/>
+                <ref name="ltxdiv"/>
+              </choice>
+            </zeroOrMore>
+            <zeroOrMore>
+              <ref name="chapter2"/>
+            </zeroOrMore>
+            <zeroOrMore>
+              <ref name="part"/>
+            </zeroOrMore>
+            <interleave>
+              <optional>
+                <ref name="figures"/>
+              </optional>
+              <optional>
+                <ref name="tables"/>
+              </optional>
+            </interleave>
+          </group>
+        </interleave>
+      </choice>
+    </interleave>
+  </define>
+  <define name="pdf2rolemap-Title">
     <attribute name="rolemaps-to">
       <value>Title</value>
     </attribute>
@@ -164,12 +166,13 @@
   </define>
   <define name="title1-text">
     <element name="latexSE:title-text">
-      <ref name="pdf2rolemap-Title"/>
+      <attribute name="rolemaps-to">
+        <value>H1</value>
+      </attribute>
       <ref name="pdf2-attributes"/>
       <ref name="sechead.content"/>
     </element>
   </define>
-  <!-- title = element latexSE:title      {pdf2rolemap-Title, sechead.content} -->
   <define name="title-author">
     <element name="latexSE:title-author">
       <attribute name="rolemaps-to">

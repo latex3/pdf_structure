@@ -7,7 +7,7 @@ namespace latexSEamsej = ""
 namespace mitthesis = ""
 
 
-include "latex-document17.rnc"
+include "latex-namespace17.rnc"
 
 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- LaTeX PDF 1.7 Namespace Schema extensions v1.7c -->
 <grammar xmlns="http://relaxng.org/ns/structure/1.0">
-  <include href="latex-document17.rng"/>
+  <include href="latex-namespace17.rng"/>
   <!--
     asmeconf
     asmeconf

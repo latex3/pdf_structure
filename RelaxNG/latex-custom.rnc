@@ -1,7 +1,6 @@
-# LaTeX PDF 2.0 Namespace Schema extensions v1.7b
+# LaTeX PDF 2.0 Namespace Schema extensions v1.7c
 
 namespace pdf2 = "http://iso.org/pdf2/ssn"
-namespace latexSEplay = "https://www.latex-project.org/ns/local/plays"
 namespace latexSEamse = "https://www.latex-project.org/ns/local/asmeconf"
 namespace luatexko = "https://www.latex-project.org/ns/local/luatexko"
 namespace latexSEamsej = "https://www.latex-project.org/ns/local/asmejour"

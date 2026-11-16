@@ -156,7 +156,7 @@
     </element>
   </define>
   <define name="subsubsection">
-    <element name="latexSE:subsubection">
+    <element name="latexSE:subsubsection">
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
         <value>Sect</value>
@@ -562,6 +562,8 @@
       <zeroOrMore>
         <choice>
           <text/>
+          <ref name="footnotemark"/>
+          <ref name="Link"/>
           <ref name="Span"/>
         </choice>
       </zeroOrMore>
@@ -576,6 +578,8 @@
       <zeroOrMore>
         <choice>
           <text/>
+          <ref name="footnotemark"/>
+          <ref name="Link"/>
           <ref name="Span"/>
         </choice>
       </zeroOrMore>
@@ -590,6 +594,8 @@
       <zeroOrMore>
         <choice>
           <text/>
+          <ref name="footnotemark"/>
+          <ref name="Link"/>
           <ref name="Span"/>
         </choice>
       </zeroOrMore>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- LaTeX PDF 1.7 Namespace Schema v1.7b -->
+<!-- LaTeX PDF 1.7 Namespace Schema v1.7c -->
 <grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="document-pdf-ua1.rng">
     <a:documentation>PDF/UA-1</a:documentation>
@@ -172,7 +172,7 @@
   </define>
   <define name="subsubsection">
     <element>
-      <name ns="">subsubection</name>
+      <name ns="">subsubsection</name>
       <ref name="pdf2-attributes"/>
       <attribute name="rolemaps-to">
         <value>Sect</value>
@@ -604,6 +604,8 @@
       <zeroOrMore>
         <choice>
           <text/>
+          <ref name="footnotemark"/>
+          <ref name="Link"/>
           <ref name="Span"/>
         </choice>
       </zeroOrMore>
@@ -619,6 +621,8 @@
       <zeroOrMore>
         <choice>
           <text/>
+          <ref name="footnotemark"/>
+          <ref name="Link"/>
           <ref name="Span"/>
         </choice>
       </zeroOrMore>
@@ -634,6 +638,8 @@
       <zeroOrMore>
         <choice>
           <text/>
+          <ref name="footnotemark"/>
+          <ref name="Link"/>
           <ref name="Span"/>
         </choice>
       </zeroOrMore>

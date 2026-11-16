@@ -1,31 +1,32 @@
-# LaTeX ltx-talk Namespace Schema v1.7b
+# LaTeX ltx-talk Namespace Schema v1.7c
 
-namespace latexSE = "https://www.latex-project.org/ns/dflt"
 namespace latexSEtalk = "https://www.latex-project.org/ns/local/ltx-talk"
 
 ## PDF/UA-2
 
-include "latex-document.rnc"
+include "latex-namespace.rnc"
 
 # LaTeX Talk Markup Namespace
 
   
-Sect |= element latexSEtalk:frame {
+latex.document.content |= frame*
+
+frame = element latexSEtalk:frame {
   pdf2-attributes,
   attribute rolemaps-to {"Sect"},
-  frametitle?,(text-unit|Aside)*,slide*}
+  frametitle?,(semantic-para|Aside)*,slide*}*
 
 
 
 frametitle = element latexSEtalk:frametitle {
   pdf2-attributes,
   attribute rolemaps-to {"H1"|"H4"},
-  (text|Formula|Span)*
+  (text|text-fragment|Formula|Span)*
 }
 
 slide = element latexSEtalk:slide {
   pdf2-attributes,
   attribute rolemaps-to {"Div"},
-  (text|text-unit|Aside)*
+  (text|text-fragment|semantic-para|Aside)*
 }
 

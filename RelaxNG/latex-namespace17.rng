@@ -631,7 +631,10 @@
       </attribute>
       <ref name="pdf2-attributes"/>
       <optional>
-        <ref name="title-text"/>
+        <choice>
+          <ref name="ltxtitle"/>
+          <ref name="title-text"/>
+        </choice>
       </optional>
       <optional>
         <ref name="ltxcaption"/>
@@ -735,6 +738,7 @@
           <ref name="semantic-para"/>
           <ref name="ltxfigure"/>
           <ref name="text-fragment"/>
+          <ref name="text-block"/>
           <ref name="ltxformula"/>
         </choice>
       </zeroOrMore>
@@ -958,6 +962,7 @@
       </zeroOrMore>
     </element>
   </define>
+  <!-- allow float for H (and ltx-talk) -->
   <define name="text-minipage">
     <element>
       <choice>
@@ -973,6 +978,7 @@
           <text/>
           <ref name="semantic-para"/>
           <ref name="ltxformula"/>
+          <ref name="float"/>
         </choice>
       </zeroOrMore>
     </element>
@@ -1716,6 +1722,18 @@
       <ref name="pdf2-attributes"/>
       <zeroOrMore>
         <ref name="latex.inline.content"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxtitle">
+    <element>
+      <name ns="">Title</name>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="latex.inline.content"/>
+          <ref name="text-block"/>
+        </choice>
       </zeroOrMore>
     </element>
   </define>

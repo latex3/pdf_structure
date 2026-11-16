@@ -225,7 +225,9 @@ ltxform|ltxannot|ltxartifact
 semantic-para = element latexSE:semantic-para {
   attribute rolemaps-to {"Part"},
   pdf2-attributes,
-   title-text?,ltxcaption?,(text-block|text-minipage|quotation|enumerate|itemize|description|\list|verbatim|quote|ltxformula|ltxtable|ltxaside|ltxdiv)*}
+   (ltxtitle|title-text)?,
+   ltxcaption?,
+   (text-block|text-minipage|quotation|enumerate|itemize|description|\list|verbatim|quote|ltxformula|ltxtable|ltxaside|ltxdiv)*}
 
 text-block = element latexSE:text-block {
  attribute rolemaps-to {"P"},
@@ -262,7 +264,7 @@ float = element latexSE:float {
   attribute rolemaps-to {"Aside"|"Note"},
   attribute id {text}?,
   showtags-attributes,
-  (text|ltxcaption|semantic-para|ltxfigure|text-fragment|ltxformula)*
+  (text|ltxcaption|semantic-para|ltxfigure|text-fragment|text-block|ltxformula)*
  }
 
 
@@ -364,10 +366,11 @@ theorem-like = element latexSE:theorem-like {
   (semantic-para)*
 }
 
+# allow float for H (and ltx-talk)
 text-minipage =  element (latexSE:text-minipage|latexSE:text-parbox) {
   attribute rolemaps-to {"Div"},
   pdf2-attributes,
-(text|semantic-para|ltxformula)*
+(text|semantic-para|ltxformula|float)*
 }
 
 
@@ -646,4 +649,9 @@ ltxfenote = element pdf2:FENote {
 ltxbibentry = element pdf2:BibEntry {
  pdf2-attributes,
  (latex.inline.content)*
+ }
+
+ltxtitle = element pdf2:Title {
+ pdf2-attributes,
+ (latex.inline.content|text-block)*
  }

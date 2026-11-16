@@ -5,32 +5,27 @@
     <a:documentation>PDF/UA-2</a:documentation>
   </include>
   <!-- LaTeX Talk Markup Namespace -->
-  <define name="latex.document.content" combine="choice">
+  <define name="latex.document.content" combine="interleave">
     <zeroOrMore>
       <ref name="frame"/>
     </zeroOrMore>
   </define>
   <define name="frame">
-    <zeroOrMore>
-      <element name="latexSEtalk:frame">
-        <ref name="pdf2-attributes"/>
-        <attribute name="rolemaps-to">
-          <value>Sect</value>
-        </attribute>
-        <optional>
-          <ref name="frametitle"/>
-        </optional>
-        <zeroOrMore>
-          <choice>
-            <ref name="semantic-para"/>
-            <ref name="Aside"/>
-          </choice>
-        </zeroOrMore>
-        <zeroOrMore>
-          <ref name="slide"/>
-        </zeroOrMore>
-      </element>
-    </zeroOrMore>
+    <element name="latexSEtalk:frame">
+      <ref name="pdf2-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Sect</value>
+      </attribute>
+      <optional>
+        <ref name="frametitle"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <ref name="semantic-para"/>
+          <ref name="Aside"/>
+        </choice>
+      </zeroOrMore>
+    </element>
   </define>
   <define name="frametitle">
     <element name="latexSEtalk:frametitle">
@@ -42,28 +37,7 @@
         </choice>
       </attribute>
       <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="text-fragment"/>
-          <ref name="Formula"/>
-          <ref name="Span"/>
-        </choice>
-      </zeroOrMore>
-    </element>
-  </define>
-  <define name="slide">
-    <element name="latexSEtalk:slide">
-      <ref name="pdf2-attributes"/>
-      <attribute name="rolemaps-to">
-        <value>Div</value>
-      </attribute>
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="text-fragment"/>
-          <ref name="semantic-para"/>
-          <ref name="Aside"/>
-        </choice>
+        <ref name="latex.inline.content"/>
       </zeroOrMore>
     </element>
   </define>

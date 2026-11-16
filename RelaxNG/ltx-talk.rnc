@@ -9,24 +9,18 @@ include "latex-namespace.rnc"
 # LaTeX Talk Markup Namespace
 
   
-latex.document.content |= frame*
+latex.document.content &= frame*
 
 frame = element latexSEtalk:frame {
   pdf2-attributes,
   attribute rolemaps-to {"Sect"},
-  frametitle?,(semantic-para|Aside)*,slide*}*
-
-
+  frametitle?,(semantic-para|Aside)*
+}
 
 frametitle = element latexSEtalk:frametitle {
   pdf2-attributes,
   attribute rolemaps-to {"H1"|"H4"},
-  (text|text-fragment|Formula|Span)*
+  (latex.inline.content)*
 }
 
-slide = element latexSEtalk:slide {
-  pdf2-attributes,
-  attribute rolemaps-to {"Div"},
-  (text|text-fragment|semantic-para|Aside)*
-}
 

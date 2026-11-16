@@ -10,7 +10,9 @@ include "document-pdf-ua2.rnc" {
 
 Document = element pdf2:Document { pdf2-attributes, latex.document.content }
 
-Sect.content = (semantic-para|theorem-like|footnote|ltxtoc|ltxtable)
+Sect.content = (semantic-para|theorem-like|
+itemize|enumerate|description|\list|
+footnote|ltxtoc|ltxtable|ltxfigure)
 
 
 sechead.content =
@@ -20,20 +22,20 @@ sechead.content =
 
 ## end of over-ride of ua2 schema
 
+pdf2rolemap-Title = attribute rolemaps-to {"Title"}
+
+## share UA-2 and UA-1 from here
+
 latex.document.content =
 (ltxartifact*
 &
 (
-(title-block? & ((section1|semantic-para|ltxsect|theorem-like|ltxtable|footnote|ltxlink|float|ltxaside|ltxfigure|ltxdiv)*,chapter1*,part*,(figures? & tables?)))
+(title-block?  & ((section1|Sect.content|ltxsect|footnote|ltxlink|float|ltxaside|ltxdiv)*,chapter1*,part*,(figures? & tables?)))
 |
-(title1-block? & ((section2|semantic-para|ltxsect|theorem-like|ltxtable|footnote|ltxlink|float|ltxaside|ltxfigure|ltxdiv)*,chapter2*,part*,(figures? & tables?)))
+(title1-block? & ((section2|Sect.content|ltxsect|footnote|ltxlink|float|ltxaside|ltxdiv)*,chapter2*,part*,(figures? & tables?)))
 )
 )
 
-
-pdf2rolemap-Title = attribute rolemaps-to {"Title"}
-
-## share UA-2 and UA-1 from here
 
 ## section heirarchy
 

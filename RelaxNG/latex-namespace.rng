@@ -11,9 +11,14 @@
       <choice>
         <ref name="semantic-para"/>
         <ref name="theorem-like"/>
+        <ref name="itemize"/>
+        <ref name="enumerate"/>
+        <ref name="description"/>
+        <ref name="list"/>
         <ref name="footnote"/>
         <ref name="ltxtoc"/>
         <ref name="ltxtable"/>
+        <ref name="ltxfigure"/>
       </choice>
     </define>
     <define name="sechead.content">
@@ -26,8 +31,14 @@
       </zeroOrMore>
     </define>
   </include>
-  <define name="latex.document.content">
+  <define name="pdf2rolemap-Title">
     <a:documentation>end of over-ride of ua2 schema</a:documentation>
+    <attribute name="rolemaps-to">
+      <value>Title</value>
+    </attribute>
+  </define>
+  <define name="latex.document.content">
+    <a:documentation>share UA-2 and UA-1 from here</a:documentation>
     <interleave>
       <zeroOrMore>
         <ref name="ltxartifact"/>
@@ -41,15 +52,12 @@
             <zeroOrMore>
               <choice>
                 <ref name="section1"/>
-                <ref name="semantic-para"/>
+                <ref name="Sect.content"/>
                 <ref name="ltxsect"/>
-                <ref name="theorem-like"/>
-                <ref name="ltxtable"/>
                 <ref name="footnote"/>
                 <ref name="ltxlink"/>
                 <ref name="float"/>
                 <ref name="ltxaside"/>
-                <ref name="ltxfigure"/>
                 <ref name="ltxdiv"/>
               </choice>
             </zeroOrMore>
@@ -77,15 +85,12 @@
             <zeroOrMore>
               <choice>
                 <ref name="section2"/>
-                <ref name="semantic-para"/>
+                <ref name="Sect.content"/>
                 <ref name="ltxsect"/>
-                <ref name="theorem-like"/>
-                <ref name="ltxtable"/>
                 <ref name="footnote"/>
                 <ref name="ltxlink"/>
                 <ref name="float"/>
                 <ref name="ltxaside"/>
-                <ref name="ltxfigure"/>
                 <ref name="ltxdiv"/>
               </choice>
             </zeroOrMore>
@@ -108,13 +113,7 @@
       </choice>
     </interleave>
   </define>
-  <define name="pdf2rolemap-Title">
-    <attribute name="rolemaps-to">
-      <value>Title</value>
-    </attribute>
-  </define>
   <define name="title-block">
-    <a:documentation>share UA-2 and UA-1 from here</a:documentation>
     <a:documentation>section heirarchy</a:documentation>
     <element name="latexSE:title-block">
       <attribute name="rolemaps-to">

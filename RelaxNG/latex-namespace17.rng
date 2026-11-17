@@ -27,12 +27,8 @@
         <choice>
           <ref name="heading-fragment"/>
           <ref name="heading-parbox"/>
-          <text/>
-          <ref name="text-fragment"/>
-          <ref name="ltxspan"/>
-          <ref name="footnotemark"/>
-          <ref name="ltxformula"/>
-          <ref name="ltxlink"/>
+          <ref name="latex.inline.content"/>
+          <ref name="text-block"/>
         </choice>
       </zeroOrMore>
     </define>

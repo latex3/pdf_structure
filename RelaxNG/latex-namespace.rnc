@@ -16,7 +16,7 @@ footnote|ltxtoc|ltxtable|ltxfigure)
 
 
 sechead.content =
-  (heading-fragment|heading-parbox|latex.inline.content)*
+  (heading-fragment|heading-parbox|latex.inline.content|text-block)*
   
 }
 

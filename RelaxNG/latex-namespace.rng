@@ -27,6 +27,7 @@
           <ref name="heading-fragment"/>
           <ref name="heading-parbox"/>
           <ref name="latex.inline.content"/>
+          <ref name="text-block"/>
         </choice>
       </zeroOrMore>
     </define>

@@ -65,6 +65,7 @@
                 <ref name="float"/>
                 <ref name="ltxaside"/>
                 <ref name="ltxdiv"/>
+                <ref name="ltxp"/>
               </choice>
             </zeroOrMore>
             <zeroOrMore>
@@ -98,6 +99,7 @@
                 <ref name="float"/>
                 <ref name="ltxaside"/>
                 <ref name="ltxdiv"/>
+                <ref name="ltxp"/>
               </choice>
             </zeroOrMore>
             <zeroOrMore>
@@ -1734,6 +1736,15 @@
           <ref name="text-block"/>
           <ref name="semantic-para"/>
         </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="ltxp">
+    <element>
+      <name ns="">P</name>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <ref name="latex.inline.content"/>
       </zeroOrMore>
     </element>
   </define>

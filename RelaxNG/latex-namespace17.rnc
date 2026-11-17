@@ -31,9 +31,9 @@ latex.document.content =
 (ltxartifact*
 &
 (
-(title-block?  & ((section1|Sect.content|ltxsect|footnote|ltxlink|float|ltxaside|ltxdiv)*,chapter1*,part*,(figures? & tables?)))
+(title-block?  & ((section1|Sect.content|ltxsect|footnote|ltxlink|float|ltxaside|ltxdiv|ltxp)*,chapter1*,part*,(figures? & tables?)))
 |
-(title1-block? & ((section2|Sect.content|ltxsect|footnote|ltxlink|float|ltxaside|ltxdiv)*,chapter2*,part*,(figures? & tables?)))
+(title1-block? & ((section2|Sect.content|ltxsect|footnote|ltxlink|float|ltxaside|ltxdiv|ltxp)*,chapter2*,part*,(figures? & tables?)))
 )
 )
 
@@ -658,3 +658,8 @@ ltxtitle = element pdf2:Title {
  pdf2-attributes,
  (latex.inline.content|text-block|semantic-para)*
  }
+
+ltxp = element pdf2:P {
+pdf2-attributes,
+(latex.inline.content)*
+}

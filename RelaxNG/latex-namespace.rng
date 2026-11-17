@@ -1642,6 +1642,7 @@
         <choice>
           <ref name="latex.inline.content"/>
           <ref name="text-block"/>
+          <ref name="semantic-para"/>
         </choice>
       </zeroOrMore>
     </element>

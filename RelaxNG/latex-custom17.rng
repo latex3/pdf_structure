@@ -46,20 +46,6 @@
       </choice>
     </zeroOrMore>
   </define>
-  <define name="ltxtitle">
-    <element>
-      <name ns="">Title</name>
-      <ref name="pdf1rolemap-P"/>
-      <ref name="pdf2-attributes"/>
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="text-fragment"/>
-          <ref name="semantic-para"/>
-        </choice>
-      </zeroOrMore>
-    </element>
-  </define>
   <define name="Conference_information">
     <element>
       <name ns="">Conference_information</name>

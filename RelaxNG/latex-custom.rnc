@@ -28,11 +28,6 @@ latex.document.content |=
 (Conference_information,semantic-para*,ltxtitle*,Authors*,Affiliations-group*,
 footnote*,section*,(figures|tables)*)
 
-ltxtitle = element pdf2:Title {
- pdf1rolemap-P,
- pdf2-attributes,
- (text|text-fragment|semantic-para)*
- }
 
 Conference_information =element latexSEamse:Conference_information {
   showtags-attributes,

@@ -655,5 +655,5 @@ ltxbibentry = element pdf2:BibEntry {
 
 ltxtitle = element pdf2:Title {
  pdf2-attributes,
- (latex.inline.content|text-block)*
+ (latex.inline.content|text-block|semantic-para)*
  }

@@ -128,6 +128,12 @@
           <ref name="title-text"/>
         </oneOrMore>
         <zeroOrMore>
+          <ref name="text-block"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="semantic-para"/>
+        </zeroOrMore>
+        <zeroOrMore>
           <choice>
             <ref name="title-author"/>
             <ref name="title-date"/>
@@ -146,6 +152,12 @@
         <oneOrMore>
           <ref name="title1-text"/>
         </oneOrMore>
+        <zeroOrMore>
+          <ref name="text-block"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="semantic-para"/>
+        </zeroOrMore>
         <zeroOrMore>
           <choice>
             <ref name="title-author"/>
@@ -1504,6 +1516,7 @@
           <ref name="text-fragment"/>
           <ref name="semantic-para"/>
           <ref name="ltxdiv"/>
+          <ref name="ltxlink"/>
         </choice>
       </zeroOrMore>
     </element>

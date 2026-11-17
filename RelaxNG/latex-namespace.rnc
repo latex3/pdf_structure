@@ -42,13 +42,13 @@ latex.document.content =
 title-block = element latexSE:title-block {
   attribute rolemaps-to {"Div"},
   pdf2-attributes,
-  (title-text+ & (title-author|title-date)*)
+  (title-text+ & text-block* & semantic-para* & (title-author|title-date)*)
 }
 
 title1-block = element latexSE:title-block {
   attribute rolemaps-to {"Div"},
   pdf2-attributes,
-  (title1-text+ & (title-author|title-date)*)
+  (title1-text+ &  text-block* &  semantic-para* & (title-author|title-date)*)
 }
 
 title-text = element latexSE:title-text {
@@ -584,7 +584,7 @@ ltxartifact = element pdf2:Artifact {
   pdf1rolemap-Any,
   pdf2-attributes,
   artifact-attributes,
-(text|text-fragment|semantic-para|ltxdiv)*
+(text|text-fragment|semantic-para|ltxdiv|ltxlink)*
 }
 
 ltxcaption = element pdf2:Caption {

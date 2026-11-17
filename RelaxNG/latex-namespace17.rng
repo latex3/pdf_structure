@@ -1582,6 +1582,7 @@
           <ref name="text-fragment"/>
           <ref name="semantic-para"/>
           <ref name="ltxdiv"/>
+          <ref name="ltxlink"/>
         </choice>
       </zeroOrMore>
     </element>

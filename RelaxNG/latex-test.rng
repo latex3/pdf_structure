@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0">
-  <!-- LaTeX tagging test suite schema v1.7b -->
+  <!-- LaTeX tagging test suite schema v1.7c -->
   <define name="ua2">
     <externalRef href="latex-bible.rng"/>
   </define>
   <define name="ua1">
     <externalRef href="latex-bible17.rng"/>
+  </define>
+  <define name="ua2play">
+    <externalRef href="latex-play.rng"/>
+  </define>
+  <define name="ua1play">
+    <externalRef href="latex-play17.rng"/>
   </define>
   <define name="ua2custom">
     <externalRef href="latex-custom.rng"/>
@@ -20,6 +26,8 @@
     <choice>
       <ref name="ua2"/>
       <ref name="ua1"/>
+      <ref name="ua2play"/>
+      <ref name="ua1play"/>
       <ref name="ua2custom"/>
       <ref name="ua1custom"/>
       <ref name="talk"/>

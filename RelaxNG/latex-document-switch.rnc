@@ -1,8 +1,10 @@
-# LaTeX PDF 2.0 Namespace switch schema v1.7b
+# LaTeX PDF 2.0 Namespace switch schema v1.7c
 
 ua2 = external "latex-bible.rnc"
 ua1 = external "latex-bible17.rnc"
 ua2play = external "latex-play.rnc"
 ua1play = external "latex-play17.rnc"
+ua2custom = external "latex-custom.rnc"
+ua1custom = external "latex-custom17.rnc"
 talk = external "ltx-talk.rnc"
-start = ua2 | ua1 | ua2play | ua1play | talk
+start = ua2 | ua1 | ua2play | ua1play | ua2custom | ua1custom | talk

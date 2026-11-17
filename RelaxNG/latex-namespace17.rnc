@@ -585,7 +585,7 @@ ltxartifact = element pdf2:Artifact {
   pdf1rolemap-Any,
   pdf2-attributes,
   artifact-attributes,
-(text|text-fragment|semantic-para|ltxdiv)*
+(text|text-fragment|semantic-para|ltxdiv|ltxlink)*
 }
 
 ltxcaption = element pdf2:Caption {

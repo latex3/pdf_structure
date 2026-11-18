@@ -1,9 +1,9 @@
 # LaTeX PDF 2.0 Namespace Schema extensions v1.7c
 
 namespace pdf2 = "http://iso.org/pdf2/ssn"
-namespace latexSEamse = "https://www.latex-project.org/ns/local/asmeconf"
+namespace asmeconf = "https://www.latex-project.org/ns/local/asmeconf"
+namespace asmejour = "https://www.latex-project.org/ns/local/asmejour"
 namespace luatexko = "https://www.latex-project.org/ns/local/luatexko"
-namespace latexSEamsej = "https://www.latex-project.org/ns/local/asmejour"
 namespace mitthesis = "https://www.latex-project.org/ns/local/mitthesis"
 namespace test = "https://www.latex-project.org/ns/local"
 
@@ -30,7 +30,7 @@ latex.document.content |=
 footnote*,section*,(figures|tables)*)
 
 
-Conference_information =element latexSEamse:Conference_information {
+Conference_information =element asmeconf:Conference_information {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
@@ -39,37 +39,28 @@ Conference_information =element latexSEamse:Conference_information {
 
 
 
-Div |= element latexSEamse:Author_affiliation {
+Div |= element asmeconf:Author_affiliation {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
   semantic-para*
   }
 
-Affiliations-group = element latexSEamse:Affiliations-group {
+Affiliations-group = element asmeconf:Affiliations-group {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
   semantic-para*
   }
 
-Div|= element latexSEamse:Affiliation {
+Div|= element asmeconf:Affiliation {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
   semantic-para*
   }
 
-Authors = element latexSEamse:Authors {
-  showtags-attributes,
-  attribute rolemaps-to {"Div"},
-  attribute id {text}?,
-  attribute title {text}?,
-  semantic-para*
-  }
-
-
-semantic-para |= element latexSEamse:Paper_number {
+Authors = element asmeconf:Authors {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
@@ -78,14 +69,23 @@ semantic-para |= element latexSEamse:Paper_number {
   }
 
 
-Sect.content |= element latexSEamse:Nomenclature_list {
+semantic-para |= element asmeconf:Paper_number {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  semantic-para*
+  }
+
+
+Sect.content |= element asmeconf:Nomenclature_list {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
   semantic-para*
   }
 
-text-fragment |= element latexSEamse:Nomenclature_entry_heading {
+text-fragment |= element asmeconf:Nomenclature_entry_heading {
   showtags-attributes,
   attribute rolemaps-to {"Span"},
   attribute id {text}?,

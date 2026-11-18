@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- LaTeX PDF 2.0 Namespace Schema extensions v1.7c -->
-<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:latexSEamse="https://www.latex-project.org/ns/local/asmeconf" xmlns:luatexko="https://www.latex-project.org/ns/local/luatexko" xmlns:latexSEamsej="https://www.latex-project.org/ns/local/asmejour" xmlns:pdf2="http://iso.org/pdf2/ssn" xmlns:test="https://www.latex-project.org/ns/local" xmlns:mitthesis="https://www.latex-project.org/ns/local/mitthesis" xmlns="http://relaxng.org/ns/structure/1.0">
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:asmeconf="https://www.latex-project.org/ns/local/asmeconf" xmlns:luatexko="https://www.latex-project.org/ns/local/luatexko" xmlns:asmejour="https://www.latex-project.org/ns/local/asmejour" xmlns:pdf2="http://iso.org/pdf2/ssn" xmlns:test="https://www.latex-project.org/ns/local" xmlns:mitthesis="https://www.latex-project.org/ns/local/mitthesis" xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="latex-namespace.rng"/>
   <!-- asmeconf -->
   <!--
@@ -44,7 +44,7 @@
     </zeroOrMore>
   </define>
   <define name="Conference_information">
-    <element name="latexSEamse:Conference_information">
+    <element name="asmeconf:Conference_information">
       <ref name="showtags-attributes"/>
       <attribute name="rolemaps-to">
         <value>Div</value>
@@ -58,7 +58,7 @@
     </element>
   </define>
   <define name="Div" combine="choice">
-    <element name="latexSEamse:Author_affiliation">
+    <element name="asmeconf:Author_affiliation">
       <ref name="showtags-attributes"/>
       <attribute name="rolemaps-to">
         <value>Div</value>
@@ -72,7 +72,7 @@
     </element>
   </define>
   <define name="Affiliations-group">
-    <element name="latexSEamse:Affiliations-group">
+    <element name="asmeconf:Affiliations-group">
       <ref name="showtags-attributes"/>
       <attribute name="rolemaps-to">
         <value>Div</value>
@@ -86,7 +86,7 @@
     </element>
   </define>
   <define name="Div" combine="choice">
-    <element name="latexSEamse:Affiliation">
+    <element name="asmeconf:Affiliation">
       <ref name="showtags-attributes"/>
       <attribute name="rolemaps-to">
         <value>Div</value>
@@ -100,7 +100,7 @@
     </element>
   </define>
   <define name="Authors">
-    <element name="latexSEamse:Authors">
+    <element name="asmeconf:Authors">
       <ref name="showtags-attributes"/>
       <attribute name="rolemaps-to">
         <value>Div</value>
@@ -117,7 +117,7 @@
     </element>
   </define>
   <define name="semantic-para" combine="choice">
-    <element name="latexSEamse:Paper_number">
+    <element name="asmeconf:Paper_number">
       <ref name="showtags-attributes"/>
       <attribute name="rolemaps-to">
         <value>Div</value>
@@ -134,7 +134,7 @@
     </element>
   </define>
   <define name="Sect.content" combine="choice">
-    <element name="latexSEamse:Nomenclature_list">
+    <element name="asmeconf:Nomenclature_list">
       <ref name="showtags-attributes"/>
       <attribute name="rolemaps-to">
         <value>Div</value>
@@ -148,7 +148,7 @@
     </element>
   </define>
   <define name="text-fragment" combine="choice">
-    <element name="latexSEamse:Nomenclature_entry_heading">
+    <element name="asmeconf:Nomenclature_entry_heading">
       <ref name="showtags-attributes"/>
       <attribute name="rolemaps-to">
         <value>Span</value>

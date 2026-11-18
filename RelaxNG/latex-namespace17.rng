@@ -130,6 +130,12 @@
           <ref name="title-text"/>
         </oneOrMore>
         <zeroOrMore>
+          <ref name="text-block"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="semantic-para"/>
+        </zeroOrMore>
+        <zeroOrMore>
           <choice>
             <ref name="title-author"/>
             <ref name="title-date"/>
@@ -149,6 +155,12 @@
         <oneOrMore>
           <ref name="title1-text"/>
         </oneOrMore>
+        <zeroOrMore>
+          <ref name="text-block"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="semantic-para"/>
+        </zeroOrMore>
         <zeroOrMore>
           <choice>
             <ref name="title-author"/>
@@ -1090,7 +1102,10 @@
       <name ns="">Div</name>
       <ref name="pdf2-attributes"/>
       <zeroOrMore>
-        <ref name="text-block"/>
+        <choice>
+          <ref name="text-block"/>
+          <ref name="semantic-para"/>
+        </choice>
       </zeroOrMore>
     </element>
   </define>

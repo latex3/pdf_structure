@@ -2,10 +2,7 @@
 <!-- LaTeX PDF 1.7 Namespace Schema extensions v1.7c -->
 <grammar xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="latex-namespace17.rng"/>
-  <!--
-    asmeconf
-    asmeconf
-  -->
+  <!-- asmeconf -->
   <!--
        \tagpdfsetup { role/new-tag = { Conference_information/Div       } }
        \tagpdfsetup { role/new-tag = { Paper_number/Div                 } }

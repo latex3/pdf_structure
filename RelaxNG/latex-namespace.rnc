@@ -422,7 +422,7 @@ ltxtoci = element pdf1:TOCI {
 
 
 ltxdiv = element pdf2:Div {pdf2-attributes,
-(text-block)*
+(text-block|semantic-para)*
 }
 
 # should be text-fragment?

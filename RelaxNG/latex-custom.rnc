@@ -5,6 +5,7 @@ namespace latexSEamse = "https://www.latex-project.org/ns/local/asmeconf"
 namespace luatexko = "https://www.latex-project.org/ns/local/luatexko"
 namespace latexSEamsej = "https://www.latex-project.org/ns/local/asmejour"
 namespace mitthesis = "https://www.latex-project.org/ns/local/mitthesis"
+namespace test = "https://www.latex-project.org/ns/local"
 
 include "latex-namespace.rnc"
 
@@ -183,3 +184,23 @@ Span |= element mitthesis:Nomenclature_entry_heading{
   attribute title {text}?,
   (ltxem|ltxspan)*
   }
+
+# local test
+
+text-block |= element test:authornotes {
+ attribute rolemaps-to {"Part"},
+ pdf2-attributes,
+ authornote*
+}
+authornote = element test:authornote {
+ attribute rolemaps-to {"FENote"},
+ pdf2-attributes,
+ authornotelabel?,ltxdiv
+}
+
+
+authornotelabel = element test:authornotelabel {
+ attribute rolemaps-to {"Lbl"},
+ pdf2-attributes,
+ (latex.inline.content)*
+}

@@ -6,12 +6,9 @@ namespace luatexko = ""
 namespace latexSEamsej = ""
 namespace mitthesis = ""
 
-
 include "latex-namespace17.rnc"
 
 
-
-# asmeconf
 # asmeconf
 
 #    \tagpdfsetup { role/new-tag = { Conference_information/Div       } }

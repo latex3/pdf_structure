@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- LaTeX PDF 2.0 Namespace Schema extensions v1.7c -->
-<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:latexSEamse="https://www.latex-project.org/ns/local/asmeconf" xmlns:luatexko="https://www.latex-project.org/ns/local/luatexko" xmlns:latexSEamsej="https://www.latex-project.org/ns/local/asmejour" xmlns:pdf2="http://iso.org/pdf2/ssn" xmlns:mitthesis="https://www.latex-project.org/ns/local/mitthesis" xmlns="http://relaxng.org/ns/structure/1.0">
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:latexSEamse="https://www.latex-project.org/ns/local/asmeconf" xmlns:luatexko="https://www.latex-project.org/ns/local/luatexko" xmlns:latexSEamsej="https://www.latex-project.org/ns/local/asmejour" xmlns:pdf2="http://iso.org/pdf2/ssn" xmlns:test="https://www.latex-project.org/ns/local" xmlns:mitthesis="https://www.latex-project.org/ns/local/mitthesis" xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="latex-namespace.rng"/>
   <!-- asmeconf -->
   <!--
@@ -378,6 +378,41 @@
           <ref name="ltxem"/>
           <ref name="ltxspan"/>
         </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!-- local test -->
+  <define name="text-block" combine="choice">
+    <element name="test:authornotes">
+      <attribute name="rolemaps-to">
+        <value>Part</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <ref name="authornote"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="authornote">
+    <element name="test:authornote">
+      <attribute name="rolemaps-to">
+        <value>FENote</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <optional>
+        <ref name="authornotelabel"/>
+      </optional>
+      <ref name="ltxdiv"/>
+    </element>
+  </define>
+  <define name="authornotelabel">
+    <element name="test:authornotelabel">
+      <attribute name="rolemaps-to">
+        <value>Lbl</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <ref name="latex.inline.content"/>
       </zeroOrMore>
     </element>
   </define>

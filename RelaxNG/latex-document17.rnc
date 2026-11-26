@@ -1,4 +1,4 @@
-# LaTeX PDF 1.7 Namespace Schema v1.7b
+# LaTeX PDF 1.7 Namespace Schema v1.8
 
 namespace latexSE = ""
 namespace latexSEbook = ""
@@ -30,7 +30,7 @@ heading5 = element latexSE:subparagraph-heading  {pdf2-attributes, attribute rol
 part = element latexSE:part                  {pdf2-attributes,attribute rolemaps-to {"Part"}, heading0,(bookchapter|section|Sect.content)*}
 section = element latexSE:section            {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading1,(subsection|Sect.content)*}
 subsection = element latexSE:subsection      {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading2,(subsubsection|Sect.content)*}
-subsubsection = element latexSE:subsubection {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading3,(paragraph|Sect.content)*}
+subsubsection = element latexSE:subsubsection {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading3,(paragraph|Sect.content)*}
 paragraph = element latexSE:paragraph        {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading4,(subparagraph|Sect.content)*}
 subparagraph = element latexSE:subparagraph  {pdf2-attributes,attribute rolemaps-to {"Sect"}, heading5,(Sect.content)*}
 Part |= part
@@ -101,19 +101,19 @@ title-block = element latexSE:title-block {
 title-text = element latexSE:title-text {
   attribute rolemaps-to {"Title"|"P"},
    pdf2-attributes,
-   (text|Span)*
+   (text|footnotemark|Link|Span)*
  }
 
 h1title-text = element latexH1:title-text {
   attribute rolemaps-to {"H1"},
    pdf2-attributes,
-   (text|Span)*
+   (text|footnotemark|Link|Span)*
  }
 
 h1 = element html:h1 {
   attribute rolemaps-to {"Title"},
    pdf2-attributes,
-   (text|Span)*
+   (text|footnotemark|Link|Span)*
  }
 
 

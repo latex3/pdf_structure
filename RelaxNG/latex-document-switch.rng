@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0">
-  <!-- LaTeX PDF 2.0 Namespace switch schema v1.7b -->
+  <!-- LaTeX PDF 2.0 Namespace switch schema v1.8 -->
   <define name="ua2">
     <externalRef href="latex-bible.rng"/>
   </define>
@@ -13,6 +13,12 @@
   <define name="ua1play">
     <externalRef href="latex-play17.rng"/>
   </define>
+  <define name="ua2custom">
+    <externalRef href="latex-custom.rng"/>
+  </define>
+  <define name="ua1custom">
+    <externalRef href="latex-custom17.rng"/>
+  </define>
   <define name="talk">
     <externalRef href="ltx-talk.rng"/>
   </define>
@@ -22,6 +28,8 @@
       <ref name="ua1"/>
       <ref name="ua2play"/>
       <ref name="ua1play"/>
+      <ref name="ua2custom"/>
+      <ref name="ua1custom"/>
       <ref name="talk"/>
     </choice>
   </start>

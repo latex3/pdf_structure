@@ -1,9 +1,11 @@
-show-pdf-tags v1.7b
+show-pdf-tags v1.8
 
-The show-pdf-tags script is unchanged in this release.
+The show-pdf-tags script has new option --hideid  to hide id attributes from
+the XML display of the structure tree.
 
-The Schema have been updated to match the LaTeX Structure Elements
-introduced in the latex-dev release of LaTeX2e 2026-11-01
+The Schema have been completely restructured to take account of new LaTeX namespace
+structure elements that were introduced in the last LaTeX release.
+
 
 
 

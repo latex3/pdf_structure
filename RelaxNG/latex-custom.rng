@@ -1,100 +1,163 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- LaTeX PDF 2.0 Namespace Schema extensions v1.7b -->
-<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:latexSEamse="https://www.latex-project.org/ns/local/asmeconf" xmlns:latexSEamsej="https://www.latex-project.org/ns/local/asmejour" xmlns:luatexko="https://www.latex-project.org/ns/local/luatexko" xmlns:mitthesis="https://www.latex-project.org/ns/local/mitthesis" xmlns:latexSEplay="https://www.latex-project.org/ns/local/plays" xmlns="http://relaxng.org/ns/structure/1.0">
-  <include href="latex-document.rng"/>
-  <!-- LaTeX play -->
-  <define name="Span" combine="choice">
-    <element name="latexSEplay:SceneDescription">
-      <ref name="pdf2-attributes"/>
+<!-- LaTeX PDF 2.0 Namespace Schema extensions v1.8 -->
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:asmeconf="https://www.latex-project.org/ns/local/asmeconf" xmlns:luatexko="https://www.latex-project.org/ns/local/luatexko" xmlns:asmejour="https://www.latex-project.org/ns/local/asmejour" xmlns:pdf2="http://iso.org/pdf2/ssn" xmlns:test="https://www.latex-project.org/ns/local" xmlns:mitthesis="https://www.latex-project.org/ns/local/mitthesis" xmlns="http://relaxng.org/ns/structure/1.0">
+  <include href="latex-namespace.rng"/>
+  <!-- asmeconf -->
+  <!--
+       \tagpdfsetup { role/new-tag = { Conference_information/Div       } }
+       \tagpdfsetup { role/new-tag = { Paper_number/Div                 } }
+       \tagpdfsetup { role/new-tag = { Author_affiliation/Div           } }
+       \tagpdfsetup { role/new-tag = { Authors/Div                      } }
+       \tagpdfsetup { role/new-tag = { Affiliations-group/Div           } }
+       \tagpdfsetup { role/new-tag = { Affiliation/Part                 } }
+    
+       \tagpdfsetup { role/new-tag = { Nomenclature_list/Div            } }
+       \tagpdfsetup { role/new-tag = { Nomenclature_entry_heading/Span  } }
+       
+       \tagpdfsetup { role/new-tag = { Wrapper/P } } % for coffin tagging
+  -->
+  <define name="latex.document.content" combine="choice">
+    <ref name="Conference_information"/>
+    <zeroOrMore>
+      <ref name="semantic-para"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="ltxtitle"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="Authors"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="Affiliations-group"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="footnote"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="section"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <choice>
+        <ref name="figures"/>
+        <ref name="tables"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="Conference_information">
+    <element name="asmeconf:Conference_information">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="semantic-para"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Div" combine="choice">
+    <element name="asmeconf:Author_affiliation">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="semantic-para"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Affiliations-group">
+    <element name="asmeconf:Affiliations-group">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="semantic-para"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Div" combine="choice">
+    <element name="asmeconf:Affiliation">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="semantic-para"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Authors">
+    <element name="asmeconf:Authors">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <optional>
+        <attribute name="title"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="semantic-para"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="semantic-para" combine="choice">
+    <element name="asmeconf:Paper_number">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <optional>
+        <attribute name="title"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="semantic-para"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Sect.content" combine="choice">
+    <element name="asmeconf:Nomenclature_list">
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="semantic-para"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="text-fragment" combine="choice">
+    <element name="asmeconf:Nomenclature_entry_heading">
+      <ref name="showtags-attributes"/>
       <attribute name="rolemaps-to">
         <value>Span</value>
       </attribute>
-      <text/>
-    </element>
-  </define>
-  <define name="Strong" combine="choice">
-    <element name="latexSEplay:Speaker">
-      <ref name="pdf2-attributes"/>
-      <attribute name="rolemaps-to">
-        <value>Strong</value>
-      </attribute>
-      <text/>
-    </element>
-  </define>
-  <!-- asmeconf -->
-  <define name="Div" combine="choice">
-    <element name="latexSEamse:Conference_information">
-      <ref name="showtags-attributes"/>
-      <attribute name="rolemaps-to">
-        <value>Div</value>
-      </attribute>
       <optional>
         <attribute name="id"/>
       </optional>
       <zeroOrMore>
-        <ref name="text-unit"/>
-      </zeroOrMore>
-    </element>
-  </define>
-  <define name="Div" combine="choice">
-    <element name="latexSEamse:Author_Affiliation">
-      <ref name="showtags-attributes"/>
-      <attribute name="rolemaps-to">
-        <value>Div</value>
-      </attribute>
-      <optional>
-        <attribute name="id"/>
-      </optional>
-      <zeroOrMore>
-        <ref name="text-unit"/>
-      </zeroOrMore>
-    </element>
-  </define>
-  <define name="Div" combine="choice">
-    <element name="latexSEamse:Affiliation">
-      <ref name="showtags-attributes"/>
-      <attribute name="rolemaps-to">
-        <value>Div</value>
-      </attribute>
-      <optional>
-        <attribute name="id"/>
-      </optional>
-      <zeroOrMore>
-        <ref name="text-unit"/>
-      </zeroOrMore>
-    </element>
-  </define>
-  <define name="Div" combine="choice">
-    <element name="latexSEamsej:Author_Block">
-      <ref name="showtags-attributes"/>
-      <attribute name="rolemaps-to">
-        <value>Div</value>
-      </attribute>
-      <optional>
-        <attribute name="id"/>
-      </optional>
-      <optional>
-        <attribute name="title"/>
-      </optional>
-      <zeroOrMore>
-        <ref name="text-unit"/>
-      </zeroOrMore>
-    </element>
-  </define>
-  <define name="Div" combine="choice">
-    <element name="latexSEamse:Paper_number">
-      <ref name="showtags-attributes"/>
-      <attribute name="rolemaps-to">
-        <value>Div</value>
-      </attribute>
-      <optional>
-        <attribute name="id"/>
-      </optional>
-      <optional>
-        <attribute name="title"/>
-      </optional>
-      <zeroOrMore>
-        <ref name="text-unit"/>
+        <ref name="latex.inline.content"/>
       </zeroOrMore>
     </element>
   </define>
@@ -121,7 +184,7 @@
       </attribute>
       <zeroOrMore>
         <choice>
-          <ref name="text-unit"/>
+          <ref name="semantic-para"/>
           <ref name="P"/>
         </choice>
       </zeroOrMore>
@@ -135,7 +198,7 @@
       </attribute>
       <zeroOrMore>
         <choice>
-          <ref name="text-unit"/>
+          <ref name="semantic-para"/>
           <ref name="P"/>
         </choice>
       </zeroOrMore>
@@ -155,7 +218,7 @@
         <attribute name="title"/>
       </optional>
       <zeroOrMore>
-        <ref name="text-unit"/>
+        <ref name="semantic-para"/>
       </zeroOrMore>
     </element>
   </define>
@@ -172,7 +235,7 @@
         <attribute name="title"/>
       </optional>
       <zeroOrMore>
-        <ref name="text-unit"/>
+        <ref name="semantic-para"/>
       </zeroOrMore>
     </element>
   </define>
@@ -189,7 +252,7 @@
         <attribute name="title"/>
       </optional>
       <zeroOrMore>
-        <ref name="text-unit"/>
+        <ref name="semantic-para"/>
       </zeroOrMore>
     </element>
   </define>
@@ -206,7 +269,7 @@
         <attribute name="title"/>
       </optional>
       <zeroOrMore>
-        <ref name="text-unit"/>
+        <ref name="semantic-para"/>
       </zeroOrMore>
     </element>
   </define>
@@ -223,7 +286,7 @@
         <attribute name="title"/>
       </optional>
       <zeroOrMore>
-        <ref name="text-unit"/>
+        <ref name="semantic-para"/>
       </zeroOrMore>
     </element>
   </define>
@@ -240,7 +303,7 @@
         <attribute name="title"/>
       </optional>
       <zeroOrMore>
-        <ref name="text-unit"/>
+        <ref name="semantic-para"/>
       </zeroOrMore>
     </element>
   </define>
@@ -257,7 +320,7 @@
         <attribute name="title"/>
       </optional>
       <zeroOrMore>
-        <ref name="text-unit"/>
+        <ref name="semantic-para"/>
       </zeroOrMore>
     </element>
   </define>
@@ -274,7 +337,7 @@
         <attribute name="title"/>
       </optional>
       <zeroOrMore>
-        <ref name="text-unit"/>
+        <ref name="semantic-para"/>
       </zeroOrMore>
     </element>
   </define>
@@ -293,7 +356,7 @@
       <zeroOrMore>
         <choice>
           <ref name="Div"/>
-          <ref name="text-unit"/>
+          <ref name="semantic-para"/>
         </choice>
       </zeroOrMore>
     </element>
@@ -312,9 +375,44 @@
       </optional>
       <zeroOrMore>
         <choice>
-          <ref name="Em"/>
-          <ref name="Span"/>
+          <ref name="ltxem"/>
+          <ref name="ltxspan"/>
         </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!-- local test -->
+  <define name="text-block" combine="choice">
+    <element name="test:authornotes">
+      <attribute name="rolemaps-to">
+        <value>Part</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <ref name="authornote"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="authornote">
+    <element name="test:authornote">
+      <attribute name="rolemaps-to">
+        <value>FENote</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <optional>
+        <ref name="authornotelabel"/>
+      </optional>
+      <ref name="ltxdiv"/>
+    </element>
+  </define>
+  <define name="authornotelabel">
+    <element name="test:authornotelabel">
+      <attribute name="rolemaps-to">
+        <value>Lbl</value>
+      </attribute>
+      <ref name="pdf2-attributes"/>
+      <zeroOrMore>
+        <ref name="latex.inline.content"/>
       </zeroOrMore>
     </element>
   </define>

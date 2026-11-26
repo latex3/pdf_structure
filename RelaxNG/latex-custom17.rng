@@ -1,29 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- LaTeX PDF 1.7 Namespace Schema extensions v1.8 -->
 <grammar xmlns="http://relaxng.org/ns/structure/1.0">
-  <!-- LaTeX PDF 1.7 Namespace Schema extensions v1.7b -->
-  <include href="latex-document17.rng"/>
-  <!-- LaTeX play -->
-  <define name="Span" combine="choice">
-    <element name="SceneDescription">
-      <ref name="pdf2-attributes"/>
-      <attribute name="rolemaps-to">
-        <value>Span</value>
-      </attribute>
-      <text/>
-    </element>
-  </define>
-  <define name="Strong" combine="choice">
-    <element name="Speaker">
-      <ref name="pdf2-attributes"/>
-      <attribute name="rolemaps-to">
-        <value>Span</value>
-      </attribute>
-      <text/>
-    </element>
-  </define>
+  <include href="latex-namespace17.rng"/>
   <!-- asmeconf -->
-  <define name="Div" combine="choice">
-    <element name="Conference_information">
+  <!--
+       \tagpdfsetup { role/new-tag = { Conference_information/Div       } }
+       \tagpdfsetup { role/new-tag = { Paper_number/Div                 } }
+       \tagpdfsetup { role/new-tag = { Author_affiliation/Div           } }
+       \tagpdfsetup { role/new-tag = { Authors/Div                      } }
+       \tagpdfsetup { role/new-tag = { Affiliations-group/Div           } }
+       \tagpdfsetup { role/new-tag = { Affiliation/Part                 } }
+    
+       \tagpdfsetup { role/new-tag = { Nomenclature_list/Div            } }
+       \tagpdfsetup { role/new-tag = { Nomenclature_entry_heading/Span  } }
+       
+       \tagpdfsetup { role/new-tag = { Wrapper/P } } % for coffin tagging
+  -->
+  <define name="latex.document.content" combine="choice">
+    <ref name="Conference_information"/>
+    <zeroOrMore>
+      <ref name="semantic-para"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="ltxtitle"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="Authors"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="Affiliations-group"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="footnote"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="section"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <choice>
+        <ref name="figures"/>
+        <ref name="tables"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="Conference_information">
+    <element>
+      <name ns="">Conference_information</name>
       <ref name="showtags-attributes"/>
       <attribute name="rolemaps-to">
         <value>Div</value>
@@ -32,12 +54,13 @@
         <attribute name="id"/>
       </optional>
       <zeroOrMore>
-        <ref name="text-unit"/>
+        <ref name="semantic-para"/>
       </zeroOrMore>
     </element>
   </define>
   <define name="Div" combine="choice">
-    <element name="Author_Affiliation">
+    <element>
+      <name ns="">Author_affiliation</name>
       <ref name="showtags-attributes"/>
       <attribute name="rolemaps-to">
         <value>Div</value>
@@ -46,12 +69,28 @@
         <attribute name="id"/>
       </optional>
       <zeroOrMore>
-        <ref name="text-unit"/>
+        <ref name="semantic-para"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Affiliations-group">
+    <element>
+      <name ns="">Affiliations-group</name>
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="semantic-para"/>
       </zeroOrMore>
     </element>
   </define>
   <define name="Div" combine="choice">
-    <element name="Affiliation">
+    <element>
+      <name ns="">Affiliation</name>
       <ref name="showtags-attributes"/>
       <attribute name="rolemaps-to">
         <value>Div</value>
@@ -60,7 +99,73 @@
         <attribute name="id"/>
       </optional>
       <zeroOrMore>
-        <ref name="text-unit"/>
+        <ref name="semantic-para"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Authors">
+    <element>
+      <name ns="">Authors</name>
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <optional>
+        <attribute name="title"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="semantic-para"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="semantic-para" combine="choice">
+    <element>
+      <name ns="">Paper_number</name>
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <optional>
+        <attribute name="title"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="semantic-para"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="Sect.content" combine="choice">
+    <element>
+      <name ns="">Nomenclature_list</name>
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Div</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="semantic-para"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="text-fragment" combine="choice">
+    <element>
+      <name ns="">Nomenclature_entry_heading</name>
+      <ref name="showtags-attributes"/>
+      <attribute name="rolemaps-to">
+        <value>Span</value>
+      </attribute>
+      <optional>
+        <attribute name="id"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="latex.inline.content"/>
       </zeroOrMore>
     </element>
   </define>

@@ -1,6 +1,6 @@
-# LaTeX PDF 2.0 Shakespeare Play Schema v1.7b
+# LaTeX PDF 2.0 Shakespeare Play Schema v1.8
 
 namespace latexSEplay = "https://www.latex-project.org/ns/local/plays"
-include "latex-document.rnc"
-Span |= element latexSEplay:SceneDescription {pdf2-attributes,attribute rolemaps-to {"Span"}, text}
-Strong |= element latexSEplay:Speaker {pdf2-attributes,attribute rolemaps-to {"Strong"},text}
+include "latex-namespace.rnc"
+ltxspan |= element latexSEplay:SceneDescription {pdf2-attributes,attribute rolemaps-to {"Span"}, text}
+ltxstrong |= element latexSEplay:Speaker {pdf2-attributes,attribute rolemaps-to {"Strong"},text}

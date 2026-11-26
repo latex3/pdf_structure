@@ -1,30 +1,92 @@
-# LaTeX PDF 1.7 Namespace Schema extensions v1.7b
+# LaTeX PDF 1.7 Namespace Schema extensions v1.8
 
-include "latex-document17.rnc"
+namespace pdf2 = ""
+namespace asmeconf = ""
+namespace luatexko = ""
+namespace asmeconfj = ""
+namespace mitthesis = ""
 
-# LaTeX play
-Span |= element SceneDescription {pdf2-attributes,attribute rolemaps-to {"Span"}, text}
-Strong |= element Speaker {pdf2-attributes,attribute rolemaps-to {"Span"},text}
+include "latex-namespace17.rnc"
 
 
 # asmeconf
-Div |= element Conference_information {
+
+#    \tagpdfsetup { role/new-tag = { Conference_information/Div       } }
+#    \tagpdfsetup { role/new-tag = { Paper_number/Div                 } }
+#    \tagpdfsetup { role/new-tag = { Author_affiliation/Div           } }
+#    \tagpdfsetup { role/new-tag = { Authors/Div                      } }
+#    \tagpdfsetup { role/new-tag = { Affiliations-group/Div           } }
+#    \tagpdfsetup { role/new-tag = { Affiliation/Part                 } }
+#
+#    \tagpdfsetup { role/new-tag = { Nomenclature_list/Div            } }
+#    \tagpdfsetup { role/new-tag = { Nomenclature_entry_heading/Span  } }
+#    
+#    \tagpdfsetup { role/new-tag = { Wrapper/P } } % for coffin tagging
+
+
+latex.document.content |=
+(Conference_information,semantic-para*,ltxtitle*,Authors*,Affiliations-group*,
+footnote*,section*,(figures|tables)*)
+
+
+Conference_information =element asmeconf:Conference_information {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
-  text-unit*
+  semantic-para*
+}
+
+
+
+Div |= element asmeconf:Author_affiliation {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  semantic-para*
   }
 
-Div |= element Author_Affiliation {
+Affiliations-group = element asmeconf:Affiliations-group {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
-  text-unit*
+  semantic-para*
   }
 
-Div|= element Affiliation {
+Div|= element asmeconf:Affiliation {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
-  text-unit*
+  semantic-para*
+  }
+
+Authors = element asmeconf:Authors {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  semantic-para*
+  }
+
+
+semantic-para |= element asmeconf:Paper_number {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  attribute title {text}?,
+  semantic-para*
+  }
+
+
+Sect.content |= element asmeconf:Nomenclature_list {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  semantic-para*
+  }
+
+text-fragment |= element asmeconf:Nomenclature_entry_heading {
+  showtags-attributes,
+  attribute rolemaps-to {"Span"},
+  attribute id {text}?,
+  (latex.inline.content)*
   }

@@ -1,56 +1,96 @@
-# LaTeX PDF 2.0 Namespace Schema extensions v1.7b
+# LaTeX PDF 2.0 Namespace Schema extensions v1.8
 
-namespace latexSEplay = "https://www.latex-project.org/ns/local/plays"
-namespace latexSEamse = "https://www.latex-project.org/ns/local/asmeconf"
+namespace pdf2 = "http://iso.org/pdf2/ssn"
+namespace asmeconf = "https://www.latex-project.org/ns/local/asmeconf"
+namespace asmejour = "https://www.latex-project.org/ns/local/asmejour"
 namespace luatexko = "https://www.latex-project.org/ns/local/luatexko"
-namespace latexSEamsej = "https://www.latex-project.org/ns/local/asmejour"
 namespace mitthesis = "https://www.latex-project.org/ns/local/mitthesis"
+namespace test = "https://www.latex-project.org/ns/local"
 
-include "latex-document.rnc"
-
-# LaTeX play
-Span |= element latexSEplay:SceneDescription {pdf2-attributes,attribute rolemaps-to {"Span"}, text}
-Strong |= element latexSEplay:Speaker {pdf2-attributes,attribute rolemaps-to {"Strong"},text}
+include "latex-namespace.rnc"
 
 
 # asmeconf
-Div |= element latexSEamse:Conference_information {
+
+#    \tagpdfsetup { role/new-tag = { Conference_information/Div       } }
+#    \tagpdfsetup { role/new-tag = { Paper_number/Div                 } }
+#    \tagpdfsetup { role/new-tag = { Author_affiliation/Div           } }
+#    \tagpdfsetup { role/new-tag = { Authors/Div                      } }
+#    \tagpdfsetup { role/new-tag = { Affiliations-group/Div           } }
+#    \tagpdfsetup { role/new-tag = { Affiliation/Part                 } }
+#
+#    \tagpdfsetup { role/new-tag = { Nomenclature_list/Div            } }
+#    \tagpdfsetup { role/new-tag = { Nomenclature_entry_heading/Span  } }
+#    
+#    \tagpdfsetup { role/new-tag = { Wrapper/P } } % for coffin tagging
+
+
+latex.document.content |=
+(Conference_information,semantic-para*,ltxtitle*,Authors*,Affiliations-group*,
+footnote*,section*,(figures|tables)*)
+
+
+Conference_information =element asmeconf:Conference_information {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
-  text-unit*
-  }
+  semantic-para*
+}
 
-Div |= element latexSEamse:Author_Affiliation {
+
+
+Div |= element asmeconf:Author_affiliation {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
-  text-unit*
+  semantic-para*
   }
 
-Div|= element latexSEamse:Affiliation {
+Affiliations-group = element asmeconf:Affiliations-group {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
-  text-unit*
+  semantic-para*
   }
 
-Div |= element latexSEamsej:Author_Block {
+Div|= element asmeconf:Affiliation {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  semantic-para*
+  }
+
+Authors = element asmeconf:Authors {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
   attribute title {text}?,
-  text-unit*
+  semantic-para*
   }
 
-Div |= element latexSEamse:Paper_number {
+
+semantic-para |= element asmeconf:Paper_number {
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
   attribute title {text}?,
-  text-unit*
+  semantic-para*
   }
 
+
+Sect.content |= element asmeconf:Nomenclature_list {
+  showtags-attributes,
+  attribute rolemaps-to {"Div"},
+  attribute id {text}?,
+  semantic-para*
+  }
+
+text-fragment |= element asmeconf:Nomenclature_entry_heading {
+  showtags-attributes,
+  attribute rolemaps-to {"Span"},
+  attribute id {text}?,
+  (latex.inline.content)*
+  }
 
 # luatexko
 
@@ -63,13 +103,13 @@ Span |= element luatexko:StrikeOut {
 Div|= element luatexko:Vertical {
   pdf2-attributes,
   attribute rolemaps-to {"Div"},
-  (text-unit|P)*
+  (semantic-para|P)*
   }
   
 Div|= element luatexko:Horizontal {
   pdf2-attributes,
   attribute rolemaps-to {"Div"},
-  (text-unit|P)*
+  (semantic-para|P)*
 }
 
 ## mithesis
@@ -78,21 +118,21 @@ Div |= element mitthesis:Author{
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
   attribute title {text}?,
-  text-unit*
+  semantic-para*
   }
 Div |= element mitthesis:Degree{
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
   attribute title {text}?,
-  text-unit*
+  semantic-para*
   }
 Div |= element mitthesis:Copyright{
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
   attribute title {text}?,
-  text-unit*
+  semantic-para*
   }
 
 Div |= element mitthesis:Title_sig_block{
@@ -100,47 +140,67 @@ Div |= element mitthesis:Title_sig_block{
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
   attribute title {text}?,
-  text-unit*
+  semantic-para*
   }
 Div |= element mitthesis:Nomenclature_list{
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
   attribute title {text}?,
-  text-unit*
+  semantic-para*
   }
 Div |= element mitthesis:Abstract_title{
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
   attribute title {text}?,
-  text-unit*
+  semantic-para*
   }
 Div |= element mitthesis:Abstract_text{
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
   attribute title {text}?,
-  text-unit*
+  semantic-para*
   }
 Div |= element mitthesis:Abstract_supervisor{
   showtags-attributes,
   attribute rolemaps-to {"Div"},
   attribute id {text}?,
   attribute title {text}?,
-  text-unit*
+  semantic-para*
   }
 Sect |= element mitthesis:Abstract_page{
   showtags-attributes,
   attribute rolemaps-to {"Sect"},
   attribute id {text}?,
   attribute title {text}?,
-  (Div|text-unit)*
+  (Div|semantic-para)*
   }
 Span |= element mitthesis:Nomenclature_entry_heading{
   showtags-attributes,
   attribute rolemaps-to {"Span"},
   attribute id {text}?,
   attribute title {text}?,
-  (Em|Span)*
+  (ltxem|ltxspan)*
   }
+
+# local test
+
+text-block |= element test:authornotes {
+ attribute rolemaps-to {"Part"},
+ pdf2-attributes,
+ authornote*
+}
+authornote = element test:authornote {
+ attribute rolemaps-to {"FENote"},
+ pdf2-attributes,
+ authornotelabel?,ltxdiv
+}
+
+
+authornotelabel = element test:authornotelabel {
+ attribute rolemaps-to {"Lbl"},
+ pdf2-attributes,
+ (latex.inline.content)*
+}

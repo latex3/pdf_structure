@@ -1,4 +1,4 @@
-# PDF 2.0 Namespace Schema v1.7b
+# PDF 2.0 Namespace Schema v1.8
 
 namespace NoNS = ""
 namespace pdf1 = "http://iso.org/pdf/ssn"
@@ -258,21 +258,18 @@ pdf2-attributes,
 }
 
 sechead.content =
-  pdf2-attributes,
   (Art?&Sect?&(text|NonStruct|Private|Note|Code|Sub|Lbl|Em|Strong|Span|Quote|Link|Reference|Annot|Form|Ruby|Warichu|FENote|BibEntry|Figure|Formula|Artifact)*)
 
-H1 = element pdf2:H1 {sechead.content}
-H2 = element pdf2:H2 {sechead.content}
-H3 = element pdf2:H3 {sechead.content}
-H4 = element pdf2:H4 {sechead.content}
-H5 = element pdf2:H5 {sechead.content}
-H6 = element pdf2:H6 {sechead.content}
-H7 = element pdf2:H7 {
-pdf1rolemap-Any,
-sechead.content}
+H1 = element pdf2:H1 {pdf2-attributes,sechead.content}
+H2 = element pdf2:H2 {pdf2-attributes,sechead.content}
+H3 = element pdf2:H3 {pdf2-attributes,sechead.content}
+H4 = element pdf2:H4 {pdf2-attributes,sechead.content}
+H5 = element pdf2:H5 {pdf2-attributes,sechead.content}
+H6 = element pdf2:H6 {pdf2-attributes,sechead.content}
+H7 = element pdf2:H7 {pdf1rolemap-Any,pdf2-attributes,sechead.content}
 
 
-H = element pdf2:H {sechead.content}
+H = element pdf2:H {pdf2-attributes,sechead.content}
 
 
 Title = element pdf2:Title {

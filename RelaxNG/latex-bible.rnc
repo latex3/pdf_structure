@@ -1,4 +1,4 @@
-# LaTeX PDF 2.0 Bible Namespace Schema v1.7c
+# LaTeX PDF 2.0 Bible Namespace Schema v1.8
 
 namespace pdf2 = "http://iso.org/pdf2/ssn"
 namespace latexSE = "https://www.latex-project.org/ns/dflt"

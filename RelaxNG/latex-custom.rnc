@@ -1,4 +1,4 @@
-# LaTeX PDF 2.0 Namespace Schema extensions v1.7c
+# LaTeX PDF 2.0 Namespace Schema extensions v1.8
 
 namespace pdf2 = "http://iso.org/pdf2/ssn"
 namespace asmeconf = "https://www.latex-project.org/ns/local/asmeconf"

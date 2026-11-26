@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- LaTeX PDF 1.7 Shakespeare Play Schema v1.7c -->
+<!-- LaTeX PDF 1.7 Shakespeare Play Schema v1.8 -->
 <grammar xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="latex-namespace17.rng"/>
   <define name="ltxspan" combine="choice">

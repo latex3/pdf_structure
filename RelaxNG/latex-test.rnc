@@ -1,4 +1,4 @@
-# LaTeX tagging test suite schema v1.7c
+# LaTeX tagging test suite schema v1.8
 
 ua2 = external "latex-bible.rnc"
 ua1 = external "latex-bible17.rnc"

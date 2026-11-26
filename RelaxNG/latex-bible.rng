@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- LaTeX PDF 2.0 Bible Namespace Schema v1.7c -->
+<!-- LaTeX PDF 2.0 Bible Namespace Schema v1.8 -->
 <grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:pdf2="http://iso.org/pdf2/ssn" xmlns:latexSEbible="https://www.latex-project.org/ns/local/bible" xmlns:latexSE="https://www.latex-project.org/ns/dflt" xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="latex-namespace.rng">
     <a:documentation>PDF/UA-2</a:documentation>

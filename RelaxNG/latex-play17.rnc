@@ -1,4 +1,4 @@
-# LaTeX PDF 1.7 Shakespeare Play Schema v1.7c
+# LaTeX PDF 1.7 Shakespeare Play Schema v1.8
 
 namespace latexSEplay = ""
 include "latex-namespace17.rnc"
